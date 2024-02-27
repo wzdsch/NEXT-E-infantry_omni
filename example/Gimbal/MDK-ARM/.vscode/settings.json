@@ -1,0 +1,25 @@
+{
+    "files.associations": {
+        "main.h": "c",
+        "gimbal.h": "c",
+        "canmotor.h": "c",
+        "visionconnect.h": "c",
+        "bmi088middleware.h": "c",
+        "robotmodmanage.h": "c",
+        "addons.h": "c",
+        "shooter.h": "c",
+        "mcuconnectstructs.h": "c"
+    },
+    "C_Cpp.formatting": "clangFormat",
+    "C_Cpp.vcFormat.indent.caseContentsWhenBlock": true,
+    "C_Cpp.vcFormat.indent.caseContents": true,
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.block": "sameLine",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.function": "sameLine",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.lambda": "sameLine",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.namespace": "sameLine",
+    "C_Cpp.vcFormat.newLine.beforeOpenBrace.type": "sameLine",
+    "C_Cpp.vcFormat.space.pointerReferenceAlignment": "right",
+    "C_Cpp.vcFormat.wrap.preserveBlocks": "never",
+    "editor.tabSize": 2,
+    "C_Cpp.clang_format_style": "file",
+}
