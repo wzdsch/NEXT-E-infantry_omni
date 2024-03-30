@@ -1,6 +1,6 @@
 gimbal\remote_control.o: ..\Components\remoteControl\remote_control.c
 gimbal\remote_control.o: ..\Components\remoteControl\remote_control.h
-gimbal\remote_control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+gimbal\remote_control.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 gimbal\remote_control.o: ../Core/Inc/main.h
 gimbal\remote_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\remote_control.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -16,7 +16,7 @@ gimbal\remote_control.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 gimbal\remote_control.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 gimbal\remote_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\remote_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-gimbal\remote_control.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+gimbal\remote_control.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 gimbal\remote_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 gimbal\remote_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 gimbal\remote_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
