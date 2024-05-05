@@ -2373,32 +2373,32 @@ Image Symbol Table
     ../clib/../cmprslib/zerorunl2.c          0x00000000   Number         0  __dczerorl2.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
     ../clib/microlib/errno.c                 0x00000000   Number         0  errno.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry12a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry12b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
     ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocra.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloca.o ABSOLUTE
-    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocr.o ABSOLUTE
     ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloc.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  mallocr.o ABSOLUTE
+    ../clib/microlib/malloc/malloc.c         0x00000000   Number         0  malloca.o ABSOLUTE
     ../clib/microlib/malloc/mvars.c          0x00000000   Number         0  mvars.o ABSOLUTE
     ../clib/microlib/stdlib/rand.c           0x00000000   Number         0  rand.o ABSOLUTE
-    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
     ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
+    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
     ../clib/microlib/string/memset.c         0x00000000   Number         0  memseta.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../fplib/microlib/d2f.c                  0x00000000   Number         0  d2f.o ABSOLUTE
@@ -2407,15 +2407,15 @@ Image Symbol Table
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  fepilogue.o ABSOLUTE
     ../fplib/microlib/fpepilogue.c           0x00000000   Number         0  depilogue.o ABSOLUTE
-    ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixui.o ABSOLUTE
     ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixi.o ABSOLUTE
-    ../fplib/microlib/fpflt.c                0x00000000   Number         0  dfltui.o ABSOLUTE
+    ../fplib/microlib/fpfix.c                0x00000000   Number         0  dfixui.o ABSOLUTE
     ../fplib/microlib/fpflt.c                0x00000000   Number         0  dflti.o ABSOLUTE
+    ../fplib/microlib/fpflt.c                0x00000000   Number         0  dfltui.o ABSOLUTE
     ../fplib/microlib/fpmul.c                0x00000000   Number         0  dmul.o ABSOLUTE
     ../fplib/microlib/fpneg.c                0x00000000   Number         0  dneg.o ABSOLUTE
     ../fplib/microlib/fpsqrt.c               0x00000000   Number         0  dsqrt.o ABSOLUTE
-    ../mathlib/acosf.c                       0x00000000   Number         0  acosf_x.o ABSOLUTE
     ../mathlib/acosf.c                       0x00000000   Number         0  acosf.o ABSOLUTE
+    ../mathlib/acosf.c                       0x00000000   Number         0  acosf_x.o ABSOLUTE
     ../mathlib/asinf.c                       0x00000000   Number         0  asinf.o ABSOLUTE
     ../mathlib/asinf.c                       0x00000000   Number         0  asinf_x.o ABSOLUTE
     ../mathlib/atan2f.c                      0x00000000   Number         0  atan2f.o ABSOLUTE
@@ -2434,14 +2434,14 @@ Image Symbol Table
     ../mathlib/poly.c                        0x00000000   Number         0  poly.o ABSOLUTE
     ../mathlib/qnan.c                        0x00000000   Number         0  qnan.o ABSOLUTE
     ../mathlib/rred.c                        0x00000000   Number         0  rred.o ABSOLUTE
-    ../mathlib/sin.c                         0x00000000   Number         0  sin.o ABSOLUTE
     ../mathlib/sin.c                         0x00000000   Number         0  sin_x.o ABSOLUTE
-    ../mathlib/sin_i.c                       0x00000000   Number         0  sin_i_x.o ABSOLUTE
+    ../mathlib/sin.c                         0x00000000   Number         0  sin.o ABSOLUTE
     ../mathlib/sin_i.c                       0x00000000   Number         0  sin_i.o ABSOLUTE
-    ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt_full_x.o ABSOLUTE
+    ../mathlib/sin_i.c                       0x00000000   Number         0  sin_i_x.o ABSOLUTE
     ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt_full.o ABSOLUTE
-    ../mathlib/sqrtf.c                       0x00000000   Number         0  sqrtf_full_x.o ABSOLUTE
+    ../mathlib/sqrt.c                        0x00000000   Number         0  sqrt_full_x.o ABSOLUTE
     ../mathlib/sqrtf.c                       0x00000000   Number         0  sqrtf_full.o ABSOLUTE
+    ../mathlib/sqrtf.c                       0x00000000   Number         0  sqrtf_full_x.o ABSOLUTE
     ..\..\Source\CommonTables\arm_common_tables.c 0x00000000   Number         0  arm_common_tables.o ABSOLUTE
     ..\..\Source\FastMathFunctions\arm_cos_f32.c 0x00000000   Number         0  arm_cos_f32.o ABSOLUTE
     ..\..\Source\FastMathFunctions\arm_sin_f32.c 0x00000000   Number         0  arm_sin_f32.o ABSOLUTE
@@ -2453,6 +2453,7 @@ Image Symbol Table
     ..\..\Source\MatrixFunctions\arm_mat_trans_f32.c 0x00000000   Number         0  arm_mat_trans_f32.o ABSOLUTE
     ..\Components\Basic\CallBacks\CallBacks.c 0x00000000   Number         0  callbacks.o ABSOLUTE
     ..\Components\Basic\Tools\Tools.c        0x00000000   Number         0  tools.o ABSOLUTE
+    ..\Components\Basic_Control\BPnet\BPnet.c 0x00000000   Number         0  bpnet.o ABSOLUTE
     ..\Components\Basic_Control\Pid\pid.c    0x00000000   Number         0  pid.o ABSOLUTE
     ..\Components\Chassis\chassis.c          0x00000000   Number         0  chassis.o ABSOLUTE
     ..\Components\DJI_Motor\DJI_Motor.c      0x00000000   Number         0  dji_motor.o ABSOLUTE
@@ -3729,39 +3730,39 @@ Memory Map of the image
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x08000000   0x00000188   Data   RO            3    RESET               startup_stm32f407xx.o
-    0x08000188   0x08000188   0x00000000   Code   RO         7155  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x08000188   0x08000188   0x00000004   Code   RO         7262    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x0800018c   0x0800018c   0x00000004   Code   RO         7265    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x08000190   0x08000190   0x00000000   Code   RO         7267    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x08000190   0x08000190   0x00000000   Code   RO         7269    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x08000190   0x08000190   0x00000008   Code   RO         7270    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x08000198   0x08000198   0x00000004   Code   RO         7277    .ARM.Collect$$$$0000000E  mc_w.l(entry12b.o)
-    0x0800019c   0x0800019c   0x00000000   Code   RO         7272    .ARM.Collect$$$$0000000F  mc_w.l(entry10a.o)
-    0x0800019c   0x0800019c   0x00000000   Code   RO         7274    .ARM.Collect$$$$00000011  mc_w.l(entry11a.o)
-    0x0800019c   0x0800019c   0x00000004   Code   RO         7263    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x08000188   0x08000188   0x00000000   Code   RO         7161  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x08000188   0x08000188   0x00000004   Code   RO         7268    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x0800018c   0x0800018c   0x00000004   Code   RO         7271    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x08000190   0x08000190   0x00000000   Code   RO         7273    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x08000190   0x08000190   0x00000000   Code   RO         7275    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x08000190   0x08000190   0x00000008   Code   RO         7276    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x08000198   0x08000198   0x00000004   Code   RO         7283    .ARM.Collect$$$$0000000E  mc_w.l(entry12b.o)
+    0x0800019c   0x0800019c   0x00000000   Code   RO         7278    .ARM.Collect$$$$0000000F  mc_w.l(entry10a.o)
+    0x0800019c   0x0800019c   0x00000000   Code   RO         7280    .ARM.Collect$$$$00000011  mc_w.l(entry11a.o)
+    0x0800019c   0x0800019c   0x00000004   Code   RO         7269    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x080001a0   0x080001a0   0x00000024   Code   RO            4    .text               startup_stm32f407xx.o
-    0x080001c4   0x080001c4   0x00000078   Code   RO         6754    .text               arm_cortexM4lf_math.lib(arm_cos_f32.o)
-    0x0800023c   0x0800023c   0x00000094   Code   RO         6804    .text               arm_cortexM4lf_math.lib(arm_sin_f32.o)
-    0x080002d0   0x080002d0   0x00000108   Code   RO         6828    .text               arm_cortexM4lf_math.lib(arm_mat_add_f32.o)
-    0x080003d8   0x080003d8   0x00000008   Code   RO         6852    .text               arm_cortexM4lf_math.lib(arm_mat_init_f32.o)
-    0x080003e0   0x080003e0   0x00000530   Code   RO         6876    .text               arm_cortexM4lf_math.lib(arm_mat_inverse_f32.o)
-    0x08000910   0x08000910   0x0000013c   Code   RO         6900    .text               arm_cortexM4lf_math.lib(arm_mat_mult_f32.o)
-    0x08000a4c   0x08000a4c   0x00000108   Code   RO         6924    .text               arm_cortexM4lf_math.lib(arm_mat_sub_f32.o)
-    0x08000b54   0x08000b54   0x00000114   Code   RO         6948    .text               arm_cortexM4lf_math.lib(arm_mat_trans_f32.o)
-    0x08000c68   0x08000c68   0x00000062   Code   RO         7158    .text               mc_w.l(uldiv.o)
-    0x08000cca   0x08000cca   0x00000024   Code   RO         7163    .text               mc_w.l(memcpya.o)
-    0x08000cee   0x08000cee   0x00000024   Code   RO         7165    .text               mc_w.l(memseta.o)
-    0x08000d12   0x08000d12   0x0000014e   Code   RO         7197    .text               mf_w.l(dadd.o)
-    0x08000e60   0x08000e60   0x00000032   Code   RO         7207    .text               mf_w.l(dfixui.o)
-    0x08000e92   0x08000e92   0x00000026   Code   RO         7209    .text               mf_w.l(f2d.o)
-    0x08000eb8   0x08000eb8   0x0000001e   Code   RO         7278    .text               mc_w.l(llshl.o)
-    0x08000ed6   0x08000ed6   0x00000020   Code   RO         7280    .text               mc_w.l(llushr.o)
-    0x08000ef6   0x08000ef6   0x00000024   Code   RO         7282    .text               mc_w.l(llsshr.o)
-    0x08000f1a   0x08000f1a   0x00000000   Code   RO         7293    .text               mc_w.l(iusefp.o)
-    0x08000f1a   0x08000f1a   0x000000ba   Code   RO         7296    .text               mf_w.l(depilogue.o)
-    0x08000fd4   0x08000fd4   0x00000030   Code   RO         7302    .text               mf_w.l(cdrcmple.o)
-    0x08001004   0x08001004   0x00000024   Code   RO         7312    .text               mc_w.l(init.o)
-    0x08001028   0x08001028   0x00000056   Code   RO         7324    .text               mc_w.l(__dczerorl2.o)
+    0x080001c4   0x080001c4   0x00000078   Code   RO         6760    .text               arm_cortexM4lf_math.lib(arm_cos_f32.o)
+    0x0800023c   0x0800023c   0x00000094   Code   RO         6810    .text               arm_cortexM4lf_math.lib(arm_sin_f32.o)
+    0x080002d0   0x080002d0   0x00000108   Code   RO         6834    .text               arm_cortexM4lf_math.lib(arm_mat_add_f32.o)
+    0x080003d8   0x080003d8   0x00000008   Code   RO         6858    .text               arm_cortexM4lf_math.lib(arm_mat_init_f32.o)
+    0x080003e0   0x080003e0   0x00000530   Code   RO         6882    .text               arm_cortexM4lf_math.lib(arm_mat_inverse_f32.o)
+    0x08000910   0x08000910   0x0000013c   Code   RO         6906    .text               arm_cortexM4lf_math.lib(arm_mat_mult_f32.o)
+    0x08000a4c   0x08000a4c   0x00000108   Code   RO         6930    .text               arm_cortexM4lf_math.lib(arm_mat_sub_f32.o)
+    0x08000b54   0x08000b54   0x00000114   Code   RO         6954    .text               arm_cortexM4lf_math.lib(arm_mat_trans_f32.o)
+    0x08000c68   0x08000c68   0x00000062   Code   RO         7164    .text               mc_w.l(uldiv.o)
+    0x08000cca   0x08000cca   0x00000024   Code   RO         7169    .text               mc_w.l(memcpya.o)
+    0x08000cee   0x08000cee   0x00000024   Code   RO         7171    .text               mc_w.l(memseta.o)
+    0x08000d12   0x08000d12   0x0000014e   Code   RO         7203    .text               mf_w.l(dadd.o)
+    0x08000e60   0x08000e60   0x00000032   Code   RO         7213    .text               mf_w.l(dfixui.o)
+    0x08000e92   0x08000e92   0x00000026   Code   RO         7215    .text               mf_w.l(f2d.o)
+    0x08000eb8   0x08000eb8   0x0000001e   Code   RO         7284    .text               mc_w.l(llshl.o)
+    0x08000ed6   0x08000ed6   0x00000020   Code   RO         7286    .text               mc_w.l(llushr.o)
+    0x08000ef6   0x08000ef6   0x00000024   Code   RO         7288    .text               mc_w.l(llsshr.o)
+    0x08000f1a   0x08000f1a   0x00000000   Code   RO         7299    .text               mc_w.l(iusefp.o)
+    0x08000f1a   0x08000f1a   0x000000ba   Code   RO         7302    .text               mf_w.l(depilogue.o)
+    0x08000fd4   0x08000fd4   0x00000030   Code   RO         7308    .text               mf_w.l(cdrcmple.o)
+    0x08001004   0x08001004   0x00000024   Code   RO         7318    .text               mc_w.l(init.o)
+    0x08001028   0x08001028   0x00000056   Code   RO         7330    .text               mc_w.l(__dczerorl2.o)
     0x0800107e   0x0800107e   0x00000002   PAD
     0x08001080   0x08001080   0x00000010   Code   RO         6502    i.BMI088_ACCEL_NS_H  bmi088middleware.o
     0x08001090   0x08001090   0x00000010   Code   RO         6503    i.BMI088_ACCEL_NS_L  bmi088middleware.o
@@ -4153,23 +4154,23 @@ Memory Map of the image
     0x08009fb0   0x08009fb0   0x000000e8   Code   RO         1106    i.USB_SetTurnaroundTime  stm32f4xx_ll_usb.o
     0x0800a098   0x0800a098   0x00000028   Code   RO         1109    i.USB_WritePacket   stm32f4xx_ll_usb.o
     0x0800a0c0   0x0800a0c0   0x00000002   Code   RO          566    i.UsageFault_Handler  stm32f4xx_it.o
-    0x0800a0c2   0x0800a0c2   0x00000026   Code   RO         7232    i.__ARM_fpclassifyf  m_wm.l(fpclassifyf.o)
+    0x0800a0c2   0x0800a0c2   0x00000026   Code   RO         7238    i.__ARM_fpclassifyf  m_wm.l(fpclassifyf.o)
     0x0800a0e8   0x0800a0e8   0x00000020   Code   RO         2123    i.__NVIC_SetPriority  stm32f4xx_hal_cortex.o
-    0x0800a108   0x0800a108   0x00000118   Code   RO         7051    i.__hardfp_acosf    m_wm.l(acosf.o)
-    0x0800a220   0x0800a220   0x0000012c   Code   RO         7063    i.__hardfp_asinf    m_wm.l(asinf.o)
-    0x0800a34c   0x0800a34c   0x000002ac   Code   RO         7075    i.__hardfp_atan2f   m_wm.l(atan2f.o)
-    0x0800a5f8   0x0800a5f8   0x00000118   Code   RO         7087    i.__hardfp_ceil     m_wm.l(ceil.o)
-    0x0800a710   0x0800a710   0x0000003a   Code   RO         7137    i.__hardfp_sqrtf    m_wm.l(sqrtf_full.o)
-    0x0800a74a   0x0800a74a   0x00000006   Code   RO         7235    i.__mathlib_flt_infnan  m_wm.l(funder.o)
-    0x0800a750   0x0800a750   0x00000006   Code   RO         7236    i.__mathlib_flt_infnan2  m_wm.l(funder.o)
+    0x0800a108   0x0800a108   0x00000118   Code   RO         7057    i.__hardfp_acosf    m_wm.l(acosf.o)
+    0x0800a220   0x0800a220   0x0000012c   Code   RO         7069    i.__hardfp_asinf    m_wm.l(asinf.o)
+    0x0800a34c   0x0800a34c   0x000002ac   Code   RO         7081    i.__hardfp_atan2f   m_wm.l(atan2f.o)
+    0x0800a5f8   0x0800a5f8   0x00000118   Code   RO         7093    i.__hardfp_ceil     m_wm.l(ceil.o)
+    0x0800a710   0x0800a710   0x0000003a   Code   RO         7143    i.__hardfp_sqrtf    m_wm.l(sqrtf_full.o)
+    0x0800a74a   0x0800a74a   0x00000006   Code   RO         7241    i.__mathlib_flt_infnan  m_wm.l(funder.o)
+    0x0800a750   0x0800a750   0x00000006   Code   RO         7242    i.__mathlib_flt_infnan2  m_wm.l(funder.o)
     0x0800a756   0x0800a756   0x00000002   PAD
-    0x0800a758   0x0800a758   0x00000010   Code   RO         7237    i.__mathlib_flt_invalid  m_wm.l(funder.o)
-    0x0800a768   0x0800a768   0x00000010   Code   RO         7240    i.__mathlib_flt_underflow  m_wm.l(funder.o)
-    0x0800a778   0x0800a778   0x0000000e   Code   RO         7318    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x0800a786   0x0800a786   0x00000002   Code   RO         7319    i.__scatterload_null  mc_w.l(handlers.o)
-    0x0800a788   0x0800a788   0x0000000e   Code   RO         7320    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x0800a758   0x0800a758   0x00000010   Code   RO         7243    i.__mathlib_flt_invalid  m_wm.l(funder.o)
+    0x0800a768   0x0800a768   0x00000010   Code   RO         7246    i.__mathlib_flt_underflow  m_wm.l(funder.o)
+    0x0800a778   0x0800a778   0x0000000e   Code   RO         7324    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x0800a786   0x0800a786   0x00000002   Code   RO         7325    i.__scatterload_null  mc_w.l(handlers.o)
+    0x0800a788   0x0800a788   0x0000000e   Code   RO         7326    i.__scatterload_zeroinit  mc_w.l(handlers.o)
     0x0800a796   0x0800a796   0x00000002   PAD
-    0x0800a798   0x0800a798   0x0000000c   Code   RO         7288    i.__set_errno       mc_w.l(errno.o)
+    0x0800a798   0x0800a798   0x0000000c   Code   RO         7294    i.__set_errno       mc_w.l(errno.o)
     0x0800a7a4   0x0800a7a4   0x00000128   Code   RO         6427    i.bmi088_accel_init  bmi088driver.o
     0x0800a8cc   0x0800a8cc   0x000000fc   Code   RO         6428    i.bmi088_gyro_init  bmi088driver.o
     0x0800a9c8   0x0800a9c8   0x000000ac   Code   RO         6596    i.connectionFifoWrite  mcuconnect.o
@@ -4186,16 +4187,16 @@ Memory Map of the image
     0x0800af2c   0x0800af2c   0x00000020   Code   RO         6109    i.float_constrain   user_lib.o
     0x0800af4c   0x0800af4c   0x00000022   Code   RO         6111    i.float_rounding    user_lib.o
     0x0800af6e   0x0800af6e   0x00000002   PAD
-    0x0800af70   0x0800af70   0x00000050   Code   RO         7169    i.free              mc_w.l(malloc.o)
+    0x0800af70   0x0800af70   0x00000050   Code   RO         7175    i.free              mc_w.l(malloc.o)
     0x0800afc0   0x0800afc0   0x0000000a   Code   RO         5706    i.gimbalINIT        gimbal.o
     0x0800afca   0x0800afca   0x00000002   PAD
     0x0800afcc   0x0800afcc   0x00000088   Code   RO         5707    i.gimbalRun         gimbal.o
     0x0800b054   0x0800b054   0x0000002c   Code   RO         6249    i.invSqrt           quaternionekf.o
     0x0800b080   0x0800b080   0x00000324   Code   RO           15    i.main              main.o
-    0x0800b3a4   0x0800b3a4   0x0000006c   Code   RO         7170    i.malloc            mc_w.l(malloc.o)
+    0x0800b3a4   0x0800b3a4   0x0000006c   Code   RO         7176    i.malloc            mc_w.l(malloc.o)
     0x0800b410   0x0800b410   0x0000001e   Code   RO         5319    i.pidINIT           pid.o
     0x0800b42e   0x0800b42e   0x00000024   Code   RO         6714    i.shooterINIT       shooter.o
-    0x0800b452   0x0800b452   0x0000003e   Code   RO         7139    i.sqrtf             m_wm.l(sqrtf_full.o)
+    0x0800b452   0x0800b452   0x0000003e   Code   RO         7145    i.sqrtf             m_wm.l(sqrtf_full.o)
     0x0800b490   0x0800b490   0x00000010   Code   RO           16    i.tune              main.o
     0x0800b4a0   0x0800b4a0   0x00000018   Code   RO           17    i.tuneINIT          main.o
     0x0800b4b8   0x0800b4b8   0x0000003c   Code   RO           18    i.tuneRun           main.o
@@ -4204,8 +4205,8 @@ Memory Map of the image
     0x0800b50c   0x0800b50c   0x00000008   Data   RO         4387    .constdata          system_stm32f4xx.o
     0x0800b514   0x0800b514   0x00000030   Data   RO         5755    .constdata          bmi_imu.o
     0x0800b544   0x0800b544   0x00000090   Data   RO         6251    .constdata          quaternionekf.o
-    0x0800b5d4   0x0800b5d4   0x00000804   Data   RO         7028    .constdata          arm_cortexM4lf_math.lib(arm_common_tables.o)
-    0x0800bdd8   0x0800bdd8   0x00000020   Data   RO         7316    Region$$Table       anon$$obj.o
+    0x0800b5d4   0x0800b5d4   0x00000804   Data   RO         7034    .constdata          arm_cortexM4lf_math.lib(arm_common_tables.o)
+    0x0800bdd8   0x0800bdd8   0x00000020   Data   RO         7322    Region$$Table       anon$$obj.o
 
 
     Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x0800bdf8, Size: 0x00004638, Max: 0x0001c000, ABSOLUTE, COMPRESSED[0x00000148])
@@ -4239,9 +4240,9 @@ Memory Map of the image
     0x200002fc   COMPRESSED   0x00000048   Data   RW         6430    .data               bmi088driver.o
     0x20000344   COMPRESSED   0x00000004   Data   RW         6507    .data               bmi088middleware.o
     0x20000348   COMPRESSED   0x00000008   Data   RW         6603    .data               mcuconnect.o
-    0x20000350   COMPRESSED   0x00000004   Data   RW         7284    .data               mc_w.l(mvars.o)
-    0x20000354   COMPRESSED   0x00000004   Data   RW         7285    .data               mc_w.l(mvars.o)
-    0x20000358   COMPRESSED   0x00000004   Data   RW         7289    .data               mc_w.l(errno.o)
+    0x20000350   COMPRESSED   0x00000004   Data   RW         7290    .data               mc_w.l(mvars.o)
+    0x20000354   COMPRESSED   0x00000004   Data   RW         7291    .data               mc_w.l(mvars.o)
+    0x20000358   COMPRESSED   0x00000004   Data   RW         7295    .data               mc_w.l(errno.o)
     0x2000035c        -       0x000009d0   Zero   RW           19    .bss                main.o
     0x20000d2c        -       0x00000050   Zero   RW          293    .bss                can.o
     0x20000d7c        -       0x00000118   Zero   RW          365    .bss                spi.o

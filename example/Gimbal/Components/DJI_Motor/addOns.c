@@ -14,6 +14,7 @@
 #include "struct_typedef.h"
 // #include "referee.h"
 #include "BMI088.h"
+#include "BPnet.h"
 
 fp32 MIUecdZeroCrossing(DJI_Motor *motor) {
   fp32 temp = 0;
@@ -102,4 +103,10 @@ fp32 powerlimit(DJI_Motor *motor){
 
 fp32 example(DJI_Motor *motor) {
   return motor->pidOutput0 / 2;
+}
+
+fp32 BPpidSpeed(DJI_Motor *motor) {
+  BPforward(&BPnet1);
+  BPbackward(&BPnet1);
+  return BPnet1.pidout;
 }

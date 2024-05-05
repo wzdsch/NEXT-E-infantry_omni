@@ -31,6 +31,7 @@
 /* USER CODE BEGIN Includes */
 // #include "IMU.h"
 #include "BMI088.h"
+#include "BPnet.h"
 #include "DJI_Motor.h"
 #include "MCUConnect.h"
 #include "MCUConnectStructs.h"
@@ -55,6 +56,7 @@ DJI_Motor motorfriR;
 DJI_Motor motorfriL;
 DJI_Motor motor2006;
 
+BPnet BPnet1;
 shooter shooter1;
 
 RC_ctrl_t rc_ctrl;
@@ -204,7 +206,6 @@ int main(void) {
   DJI_MotorPidSet(&motorfriL, &(motorfriL.motorPid0), PID_POSITION, FRI_Speed_PID,
                   &(motorfriL.realSpeedF), &(motorfriL.target));
   DJI_MotorCalculateResultSet(&motorfriL, &(motorfriL.pidOutput0));
-  DJI_MotorListAdd(&group2, &motorfriL);
 
   DJI_MotorInit(&motor2006, 0x203, 1, pid0, NULL);
   DJI_MotorPidSet(&motor2006, &(motor2006.motorPid0), PID_POSITION, M2006_Speed_PID,
