@@ -18,6 +18,7 @@
 enum cycleMode {
   pid0 = 0,  // 仅使用pid0
   pidBoth,   // 串级pid
+  custom,    // 自定义控制函数
 };
 
 typedef struct dji_motor DJI_Motor;
@@ -43,14 +44,22 @@ typedef struct dji_motor {
   fp32 realCurrentF;
   uint8_t temperature;  // 电机温度
 
-  pids motorPid0;  // 电机pid0
-  pids motorPid1;  // 电机pid1
+  ///////////////////////////////////////////////////////////////////////////////////////////
+  /*********************************闭环控制接口*********************************************/
+  ///////////////////////////////////////////////////////////////////////////////////////////
+  fp32 (*prePrecessHandler)(DJI_Motor *motor);   // 预处理函数地址
+  fp32 preProcessResult;                         // 预处理函数结果
+  fp32 (*customControl)(DJI_Motor *motor);       // 自定义控制函数地址
+  fp32 customControlResult;                      // 自定义控制函数结果
+  fp32 (*postPrecessHandler)(DJI_Motor *motor);  // 后处理函数地址
+  fp32 postProcessResult;                        // 后处理函数结果
+
+  fp32 *calculateResult;  // 要发送的数据地址
   ///////////////////////////////////////////////////////////////////////////////////////////
   /********************************PID闭环设置参数*******************************************/
   ///////////////////////////////////////////////////////////////////////////////////////////
-  fp32 (*prePrecessHandler)(DJI_Motor *motor);  // 预处理函数地址
-  fp32 preProcessResult;                        // 预处理函数结果
-
+  pids motorPid0;   // 电机pid0
+  pids motorPid1;   // 电机pid1
   fp32 *pid0Ref;    // pid0的ref地址
   fp32 *pid0Set;    // pid0的set地址
   fp32 pidOutput0;  // pid0输出值
@@ -59,10 +68,6 @@ typedef struct dji_motor {
   fp32 *pid1Set;    // pid1的set地址
   fp32 pidOutput1;  // pid1输出值
 
-  fp32 (*postPrecessHandler)(DJI_Motor *motor);  // 预处理函数地址
-  fp32 postProcessResult;                        // 后处理函数结果
-
-  fp32 *calculateResult;  // 要发送的数据地址
 } DJI_Motor;
 
 /**
@@ -104,6 +109,7 @@ extern uint16_t DJI_MotorGetSoftEcd(DJI_Motor *motor);
 extern void DJI_MotorSetTarget(DJI_Motor *motor, fp32 target);
 extern void DJI_MotorPreProcessHandlerSet(DJI_Motor *motor,
                                           fp32 (*prePrecessHandler)(DJI_Motor *motor));
+void DJI_MotorCustonControlSet(DJI_Motor *motor, fp32 (*custonControl)(DJI_Motor *motor));
 extern void DJI_MotorPostProcessHandlerSet(DJI_Motor *motor,
                                            fp32 (*postPrecessHandler)(DJI_Motor *motor));
 extern void DJI_MotorUpdateTXD(DJI_MotorGroup *group, DJI_Motor *motor, int16_t data);

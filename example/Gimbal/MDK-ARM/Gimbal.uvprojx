@@ -10,14 +10,15 @@
       <TargetName>Gimbal</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
+      <pArmCC>5060750::V5.06 update 6 (build 750)::.\ARMCC</pArmCC>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F407IGHx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.2.14.0</PackID>
-          <PackURL>http://www.keil.com/pack/</PackURL>
+          <PackID>Keil.STM32F4xx_DFP.2.17.1</PackID>
+          <PackURL>https://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000-0x2001BFFF) IRAM2(0x2001C000-0x2001FFFF) IROM(0x8000000-0x80FFFFF) CLOCK(25000000) FPU2 CPUTYPE("Cortex-M4") TZ</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -81,7 +82,7 @@
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>0</RunUserProg1>
-            <RunUserProg2>0</RunUserProg2>
+            <RunUserProg2>1</RunUserProg2>
             <UserProg1Name></UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
@@ -186,6 +187,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -339,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx,ARM_MATH_CM4,__FPU_USED=1U,__FPU_PRESENT=1U,__CC_ARM,ARM_MATH_MATRIX_CHECK,ARM_MATH_ROUNDING</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../USB_DEVICE/App;../USB_DEVICE/Target;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Components/Basic/CallBacks;../Components/Basic/structs;../Components/Basic/Tools;../Components/Basic_Control/Pid;../Components/Chassis;../Components/DJI_Motor;../Components/Gimbal;../Components/IMU/BMI/Application;../Components/IMU/BMI/Bsp;../Components/IMU/BMI/Components/Algorithm/Include;../Components/IMU/BMI/Components/Controller;../Components/IMU/BMI/Components/Devices;../Components/IMU/BMI/Lib;../Components/MCUConnect;../Components/remoteControl;../Components/shooter;../Components/IMU/BMI/Components;../Components/IMU/BMI/Components/Algorithm;..\Components\IMU\BMI\Lib;..\Components\Basic_Control\BPnet</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../USB_DEVICE/App;../USB_DEVICE/Target;../Middlewares/ST/STM32_USB_Device_Library/Core/Inc;../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc;../Components/IMU/BMI/Components/Devices;../Components/IMU/BMI/Lib;../Components/MCUConnect;../Components/shooter;../Components/IMU/BMI/Components;../Components/IMU/BMI/Components/Algorithm;../Components/Basic_Control/LADRC;../Components/RobotModManage;../Components/remoteControl;../Components/Basic/CallBacks;../Components/Basic/structs;../Components/Basic/Tools;../Components/Basic_Control/Pid;../Components/Chassis;../Components/DJI_Motor;../Components/Gimbal;../Components/IMU/BMI/Application;../Components/IMU/BMI/Bsp;../Components/IMU/BMI/Components/Algorithm/Include;../Components/IMU/BMI/Components/Controller;../Components/VisionConnect;../Components/Referee;../Components/Vofa</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1628,6 +1630,21 @@
               <FileType>1</FileType>
               <FilePath>..\Components\remoteControl\remote_control.c</FilePath>
             </File>
+            <File>
+              <FileName>app_et07.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\remoteControl\app_et07.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_wbus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\remoteControl\bsp_wbus.c</FilePath>
+            </File>
+            <File>
+              <FileName>RC_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\remoteControl\RC_task.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1641,12 +1658,62 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>BPnet</GroupName>
+          <GroupName>LADRC</GroupName>
           <Files>
             <File>
-              <FileName>BPnet.c</FileName>
+              <FileName>ladrc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Components\Basic_Control\BPnet\BPnet.c</FilePath>
+              <FilePath>..\Components\Basic_Control\LADRC\ladrc.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>RobotModManage</GroupName>
+          <Files>
+            <File>
+              <FileName>RobotModManage.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\RobotModManage\RobotModManage.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>VisionConnect</GroupName>
+          <Files>
+            <File>
+              <FileName>VisionConnect.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\VisionConnect\VisionConnect.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Referee</GroupName>
+          <Files>
+            <File>
+              <FileName>CRC8_CRC16.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\Referee\CRC8_CRC16.c</FilePath>
+            </File>
+            <File>
+              <FileName>fifo.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\Referee\fifo.c</FilePath>
+            </File>
+            <File>
+              <FileName>referee.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\Referee\referee.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Vofa</GroupName>
+          <Files>
+            <File>
+              <FileName>Vofa.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\Vofa\Vofa.c</FilePath>
             </File>
           </Files>
         </Group>

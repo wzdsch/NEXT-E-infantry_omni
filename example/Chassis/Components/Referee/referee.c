@@ -1,11 +1,12 @@
 #include "referee.h"
 
-#include "main.h"
-#include "refereeData_v1.4.h"
-// #include "refereeData_v1.5.h"
 #include "CRC8_CRC16.h"
 #include "fifo.h"
+#include "main.h"
 #include "protocol.h"
+// #include "refereeData_v1.4.h"
+//  #include "refereeData_v1.5.h"
+#include "refereeData_v1.6.h"
 #include "stdio.h"
 #include "string.h"
 #include "struct_typedef.h"
@@ -44,16 +45,16 @@ radar_mark_data_t radar_mark_data;                    // 0x020C
 robot_interaction_data_t robot_interaction_data;      // 0x0301
 referee_remote_control_t referee_remote_control;      // 0x0304
 
-// ´®¿Ú³õÊ¼»¯
+// ï¿½ï¿½ï¿½Ú³ï¿½Ê¼ï¿½ï¿½
 void referee_usart_init(UART_HandleTypeDef *huart, DMA_HandleTypeDef *hdmarx,
                         DMA_HandleTypeDef *hdmatx, uint8_t *rx1_buf, uint8_t *rx2_buf,
                         uint16_t dma_buf_num) {
   // enable the DMA transfer for the receiver and tramsmit request
-  // Ê¹ÄÜDMA´®¿Ú½ÓÊÕºÍ·¢ËÍ
+  // Ê¹ï¿½ï¿½DMAï¿½ï¿½ï¿½Ú½ï¿½ï¿½ÕºÍ·ï¿½ï¿½ï¿½
   SET_BIT(huart->Instance->CR3, USART_CR3_DMAR);
   SET_BIT(huart->Instance->CR3, USART_CR3_DMAT);
   // enalbe idle interrupt
-  // Ê¹ÄÜ¿ÕÏÐÖÐ¶Ï
+  // Ê¹ï¿½Ü¿ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
   __HAL_UART_ENABLE_IT(huart, UART_IT_IDLE);
   // disable DMA
   // Ê§Ð§DMA
@@ -67,21 +68,21 @@ void referee_usart_init(UART_HandleTypeDef *huart, DMA_HandleTypeDef *hdmarx,
 
   hdmarx->Instance->PAR = (uint32_t) & (USART6->DR);
   // memory buffer 1
-  // ÄÚ´æ»º³åÇø1
+  // ï¿½Ú´æ»ºï¿½ï¿½ï¿½ï¿½1
   hdmarx->Instance->M0AR = (uint32_t)(rx1_buf);
   // memory buffer 2
-  // ÄÚ´æ»º³åÇø2
+  // ï¿½Ú´æ»ºï¿½ï¿½ï¿½ï¿½2
   hdmarx->Instance->M1AR = (uint32_t)(rx2_buf);
   // data length
-  // Êý¾Ý³¤¶È
+  // ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½
   __HAL_DMA_SET_COUNTER(hdmarx, dma_buf_num);
 
   // enable double memory buffer
-  // Ê¹ÄÜË«»º³åÇø
+  // Ê¹ï¿½ï¿½Ë«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
   SET_BIT(hdmarx->Instance->CR, DMA_SxCR_DBM);
 
   // enable DMA
-  // Ê¹ÄÜDMA
+  // Ê¹ï¿½ï¿½DMA
   __HAL_DMA_ENABLE(hdmarx);
 
   // disable DMA
@@ -209,16 +210,16 @@ void referee_data_solve(uint8_t *frame) {
 
 void refereeINIT(TIM_HandleTypeDef *timer) {
   init_referee_struct_data();
-  // ³õÊ¼»¯ÔÝÊ±´æ·Å²ÃÅÐÏµÍ³´«»ØÀ´µÄÊý¾ÝµÄfifo
+  // ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½Å²ï¿½ï¿½ï¿½ÏµÍ³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ýµï¿½fifo
   fifo_s_init(&referee_fifo, referee_fifo_buf, REFEREE_FIFO_BUF_LENGTH);
-  // ¿ªÆô´®¿Ú6½ÓÊÕµÄµÄDMA´«Êä
+  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½6ï¿½ï¿½ï¿½ÕµÄµï¿½DMAï¿½ï¿½ï¿½ï¿½
   referee_usart_init(&huart6, &hdma_usart6_rx, &hdma_usart6_tx, usart_buf[0], usart_buf[1],
                      USART_RX_BUF_LENGHT);
-  // Æô¶¯½â°üÓÃµÄ¶¨Ê±Æ÷
+  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÃµÄ¶ï¿½Ê±ï¿½ï¿½
   HAL_TIM_Base_Start_IT(timer);
 }
 
-// Ã¿10msµ÷ÓÃÒ»´Î£¬½â°üÊý¾Ý
+// Ã¿10msï¿½ï¿½ï¿½ï¿½Ò»ï¿½Î£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 void referee_unpack_fifo_data(void) {
   uint8_t byte = 0;
   uint8_t sof = HEADER_SOF;
@@ -227,7 +228,7 @@ void referee_unpack_fifo_data(void) {
   while (fifo_s_used(&referee_fifo)) {
     byte = fifo_s_get(&referee_fifo);
     switch (p_obj->unpack_step) {
-        /*********ÏÂÃæÃæÊÇ¶Ô´«»ØÀ´µÄÕâÒ»Ö¡Êý¾ÝµÄÖ¡Í·frame_header½øÐÐÐ£Ñé**********/
+        /*********ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ö¡ï¿½ï¿½ï¿½Ýµï¿½Ö¡Í·frame_headerï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½**********/
       case STEP_HEADER_SOF: {
         if (byte == sof) {
           p_obj->unpack_step = STEP_LENGTH_LOW;
@@ -274,7 +275,7 @@ void referee_unpack_fifo_data(void) {
           }
         }
       } break;
-        /*********ÉÏÃæÊÇ¶Ô´«»ØÀ´µÄÕâÒ»Ö¡Êý¾ÝµÄÖ¡Í·frame_header½øÐÐÐ£Ñé**********/
+        /*********ï¿½ï¿½ï¿½ï¿½ï¿½Ç¶Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»Ö¡ï¿½ï¿½ï¿½Ýµï¿½Ö¡Í·frame_headerï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½**********/
       case STEP_DATA_CRC16: {
         if (p_obj->index < (REF_HEADER_CRC_CMDID_LEN + p_obj->data_len)) {
           p_obj->protocol_packet[p_obj->index++] = byte;
@@ -285,7 +286,7 @@ void referee_unpack_fifo_data(void) {
 
           if (verify_CRC16_check_sum(p_obj->protocol_packet,
                                      REF_HEADER_CRC_CMDID_LEN + p_obj->data_len)) {
-            referee_data_solve(p_obj->protocol_packet);  // ÕâÀïÊÇÕæÕýµÄ¶ÔÊý¾Ý½øÐÐ½â°ü
+            referee_data_solve(p_obj->protocol_packet);  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½Ð½ï¿½ï¿½
           }
         }
       } break;
@@ -299,7 +300,7 @@ void referee_unpack_fifo_data(void) {
 }
 
 /**
- * @brief  ÖÐ¶Ï´¦Àíº¯Êý£¬ÔÚÖÐ¶ÏÖÐµ÷ÓÃ
+ * @brief  ï¿½Ð¶Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½Ðµï¿½ï¿½ï¿½
  */
 void refereeReceiveHandler(void) {
   static volatile uint8_t res;
@@ -312,28 +313,28 @@ void refereeReceiveHandler(void) {
         == RESET) { /* Current memory buffer used is Memory 0 */
 
       // disable DMA
-      // ¿ÕÏÐÖÐ¶Ï½øÀ´£¬´ú±íÒ»´ÎÍêÕûµÄÊý¾Ý´«Íê£¬È»ºóÊ§Ð§DMA£¨cpuÈ¥¼ì²é»õÎï¶Ô²»¶Ô£©
+      // ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶Ï½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý´ï¿½ï¿½ê£¬È»ï¿½ï¿½Ê§Ð§DMAï¿½ï¿½cpuÈ¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½ï¿½Ô£ï¿½
       __HAL_DMA_DISABLE(huart6.hdmarx);
 
       // get receive data length, length = set_data_length - remain_length
-      // »ñÈ¡½ÓÊÕÊý¾Ý³¤¶È,³¤¶È = Éè¶¨³¤¶È - Ê£Óà³¤¶È
+      // ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý³ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ = ï¿½è¶¨ï¿½ï¿½ï¿½ï¿½ - Ê£ï¿½à³¤ï¿½ï¿½
       this_time_rx_len = USART_RX_BUF_LENGHT - __HAL_DMA_GET_COUNTER(huart6.hdmarx);
 
-      // cpuÖØÐÂ·ÖÅädmaÈÎÎñ
+      // cpuï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½dmaï¿½ï¿½ï¿½ï¿½
       __HAL_DMA_SET_COUNTER(huart6.hdmarx, USART_RX_BUF_LENGHT);
 
-      // cpu»¹Ã»ÓÐ´¦ÀíÍê¸Õ¸ÕÔËÀ´µÄÍêÕû»õÎï£¬µ«Ëû½Ðdma°Ñ×¼±¸ÓÖ°áÀ´µÄ»õÎï·Åµ½Memory1
+      // cpuï¿½ï¿½Ã»ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½Õ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½dmaï¿½ï¿½×¼ï¿½ï¿½ï¿½Ö°ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½Åµï¿½Memory1
       huart6.hdmarx->Instance->CR |= DMA_SxCR_CT;
 
       __HAL_DMA_ENABLE(huart6.hdmarx);
 
-      // cpuÕýÔÚ´¦Àídma°áÍêµÄÊý¾Ý£¨¸ÃÊý¾ÝÔÚMemory 0£©
+      // cpuï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½dmaï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Memory 0ï¿½ï¿½
       fifo_s_puts(&referee_fifo, (char *)usart_buf[0], this_time_rx_len);
       //  detect_hook(REFEREE_TOE);
     }
     else {
       /* Current memory buffer used is Memory 1 */
-      // ¸úÉÏÃæÒ»Ñù
+      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½
       __HAL_DMA_DISABLE(huart6.hdmarx);
       this_time_rx_len = USART_RX_BUF_LENGHT - __HAL_DMA_GET_COUNTER(huart6.hdmarx);
       __HAL_DMA_SET_COUNTER(huart6.hdmarx, USART_RX_BUF_LENGHT);

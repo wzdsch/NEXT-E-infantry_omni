@@ -19,7 +19,7 @@
 #include "pidData.h"
 #include "remote_control.h"
 
-fp32 freeSpeed_z = 5000.0f;
+fp32 freeSpeed_z = 0.0f;
 
 /**
  * @brief  底盘结构体初始化
@@ -195,10 +195,10 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
       speed_x = cos(yAngle + PI / 2) * y + cos(xAngle) * x;
       speed_y = cos(xAngle + PI / 2) * x + cos(yAngle) * y;
       // 把转换好的速度发给各电机
-      speed0 = speed_x;
-      speed1 = speed_y;
-      speed2 = -speed_x;
-      speed3 = -speed_y;
+      speed0 = speed_y;
+      speed1 = speed_x;
+      speed2 = -speed_y;
+      speed3 = -speed_x;
       DJI_MotorSetTarget((chassis->chassisMotor1), speed0);
       DJI_MotorSetTarget((chassis->chassisMotor2), speed1);
       DJI_MotorSetTarget((chassis->chassisMotor3), speed2);

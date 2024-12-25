@@ -8,14 +8,15 @@
 #define stuckPersent           0.3f  // 卡弹处理阈值
 
 #define shooterSpeed 7000.0f
-#define shooterFreq  10.0f * 270.0f  // num.0f @hz * 270.0f
+#define shooterFreq  19.0f * 270.0f  // num.0f @hz * 270.0f
 
 enum shooter_Mode {
-  SHOOTER_STOP = 0,   // 所有电机停转
-  SHOOTER_HOLD = 1,   // 只开摩擦轮
-  SHOOTER_FIRE = 2,   // 所有电机运转
-  SHOOTER_DBUG = 3,   // 摩擦轮停转，拨弹轮旋转
-  SHOOTER_DBUG1 = 4,  // 摩擦轮停转，拨弹轮反转
+  SHOOTER_STOP = 0,    // 所有电机停转
+  SHOOTER_HOLD = 1,    // 只开摩擦轮
+  SHOOTER_FIRE = 2,    // 所有电机运转
+  SHOOTER_DBUG = 3,    // 摩擦轮停转，拨弹轮旋转
+  SHOOTER_DBUG1 = 4,   // 摩擦轮停转，拨弹轮反转
+  SHTOOER_ONETAP = 5,  // 单发模式
 };
 
 enum supplier_Mode {

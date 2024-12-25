@@ -10,14 +10,15 @@
       <TargetName>Chassis</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
+      <pArmCC>5060750::V5.06 update 6 (build 750)::.\ARMCC</pArmCC>
+      <pCCUsed>5060750::V5.06 update 6 (build 750)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
           <Device>STM32F427IIHx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F4xx_DFP.2.16.0</PackID>
-          <PackURL>http://www.keil.com/pack/</PackURL>
+          <PackID>Keil.STM32F4xx_DFP.2.17.1</PackID>
+          <PackURL>https://www.keil.com/pack/</PackURL>
           <Cpu>IRAM(0x20000000-0x2002FFFF) IRAM2(0x10000000-0x1000FFFF) IROM(0x8000000-0x81FFFFF) CLOCK(25000000) FPU2 CPUTYPE("Cortex-M4") TZ</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -81,7 +82,7 @@
           </BeforeMake>
           <AfterMake>
             <RunUserProg1>0</RunUserProg1>
-            <RunUserProg2>0</RunUserProg2>
+            <RunUserProg2>1</RunUserProg2>
             <UserProg1Name></UserProg1Name>
             <UserProg2Name></UserProg2Name>
             <UserProg1Dos16Mode>0</UserProg1Dos16Mode>
@@ -186,6 +187,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -313,7 +315,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -339,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F427xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Components/Basic/CallBacks;../Components/Basic_Control/Pid;../Components/Chassis;../Components/DJI_Motor;../Components/MCUConnect;../Components/Referee;../Components/RemoteControl;../Components/Basic/structs;..\Components\Basic\Tools</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Components/Basic/CallBacks;../Components/Basic_Control/Pid;../Components/Chassis;../Components/DJI_Motor;../Components/MCUConnect;../Components/Referee;../Components/RemoteControl;../Components/Basic/structs;../Components/Basic/Tools;../Components/UI</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -622,6 +624,56 @@
               <FileName>pid.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Components\Basic_Control\Pid\pid.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>UI</GroupName>
+          <Files>
+            <File>
+              <FileName>ui_default_always_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\UI\ui_default_always_0.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_default_always_1.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\UI\ui_default_always_1.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_default_always_2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\UI\ui_default_always_2.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_default_always_3.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\UI\ui_default_always_3.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_default_Chassis_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\UI\ui_default_Chassis_0.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_default_Cover_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\UI\ui_default_Cover_0.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_default_Vision_0.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\UI\ui_default_Vision_0.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_draw.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\UI\ui_draw.c</FilePath>
+            </File>
+            <File>
+              <FileName>ui_interface.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\UI\ui_interface.c</FilePath>
             </File>
           </Files>
         </Group>

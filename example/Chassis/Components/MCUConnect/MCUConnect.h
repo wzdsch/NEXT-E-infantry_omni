@@ -2,6 +2,7 @@
 #define __MCU_CONNECT_H
 
 #include "DJI_Motor.h"
+#include "MCUConnectStructs.h"
 #include "can.h"
 #include "main.h"
 
@@ -38,7 +39,7 @@ extern void connectionRcceiveData(MCUConnection *connection);
 extern void connectionSendData(MCUConnection *connection, uint8_t *dataAddr, uint8_t size,
                                uint16_t dataID);
 extern void connectionUnpackData(MCUConnection *connection);
-
+extern void RefereeDataUpdate(Referee_data *data);
 extern MCUConnection connect;
 
 #endif

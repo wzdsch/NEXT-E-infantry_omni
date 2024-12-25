@@ -1,67 +1,69 @@
 #include "remote_control.h"
+
 #include "main.h"
+uint64_t tempcount = 0;
 
-void RemoteControlINIT(RC_ctrl_t *rc, UART_HandleTypeDef *huart) {
-  rc->huart = huart;
-  HAL_UART_Receive_DMA(huart, (uint8_t *)rc->RC_rxd, RC_FRAME_LENGTH);
-}
-
-void RC_EventCallback(RC_ctrl_t *rc, UART_HandleTypeDef *huart) {
-  if (huart == rc->huart) {
-    HAL_UART_Receive_DMA(rc->huart, (uint8_t *)rc->RC_rxd, RC_FRAME_LENGTH);
-  }
-}
-
-void RC_ErrorCallback(RC_ctrl_t *rc, UART_HandleTypeDef *huart) {
-  if (huart == rc->huart) {
-    __HAL_UART_CLEAR_FEFLAG(rc->huart);
-    HAL_UART_Receive_DMA(rc->huart, (uint8_t *)rc->RC_rxd, RC_FRAME_LENGTH);
-  }
+void RemoteControlINIT(RC_SBUS_t *sbus, UART_HandleTypeDef *huart) {
+  sbus->huart = huart;
+  HAL_UARTEx_ReceiveToIdle_DMA(huart, (uint8_t *)sbus->sbus_buf, RC_FRAME_LENGTH);
 }
 
 int16_t RC_LimitVal(int16_t val) {
   if (val >= 660) {
     val = 660;
-  } else if (val <= -660) {
+  }
+  else if (val <= -660) {
     val = -660;
   }
   return val;
 }
 
-void RC_Unpack(RC_ctrl_t *rc) {
-  rc->rc.ch[0] = (rc->RC_rxd[0] | (rc->RC_rxd[1] << 8)) & 0x07ff; //!< Channel 0
-  rc->rc.ch[1] =
-      ((rc->RC_rxd[1] >> 3) | (rc->RC_rxd[2] << 5)) & 0x07ff;   //!< Channel 1
-  rc->rc.ch[2] = ((rc->RC_rxd[2] >> 6) | (rc->RC_rxd[3] << 2) | //!< Channel 2
-                  (rc->RC_rxd[4] << 10)) &
-                 0x07ff;
-  rc->rc.ch[3] =
-      ((rc->RC_rxd[4] >> 1) | (rc->RC_rxd[5] << 7)) & 0x07ff; //!< Channel 3
-  rc->rc.s[0] = ((rc->RC_rxd[5] >> 4) & 0x0003);              //!< Switch left
-  rc->rc.s[1] = ((rc->RC_rxd[5] >> 4) & 0x000C) >> 2;         //!< Switch right
-  rc->mouse.x = rc->RC_rxd[6] | (rc->RC_rxd[7] << 8);         //!< Mouse X axis
-  rc->mouse.y = rc->RC_rxd[8] | (rc->RC_rxd[9] << 8);         //!< Mouse Y axis
-  rc->mouse.z = rc->RC_rxd[10] | (rc->RC_rxd[11] << 8);       //!< Mouse Z axis
-  rc->mouse.press_l = rc->RC_rxd[12]; //!< Mouse Left Is Press ?
-  rc->mouse.press_r = rc->RC_rxd[13]; //!< Mouse Right Is Press ?
-  rc->key.v = rc->RC_rxd[14] | (rc->RC_rxd[15] << 8);    //!< KeyBoard value
-  rc->rc.ch[4] = rc->RC_rxd[16] | (rc->RC_rxd[17] << 8); // NULL
+void SBUS_Unpack(RC_SBUS_t *sbus) {
+  //	if(sbus_buf[0] == 0x0f&&sbus_buf==0x00)//sbus
+  if (sbus->sbus_buf[0] == 0x0f)  // wbus 校验
+  {
 
-  rc->rc.ch[0] -= RC_CH_VALUE_OFFSET;
-  rc->rc.ch[1] -= RC_CH_VALUE_OFFSET;
-  rc->rc.ch[2] -= RC_CH_VALUE_OFFSET;
-  rc->rc.ch[3] -= RC_CH_VALUE_OFFSET;
-  rc->rc.ch[4] -= RC_CH_VALUE_OFFSET;
-  rc->rc.ch[0] = RC_LimitVal(rc->rc.ch[0]);
-  rc->rc.ch[1] = RC_LimitVal(rc->rc.ch[1]);
-  rc->rc.ch[2] = RC_LimitVal(rc->rc.ch[2]);
-  rc->rc.ch[3] = RC_LimitVal(rc->rc.ch[3]);
-  rc->rc.ch[4] = RC_LimitVal(rc->rc.ch[4]);
+    tempcount++;
+    sbus->sbus.SBUS_channels[0] = ((sbus->sbus_buf[1] | sbus->sbus_buf[2] << 8) & 0x07FF);
+    sbus->sbus.SBUS_channels[1] = ((sbus->sbus_buf[2] >> 3 | sbus->sbus_buf[3] << 5) & 0x07FF);
+    sbus->sbus.SBUS_channels[2] =
+      ((sbus->sbus_buf[3] >> 6 | sbus->sbus_buf[4] << 2 | sbus->sbus_buf[5] << 10) & 0x07FF);
+    sbus->sbus.SBUS_channels[3] = ((sbus->sbus_buf[5] >> 1 | sbus->sbus_buf[6] << 7) & 0x07FF);
+    sbus->sbus.SBUS_channels[4] = ((sbus->sbus_buf[6] >> 4 | sbus->sbus_buf[7] << 4) & 0x07FF);
+    sbus->sbus.SBUS_channels[5] =
+      ((sbus->sbus_buf[7] >> 7 | sbus->sbus_buf[8] << 1 | sbus->sbus_buf[9] << 9) & 0x07FF);
+    sbus->sbus.SBUS_channels[6] = ((sbus->sbus_buf[9] >> 2 | sbus->sbus_buf[10] << 6) & 0x07FF);
+    sbus->sbus.SBUS_channels[7] = ((sbus->sbus_buf[10] >> 5 | sbus->sbus_buf[11] << 3) & 0x07FF);
+    sbus->sbus.SBUS_channels[8] = ((sbus->sbus_buf[12] | sbus->sbus_buf[13] << 8) & 0x07FF);
+    sbus->sbus.SBUS_channels[9] = ((sbus->sbus_buf[13] >> 3 | sbus->sbus_buf[14] << 5) & 0x07FF);
+    //		sbus->sbus.SBUS_channels[10] =
+    //((sbus->sbus_buf[14]>>6|sbus->sbus_buf[15]<<2|sbus->sbus_buf[16]<<10) & 0x07FF);
+    //		sbus->sbus.SBUS_channels[11] = ((sbus->sbus_buf[16]>>1|sbus->sbus_buf[17]<<7) & 0x07FF);
+    //		sbus->sbus.SBUS_channels[12] = ((sbus->sbus_buf[17]>>4|sbus->sbus_buf[18]<<4) & 0x07FF);
+    //		sbus->sbus.SBUS_channels[13] =
+    //((sbus->sbus_buf[18]>>7|sbus->sbus_buf[19]<<1|sbus->sbus_buf[20]<<9)  & 0x07FF);
+    //		sbus->sbus.SBUS_channels[14] = ((sbus->sbus_buf[20]>>2|sbus->sbus_buf[21]<<6) & 0x07FF);
+    //		sbus->sbus.SBUS_channels[15] = ((sbus->sbus_buf[21]>>5|sbus->sbus_buf[22]<<3) & 0x07FF);
+  }
 }
 
-void RC_ReceiveCpltCallback(RC_ctrl_t *rc, UART_HandleTypeDef *huart) {
-  if (huart == rc->huart) {
-    HAL_UART_Receive_DMA(rc->huart, (uint8_t *)rc->RC_rxd, RC_FRAME_LENGTH);
-    RC_Unpack(rc);
+void RC_ReceiveCpltCallback(RC_SBUS_t *sbus, UART_HandleTypeDef *huart) {
+  if (huart == sbus->huart) {
+    HAL_UARTEx_ReceiveToIdle_DMA(huart, (uint8_t *)sbus->sbus_buf, RC_FRAME_LENGTH);
+    // SBUS_Unpack(sbus);
+  }
+}
+
+void RC_EventCallback(RC_SBUS_t *sbus, UART_HandleTypeDef *huart) {
+  if (huart == sbus->huart) {
+    HAL_UARTEx_ReceiveToIdle_DMA(huart, (uint8_t *)sbus->sbus_buf, RC_FRAME_LENGTH);
+    SBUS_Unpack(sbus);
+  }
+}
+
+void RC_ErrorCallback(RC_SBUS_t *sbus, UART_HandleTypeDef *huart) {
+  if (huart == sbus->huart) {
+    __HAL_UART_CLEAR_FEFLAG(sbus->huart);
+    HAL_UARTEx_ReceiveToIdle_DMA(huart, (uint8_t *)sbus->sbus_buf, RC_FRAME_LENGTH);
   }
 }

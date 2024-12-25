@@ -1,21 +1,34 @@
 #include "CallBacks.h"
 
 #include "MCUConnect.h"
+#include "MCUConnectStructs.h"
 #include "Tools.h"
 #include "chassis.h"
 #include "main.h"
 #include "referee.h"
 #include "remote_control.h"
+#include "tim.h"
+#include "ui.h"
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
+  if (htim == &htim10) {  // 双机通信发送2ms@500Hz
+    connectionSendData(&connect, (uint8_t *)&RefereeData, sizeof(RefereeData), RefereeData_ID);
+  }
+  if (htim == &htim11) {  // UI发送100ms@10Hz
+    UI_Refresh();
+  }
   if (htim == &htim12) {  // 裁判系统解包10ms@100Hz
     // referee_unpack(&referee1);
     referee_unpack_fifo_data();
+    RefereeDataUpdate(&RefereeData);
   }
-  if (htim == &htim13) {  // 双机通讯任务2ms@500Hz
+  if (htim == &htim13) {  // 双机通讯任务0.67ms@1500Hz
     connectionUnpackData(&connect);
   }
   if (htim == &htim14) {  // 底盘pid计算与发送2ms@500Hz
+    chassisRun(&chassis1, ChassisControlData.speedx, ChassisControlData.speedy,
+               ChassisControlData.speedz, DJI_MotorGetSoftEcd(&motorYaw));
+    chassisChangeMode(&chassis1, ChassisControlData.mode);
     DJI_MotorPidRUN(chassis1.group);
     DJI_MotorSendData(chassis1.group);
   }

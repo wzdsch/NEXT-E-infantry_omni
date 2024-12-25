@@ -49,7 +49,12 @@
         "string_view": "c",
         "initializer_list": "c",
         "tools.h": "c",
-        "mcuconnectstructs.h": "c"
+        "mcuconnectstructs.h": "c",
+        "q1-refereedata_v1.5.h": "c",
+        "refereedata_v1.6.h": "c",
+        "main.h": "c",
+        "ui.h": "c",
+        "ui_draw.h": "c"
     },
     "C_Cpp.clang_format_style": "file",
     "C_Cpp.formatting": "clangFormat",

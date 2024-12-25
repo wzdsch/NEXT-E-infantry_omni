@@ -22,6 +22,7 @@
 #include "usbd_cdc_if.h"
 
 /* USER CODE BEGIN INCLUDE */
+#include "VisionConnect.h"
 /* USER CODE END INCLUDE */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -261,7 +262,18 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   /* USER CODE BEGIN 6 */
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
+	// code begin
+  if (Buf[0] == 0Xa5) {  // 视觉USB接收
+    for (uint8_t i = 0; i < sizeof(vision1.RXData.VisionRxData); i++) {
+      vision1.RXData.Rxdata[i] = Buf[i];
+    }
+  }
 
+	vision1.RXData.VisionRxData.PitchAngleTarget *= -1;	// 视觉的pitchAngle是反�?
+	vision1.RXData.VisionRxData.YawAngleTarget -= 180; // 视觉的yaw从0~360 改为 -180~180
+	
+	VisionGetState(&vision1, &visionState);
+	// code end
   return (USBD_OK);
   /* USER CODE END 6 */
 }

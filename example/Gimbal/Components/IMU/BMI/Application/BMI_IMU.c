@@ -94,13 +94,13 @@ void INS_Task(void) {
     BodyFrameToEarthFrame(INS.MotionAccel_b, INS.MotionAccel_n, INS.q);  // 转换回导航系n
 
     // 获取最终数据
-    INS.IMU->yawAngle = QEKF_INS.Yaw + 180.0f;
+    INS.IMU->yawAngle = QEKF_INS.Yaw;
     INS.IMU->pitchAngle = QEKF_INS.Pitch;
     INS.IMU->rollAngle = QEKF_INS.Roll;
     INS.IMU->yawTotalAngle = QEKF_INS.YawTotalAngle;
     INS.IMU->yawSpeed = QEKF_INS.Gyro[2];
-    INS.IMU->pitchSpeed = QEKF_INS.Gyro[1];
-    INS.IMU->rollSpeed = QEKF_INS.Gyro[0];
+    INS.IMU->pitchSpeed = QEKF_INS.Gyro[0];
+    INS.IMU->rollSpeed = QEKF_INS.Gyro[1];
   }
 
   // temperature control

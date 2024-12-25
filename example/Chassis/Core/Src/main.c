@@ -36,28 +36,30 @@
 #include "pid.h"
 #include "pidData.h"
 #include "referee.h"
-#include "refereeData_v1.4.h"
 #include "remote_control.h"
+#include "ui.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-// 底盘电机结构�?;
+// 底盘电机结构�??;
 DJI_MotorGroup group1;
 DJI_Motor motor1;
 DJI_Motor motor2;
 DJI_Motor motor3;
 DJI_Motor motor4;
 
-// 云台电机结构�?;
+// 云台电机结构�??;
 DJI_MotorGroup group2;
 DJI_Motor motorYaw;
 
 chassis chassis1;
 MCUConnection connect;
 RC_ctrl_t rc_ctrl;
-// referee referee1;
 
+uint64_t tempcount = 0;
+// referee referee1;
+Referee_data RefereeData;
 /* USER CODE END PTD */
 
 /* Private define ------------------------------------------------------------*/
@@ -93,6 +95,7 @@ void SystemClock_Config(void);
  * @retval int
  */
 int main(void) {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -123,60 +126,102 @@ int main(void) {
   MX_TIM13_Init();
   MX_USART6_UART_Init();
   MX_TIM12_Init();
+  MX_USART2_UART_Init();
+  MX_TIM11_Init();
+  MX_TIM10_Init();
   /* USER CODE BEGIN 2 */
   /***********************************************************************************************/
-  /**************************************电机初始�?************************************************/
+  /**************************************电机初始�??************************************************/
   /***********************************************************************************************/
+  //  底盘电机
 
-  // 底盘电机
   DJI_MotorGroupInit(&group1, &hcan2, CAN_RX_FIFO0);
-
-  DJI_MotorInit(&motor1, 0x201, 0, pid0, NULL);
+#if NEW_ID == 1
+  DJI_MotorInit(&motor1, 0x204, 0, pid0, NULL);  // 起火步兵地盘ID为3412，另外一台1234
   DJI_MotorPidSet(&motor1, &(motor1.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor1.realSpeedF),
                   &(motor1.target));
   DJI_MotorPostProcessHandlerSet(&motor1, &powerlimit_pro);
   DJI_MotorCalculateResultSet(&motor1, &(motor1.postProcessResult));
   DJI_MotorListAdd(&group1, &motor1);
 
-  DJI_MotorInit(&motor2, 0x202, 0, pid0, NULL);
+  DJI_MotorInit(&motor2, 0x203, 0, pid0, NULL);
   DJI_MotorPidSet(&motor2, &(motor2.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor2.realSpeedF),
                   &(motor2.target));
   DJI_MotorPostProcessHandlerSet(&motor2, &powerlimit_pro);
   DJI_MotorCalculateResultSet(&motor2, &(motor2.postProcessResult));
   DJI_MotorListAdd(&group1, &motor2);
 
-  DJI_MotorInit(&motor3, 0x203, 0, pid0, NULL);
+  DJI_MotorInit(&motor3, 0x201, 0, pid0, NULL);
   DJI_MotorPidSet(&motor3, &(motor3.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor3.realSpeedF),
                   &(motor3.target));
   DJI_MotorPostProcessHandlerSet(&motor3, &powerlimit_pro);
   DJI_MotorCalculateResultSet(&motor3, &(motor3.postProcessResult));
   DJI_MotorListAdd(&group1, &motor3);
 
-  DJI_MotorInit(&motor4, 0x204, 0, pid0, NULL);
+  DJI_MotorInit(&motor4, 0x202, 0, pid0, NULL);
   DJI_MotorPidSet(&motor4, &(motor4.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor4.realSpeedF),
                   &(motor4.target));
   DJI_MotorPostProcessHandlerSet(&motor4, &powerlimit_pro);
   DJI_MotorCalculateResultSet(&motor4, &(motor4.postProcessResult));
   DJI_MotorListAdd(&group1, &motor4);
+#else
+  DJI_MotorInit(&motor1, 0x203, 0, pid0, NULL);  // 起火步兵地盘ID为3412，另外一台1234
+  DJI_MotorPidSet(&motor1, &(motor1.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor1.realSpeedF),
+                  &(motor1.target));
+  // DJI_MotorPostProcessHandlerSet(&motor1, &powerlimit_pro);
+  // DJI_MotorCalculateResultSet(&motor1, &(motor1.postProcessResult));
+  DJI_MotorCalculateResultSet(&motor1, &(motor1.pidOutput0));
+  DJI_MotorListAdd(&group1, &motor1);
 
+  DJI_MotorInit(&motor2, 0x204, 0, pid0, NULL);
+  DJI_MotorPidSet(&motor2, &(motor2.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor2.realSpeedF),
+                  &(motor2.target));
+  // DJI_MotorPostProcessHandlerSet(&motor2, &powerlimit_pro);
+  // DJI_MotorCalculateResultSet(&motor2, &(motor2.postProcessResult));
+  DJI_MotorCalculateResultSet(&motor2, &(motor2.pidOutput0));
+  DJI_MotorListAdd(&group1, &motor2);
+
+  DJI_MotorInit(&motor3, 0x202, 0, pid0, NULL);
+  DJI_MotorPidSet(&motor3, &(motor3.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor3.realSpeedF),
+                  &(motor3.target));
+  // DJI_MotorPostProcessHandlerSet(&motor3, &powerlimit_pro);
+  // DJI_MotorCalculateResultSet(&motor3, &(motor3.postProcessResult));
+  DJI_MotorCalculateResultSet(&motor3, &(motor3.pidOutput0));
+  DJI_MotorListAdd(&group1, &motor3);
+
+  DJI_MotorInit(&motor4, 0x201, 0, pid0, NULL);
+  DJI_MotorPidSet(&motor4, &(motor4.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor4.realSpeedF),
+                  &(motor4.target));
+  // DJI_MotorPostProcessHandlerSet(&motor4, &powerlimit_pro);
+  // DJI_MotorCalculateResultSet(&motor4, &(motor4.postProcessResult));
+  DJI_MotorCalculateResultSet(&motor4, &(motor4.pidOutput0));
+  DJI_MotorListAdd(&group1, &motor4);
+
+#endif
   DJI_MotorEnable(&motor1);
   DJI_MotorEnable(&motor2);
   DJI_MotorEnable(&motor3);
   DJI_MotorEnable(&motor4);
 
-  // 云台yaw轴电机，这里可以把相关计算放在底盘，这里是为了接收电机数据才创建的
+  // 云台yaw轴电机，这里可以把相关计算放在底盘，这里是为了接收电机数据才创建�?
   DJI_MotorGroupInit(&group2, &hcan1, CAN_RX_FIFO0);  // 电机组初始化
-  // 这里flagEcd只能填0
-  DJI_MotorInit(&motorYaw, 0x209, 0, NULL, NULL);  // 电机初始化
+  // 这里flagEcd只能�?0
+  DJI_MotorInit(&motorYaw, 0x209, 0, NULL, NULL);  // 电机初始化 起火步兵的ID
+  // DJI_MotorInit(&motorYaw, 0x205, 0, NULL, NULL);  // 电机初始化 另一台步兵的ID
   DJI_MotorListAdd(&group2, &motorYaw);
 
   /***********************************************************************************************/
-  /**************************************底盘初始化************************************************/
+  /**************************************底盘初始�?************************************************/
   /***********************************************************************************************/
-  // 这里需要依赖yaw轴电机或者底盘imu来底盘跟随，所以上面创建了yaw轴电机的结构体来接收电机数据
+  // 这里�?要依赖yaw轴电机或者底盘imu来底盘跟随，�?以上面创建了yaw轴电机的结构体来接收电机数据
   chassisINIT(&chassis1, &group1, &motor1, &motor2, &motor3, &motor4, &motorYaw);
-  chasisFollowINIT(&chassis1, 6855, PID_POSITION, Chassis_Angle_PID, PID_POSITION,
-                   Chassis_Speed_PID);                   // 底盘跟随初始化
+#if NEW_ID == 1
+  chasisFollowINIT(&chassis1, 2079, PID_POSITION, Chassis_Angle_PID, PID_POSITION,
+                   Chassis_Speed_PID);  // 底盘跟随初始化(起火步兵)
+#else
+  chasisFollowINIT(&chassis1, 6840, PID_POSITION, Chassis_Angle_PID, PID_POSITION,
+                   Chassis_Speed_PID);  // 底盘跟随初始化(起火步兵)
+#endif
   followResultSet(&chassis1, &(chassis1.followPidout));  // 底盘跟随结果设置
   connectionINIT(&connect, &hcan1, 0x400, CAN_RX_FIFO1);
 
@@ -184,25 +229,25 @@ int main(void) {
   /*************************************任务启用管理***********************************************/
   /***********************************************************************************************/
   RemoteControlINIT(&rc_ctrl, &huart1);  // 遥控
-  // refereeINIT(&referee1, &huart6);      //裁判系统（hal库测试版�?
+  // refereeINIT(&referee1, &huart6);      //裁判系统（hal库测试版�??
   // HAL_TIM_Base_Start_IT(&htim12);
   refereeINIT(&htim12);
   HAL_TIM_Base_Start_IT(&htim14);  // 电机pid计算
   HAL_TIM_Base_Start_IT(&htim13);  // 双机通信
-
+  HAL_TIM_Base_Start_IT(&htim11);  // UI
+  HAL_TIM_Base_Start_IT(&htim10);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1) {
     HAL_Delay(1);
+    UI_Init();  // UI初始化
     // 遥控控制
     // chassisRun(&chassis1, rc_ctrl.rc.ch[2] * 10, rc_ctrl.rc.ch[3] * 10, rc_ctrl.rc.ch[0] * 10,
     //           DJI_MotorGetSoftEcd(&motorYaw));
     // 双机通信
-    chassisRun(&chassis1, ChassisControlData.speedx, ChassisControlData.speedy,
-               ChassisControlData.speedz, DJI_MotorGetSoftEcd(&motorYaw));
-    chassisChangeMode(&chassis1, ChassisControlData.mode);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -233,7 +278,7 @@ void SystemClock_Config(void) {
   RCC_OscInitStruct.PLL.PLLM = 6;
   RCC_OscInitStruct.PLL.PLLN = 180;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 4;
+  RCC_OscInitStruct.PLL.PLLQ = 7;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
     Error_Handler();
   }

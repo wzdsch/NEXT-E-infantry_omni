@@ -102,7 +102,7 @@ void chassisChangeMode(chassis* chassis, uint8_t mode) {
 
 void chassisFollowRun(chassis* chassis) {
   if (chassis->followEN == 1) {  // 如果底盘跟随使能
-    fp32 temp;
+    fp32 temp;	// 相对角度
     if (chassis->gimbalMotor->realEcd >= chassis->followFlagEcd) {  // 得到编码值
       temp = (chassis->gimbalMotor->realEcd) - (chassis->followFlagEcd);
     }
@@ -142,7 +142,6 @@ void chassisFollowRun(chassis* chassis) {
 void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
   // 根据chassis_y与云台指向的夹角计算temp，从云台坐标系(y-x)转换为底盘坐标系(chassis_y-chassis_x)
   // 然后根据轮子位置合成各轮子的转速
-
   fp32 speed0 = 0;
   fp32 speed1 = 0;
   fp32 speed2 = 0;
@@ -188,9 +187,8 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
       DJI_MotorEnable(chassis->chassisMotor3);
       DJI_MotorEnable(chassis->chassisMotor4);
       chassisFollowDisable(chassis);
-      yAngle =
-        ((angle + 1024) / 8192.0f) * 2 * PI;  // 取得y轴与行进方向的夹角，(从yaw电机的编码得出)
-      xAngle = -yAngle;                       // 进而得到x与chassis_x的夹角
+      yAngle = ((0 + 1024) / 8192.0f) * 2 * PI;  // 取得y轴与行进方向的夹角，(从yaw电机的编码得出)
+      xAngle = -yAngle;                          // 进而得到x与chassis_x的夹角
       // 根据夹角对速速度向量做坐标系转换
       speed_x = cos(yAngle + PI / 2) * y + cos(xAngle) * x;
       speed_y = cos(xAngle + PI / 2) * x + cos(yAngle) * y;

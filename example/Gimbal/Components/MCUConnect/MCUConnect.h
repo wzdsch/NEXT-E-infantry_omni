@@ -19,6 +19,17 @@ typedef struct ConnectFifo {
   uint8_t buffer[256];
 } connectFifo;
 
+
+enum car_MODE {
+  STOP = 0,
+  FREE = 1,
+  FOLLOW = 2,
+  VISION = 3,
+};
+
+
+
+
 typedef struct connectData {
 
   CAN_HandleTypeDef *canHandler;  // can

@@ -11,7 +11,8 @@ enum chassisMode {
   CHASSIS_STOP,         // 底盘有力停止
   CHASSIS_FREE,         // 底盘不跟随
   CHASSIS_FOLLOW,       // 底盘跟随
-  CHASSIS_TOP,          // 底盘小陀螺
+
+  CHASSIS_TOP,  // 底盘小陀螺
 };
 
 /**

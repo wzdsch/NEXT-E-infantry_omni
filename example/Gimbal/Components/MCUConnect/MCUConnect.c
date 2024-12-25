@@ -19,9 +19,6 @@
 #include "string.h"
 #include "struct_typedef.h"
 
-ChassisControl ChassisControlData;
-GimbalControl GimbalControlData;
-
 /**
  * @brief  初始化双机通信结构体
  * @param  connection: 双机通信结构体地址
@@ -128,6 +125,8 @@ uint8_t connectionFifoWrite(MCUConnection *connection, uint16_t packID, uint8_t 
   }
 }
 
+uint32_t packLostCount = 0;
+
 /**
  * @brief  接收数据处理函数，在can中断中调用
  * @param  connection: 双机通信结构体地址
@@ -141,33 +140,36 @@ void connectionRcceiveData(MCUConnection *connection) {
   static uint16_t packCount = 0;
   static uint16_t dataID = 0;
   static uint16_t lastStdID = 0;
-
-  if (connection->rxHandler.StdId == connection->TxID) {  // 如果是新结构体数据，获得结构体id
-    dataID = (connection->RXdata[0] << 8) + connection->RXdata[1];
-    lastStdID = connection->rxHandler.StdId;
-    dataSize = connection->RXdata[2];
-    packCount = ceil((dataSize + 3) / 8.0f);
-    connectionFifoWrite(connection, dataID, dataSize, 0, &(connection->RXdata[3]),
-                        5);  // 将数据暂存
-  }
-  else if (connection->rxHandler.StdId - 1 == lastStdID) {  // 如果是连续的包
-    lastStdID = connection->rxHandler.StdId;
-    if (connection->rxHandler.StdId == connection->TxID + packCount - 1) {  // 如果是最后一个包
-      connectionFifoWrite(connection, dataID, dataSize, 5 + ((packCount - 2) * 8),
-                          connection->RXdata, connection->rxHandler.DLC);
+  if (connection->rxHandler.StdId >= connection->TxID
+      && connection->rxHandler.StdId <= connection->TxID + 100) {  // 如果是包id
+    if (connection->rxHandler.StdId == connection->TxID) {  // 如果是新结构体数据，获得结构体id
+      dataID = (connection->RXdata[0] << 8) + connection->RXdata[1];
+      lastStdID = connection->rxHandler.StdId;
+      dataSize = connection->RXdata[2];
+      packCount = ceil((dataSize + 3) / 8.0f);
+      connectionFifoWrite(connection, dataID, dataSize, 0, &(connection->RXdata[3]),
+                          5);  // 将数据暂存
     }
-    else {  // 如果是中间的包
-      connectionFifoWrite(connection, dataID, dataSize,
-                          (5 + ((connection->rxHandler.StdId) - (connection->TxID) - 1) * 8),
-                          connection->RXdata, 8);
+    else if (connection->rxHandler.StdId - 1 == lastStdID) {  // 如果是连续的包
+      lastStdID = connection->rxHandler.StdId;
+      if (connection->rxHandler.StdId == connection->TxID + packCount - 1) {  // 如果是最后一个包
+        connectionFifoWrite(connection, dataID, dataSize, 5 + ((packCount - 2) * 8),
+                            connection->RXdata, connection->rxHandler.DLC);
+      }
+      else {  // 如果是中间的包
+        connectionFifoWrite(connection, dataID, dataSize,
+                            (5 + ((connection->rxHandler.StdId) - (connection->TxID) - 1) * 8),
+                            connection->RXdata, 8);
+      }
     }
-  }
-  else {  // 如果丢包，初始化
-    dataSize = 0;
-    packCount = 0;
-    dataID = 0;
-    lastStdID = 0;
-    connection->RxFIFO[connection->usingFIFO].fifoState = CONNECT_FIFO_RESET;  // 复位fifo状态
+    else {  // 如果丢包，初始化
+      packLostCount++;
+      dataSize = 0;
+      packCount = 0;
+      dataID = 0;
+      lastStdID = 0;
+      connection->RxFIFO[connection->usingFIFO].fifoState = CONNECT_FIFO_RESET;  // 复位fifo状态
+    }
   }
 }
 
@@ -224,6 +226,11 @@ void connectionUnpackData(MCUConnection *connection) {
     switch (connection->RxFIFO[lastCheck].packID) {
       case 0x8001:
         memcpy(&ChassisControlData, &(connection->RxFIFO[lastCheck].buffer),
+               connection->RxFIFO[lastCheck].pcakSize);
+        connection->RxFIFO[lastCheck].fifoState = CONNECT_FIFO_RESET;
+        break;
+      case 0x4001:
+        memcpy(&RefereeData, &(connection->RxFIFO[lastCheck].buffer),
                connection->RxFIFO[lastCheck].pcakSize);
         connection->RxFIFO[lastCheck].fifoState = CONNECT_FIFO_RESET;
         break;

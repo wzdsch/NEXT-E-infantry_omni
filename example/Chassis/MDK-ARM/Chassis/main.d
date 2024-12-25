@@ -7,7 +7,7 @@ chassis\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 chassis\main.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 chassis\main.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h
 chassis\main.o: ../Drivers/CMSIS/Include/core_cm4.h
-chassis\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+chassis\main.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
 chassis\main.o: ../Drivers/CMSIS/Include/cmsis_version.h
 chassis\main.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 chassis\main.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -15,7 +15,7 @@ chassis\main.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 chassis\main.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 chassis\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 chassis\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-chassis\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+chassis\main.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stddef.h
 chassis\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 chassis\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 chassis\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -42,12 +42,22 @@ chassis\main.o: ../Components/Basic_Control/Pid/pid.h
 chassis\main.o: ../Components/Basic/structs/struct_typedef.h
 chassis\main.o: ../Components/MCUConnect/MCUConnect.h
 chassis\main.o: ../Components/MCUConnect/MCUConnectStructs.h
-chassis\main.o: ..\Components\Basic\Tools\Tools.h
+chassis\main.o: ../Components/Basic/Tools/Tools.h
 chassis\main.o: ../Components/DJI_Motor/addOns.h
 chassis\main.o: ../Components/Chassis/chassis.h
 chassis\main.o: ../Components/Basic_Control/Pid/pid.h
 chassis\main.o: ../Components/Basic_Control/Pid/pidData.h
 chassis\main.o: ../Components/Referee/referee.h
-chassis\main.o: ../Components/Referee/refereeData_v1.4.h
-chassis\main.o: ../Components/Referee/protocol.h
 chassis\main.o: ../Components/RemoteControl/remote_control.h
+chassis\main.o: ../Components/UI/ui.h
+chassis\main.o: ../Components/UI/ui_interface.h
+chassis\main.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdio.h
+chassis\main.o: ../Components/UI/ui_types.h
+chassis\main.o: ../Components/UI/ui_draw.h
+chassis\main.o: ../Components/UI/ui_default_always_0.h
+chassis\main.o: ../Components/UI/ui_default_always_1.h
+chassis\main.o: ../Components/UI/ui_default_always_2.h
+chassis\main.o: ../Components/UI/ui_default_always_3.h
+chassis\main.o: ../Components/UI/ui_default_Vision_0.h
+chassis\main.o: ../Components/UI/ui_default_Chassis_0.h
+chassis\main.o: ../Components/UI/ui_default_Cover_0.h

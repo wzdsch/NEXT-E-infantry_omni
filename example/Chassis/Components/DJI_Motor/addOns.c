@@ -13,9 +13,48 @@
 #include "DJI_Motor.h"
 #include "math.h"
 #include "referee.h"
-#include "refereeData_v1.4.h"
+#include "refereeData_v1.6.h"
+
+//  #include "BMI088.h"
+//  #include "LADRC.h"
 #include "struct_typedef.h"
 
+#ifdef BMI088_H
+
+/**
+ * @brief  陀螺仪过零
+ * @param  motor:
+ * @return fp32:
+ */
+fp32 IMUecdZeroCrossing(DJI_Motor *motor) {
+  fp32 temp = 0;
+  if (BMI088_gimbal.yawAngle >= motor->flagEcd) {
+    temp = (BMI088_gimbal.yawAngle) - (motor->flagEcd);
+  }
+  else {
+    temp = (BMI088_gimbal.yawAngle) - (motor->flagEcd) + 360.0f;
+  }
+
+  fp32 offset = 180.0f;  // 半圈机械角度
+  if ((motor->target) - temp > offset) {
+    temp = temp + (offset * 2);
+    return temp;
+  }
+  else if ((motor->target) - temp <= -offset) {
+    temp = temp - (offset * 2);
+    return temp;
+  }
+  return temp;
+}
+#endif
+
+#ifdef LADRC_H
+
+fp32 LADRC_YawControl(DJI_Motor *motor) {
+  return LADRC_O2_Loop(&LADRC_Yaw, &(motor->target), &(motor->preProcessResult));
+}
+
+#endif
 /**
  * @brief  电机编码器过零函数
  * @param  motor: 电机结构体
@@ -38,6 +77,25 @@ fp32 ecdZeroCrossing(DJI_Motor *motor) {
   return temp;
   // return softEcd;
 }
+
+/**
+ * @brief  底盘跟随云台过零函数
+ * @param  motor:
+ * @return fp32:
+ */
+fp32 chassisFollowZeroCrossing(DJI_Motor *motor) {
+  fp32 temp = 0;
+  if (motor->realEcd > 4096) {
+    fp32 temp = motor->realEcd - 8192;
+    return temp;
+  }
+  else {
+    temp = motor->realEcd;
+    return temp;
+  }
+}
+
+#ifdef REFEREEDATA_H
 
 #define WARNING_POWER_BUFF 50.0f
 
@@ -202,6 +260,8 @@ fp32 powerlimit_pro(DJI_Motor *motor) {
     return motor->pidOutput0;
   }
 }
+
+#endif
 
 fp32 example(DJI_Motor *motor) {
   return motor->pidOutput0 / 2;

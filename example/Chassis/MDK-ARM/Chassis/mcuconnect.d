@@ -10,7 +10,7 @@ chassis\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 chassis\mcuconnect.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 chassis\mcuconnect.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h
 chassis\mcuconnect.o: ../Drivers/CMSIS/Include/core_cm4.h
-chassis\mcuconnect.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+chassis\mcuconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
 chassis\mcuconnect.o: ../Drivers/CMSIS/Include/cmsis_version.h
 chassis\mcuconnect.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 chassis\mcuconnect.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -18,7 +18,7 @@ chassis\mcuconnect.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 chassis\mcuconnect.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 chassis\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 chassis\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-chassis\mcuconnect.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+chassis\mcuconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stddef.h
 chassis\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 chassis\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 chassis\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -38,7 +38,10 @@ chassis\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 chassis\mcuconnect.o: ../Components/Basic_Control/Pid/pid.h
 chassis\mcuconnect.o: ../Components/Basic/structs/struct_typedef.h
 chassis\mcuconnect.o: ..\Components\MCUConnect\MCUConnectStructs.h
-chassis\mcuconnect.o: ..\Components\Basic\Tools\Tools.h
-chassis\mcuconnect.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-chassis\mcuconnect.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-chassis\mcuconnect.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+chassis\mcuconnect.o: ../Components/Basic/Tools/Tools.h
+chassis\mcuconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\math.h
+chassis\mcuconnect.o: ../Components/Referee/referee.h
+chassis\mcuconnect.o: ../Components/Referee/refereeData_v1.6.h
+chassis\mcuconnect.o: ../Components/Referee/protocol.h
+chassis\mcuconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdio.h
+chassis\mcuconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\string.h

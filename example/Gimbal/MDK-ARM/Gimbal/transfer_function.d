@@ -1,8 +1,8 @@
 gimbal\transfer_function.o: ..\Components\IMU\BMI\Components\Devices\transfer_function.c
 gimbal\transfer_function.o: ..\Components\IMU\BMI\Components\Devices\transfer_function.h
-gimbal\transfer_function.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-gimbal\transfer_function.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-gimbal\transfer_function.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+gimbal\transfer_function.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
+gimbal\transfer_function.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdlib.h
+gimbal\transfer_function.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\math.h
 gimbal\transfer_function.o: ../Components/IMU/BMI/Bsp/bsp_dwt.h
 gimbal\transfer_function.o: ../Core/Inc/main.h
 gimbal\transfer_function.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
@@ -19,7 +19,7 @@ gimbal\transfer_function.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 gimbal\transfer_function.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 gimbal\transfer_function.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\transfer_function.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-gimbal\transfer_function.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+gimbal\transfer_function.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stddef.h
 gimbal\transfer_function.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 gimbal\transfer_function.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 gimbal\transfer_function.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h

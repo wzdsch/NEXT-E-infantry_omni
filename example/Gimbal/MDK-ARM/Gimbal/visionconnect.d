@@ -1,7 +1,6 @@
-gimbal\visionconnect.o: ..\Core\lib\VisionConnect\VisionConnect.c
-gimbal\visionconnect.o: ..\Core\lib\VisionConnect\VisionConnect.h
-gimbal\visionconnect.o: ../Core/lib/canMotor/pid.h
-gimbal\visionconnect.o: ../Core/lib/canMotor/struct_typedef.h
+gimbal\visionconnect.o: ..\Components\VisionConnect\VisionConnect.c
+gimbal\visionconnect.o: ..\Components\VisionConnect\VisionConnect.h
+gimbal\visionconnect.o: ../Components/Basic_Control/Pid/pid.h
 gimbal\visionconnect.o: ../Core/Inc/main.h
 gimbal\visionconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\visionconnect.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -10,7 +9,7 @@ gimbal\visionconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 gimbal\visionconnect.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 gimbal\visionconnect.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 gimbal\visionconnect.o: ../Drivers/CMSIS/Include/core_cm4.h
-gimbal\visionconnect.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+gimbal\visionconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
 gimbal\visionconnect.o: ../Drivers/CMSIS/Include/cmsis_version.h
 gimbal\visionconnect.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 gimbal\visionconnect.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -18,7 +17,7 @@ gimbal\visionconnect.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 gimbal\visionconnect.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 gimbal\visionconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\visionconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-gimbal\visionconnect.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+gimbal\visionconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stddef.h
 gimbal\visionconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 gimbal\visionconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 gimbal\visionconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -39,15 +38,16 @@ gimbal\visionconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 gimbal\visionconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
 gimbal\visionconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
 gimbal\visionconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
-gimbal\visionconnect.o: ../Core/lib/canMotor/pid.h
-gimbal\visionconnect.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+gimbal\visionconnect.o: ../Components/Basic/structs/struct_typedef.h
+gimbal\visionconnect.o: ../Components/Basic_Control/Pid/pid.h
+gimbal\visionconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdio.h
 gimbal\visionconnect.o: ../USB_DEVICE/App/usbd_cdc_if.h
 gimbal\visionconnect.o: ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h
 gimbal\visionconnect.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 gimbal\visionconnect.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 gimbal\visionconnect.o: ../USB_DEVICE/Target/usbd_conf.h
-gimbal\visionconnect.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-gimbal\visionconnect.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+gimbal\visionconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdlib.h
+gimbal\visionconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\string.h
 gimbal\visionconnect.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h
 gimbal\visionconnect.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h
 gimbal\visionconnect.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h

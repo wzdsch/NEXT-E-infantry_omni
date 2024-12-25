@@ -92,7 +92,7 @@ void shooterRun(shooter *shooter) {
       DJI_MotorSetTarget(shooter->friLmotor, shooter->friSpeed);
       DJI_MotorSetTarget(shooter->friRmotor, shooter->friSpeed);
       shooterStuckProcess(shooter);
-
+      DJI_MotorSetTarget(shooter->supplierMotor, shooter->shootFreq);
       break;
 
     case SHOOTER_DBUG:

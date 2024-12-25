@@ -338,7 +338,7 @@ void DJI_MotorPidRUN(DJI_MotorGroup *group) {
     if (*(group->list[i]->prePrecessHandler) != NULL) {
       group->list[i]->preProcessResult = (group->list[i]->prePrecessHandler)(group->list[i]);
     }
-    // pid计算
+    // 控制计算
     switch (group->list[i]->cycleMode) {
       case pid0:  // 只计算一个pid
         group->list[i]->pidOutput0 = PID_calc(
@@ -351,11 +351,13 @@ void DJI_MotorPidRUN(DJI_MotorGroup *group) {
         group->list[i]->pidOutput1 = PID_calc(
           &(group->list[i]->motorPid1), *(group->list[i]->pid1Ref), *(group->list[i]->pid1Set));
         break;
-
+      case custom:  // 自定义控制函数
+        group->list[i]->customControlResult = (group->list[i]->customControl)(group->list[i]);
+        break;
       default:
         break;
     }
-    ////如果有后处理函数，就执行
+    // 如果有后处理函数，就执行
     if (*(group->list[i]->postPrecessHandler) != NULL) {
       group->list[i]->postProcessResult = (group->list[i]->postPrecessHandler)(group->list[i]);
     }
@@ -492,4 +494,8 @@ void DJI_MotorPreProcessHandlerSet(DJI_Motor *motor, fp32 (*prePrecessHandler)(D
 void DJI_MotorPostProcessHandlerSet(DJI_Motor *motor,
                                     fp32 (*postPrecessHandler)(DJI_Motor *motor)) {
   motor->postPrecessHandler = postPrecessHandler;
+}
+
+void DJI_MotorCustonControlSet(DJI_Motor *motor, fp32 (*custonControl)(DJI_Motor *motor)) {
+  motor->customControl = custonControl;
 }

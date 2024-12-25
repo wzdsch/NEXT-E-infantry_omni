@@ -8,7 +8,10 @@ fp32 example(DJI_Motor *motor);
 fp32 ecdZeroCrossing(DJI_Motor *motor);
 fp32 chassisFollowZeroCrossing(DJI_Motor *motor);
 fp32 powerlimit(DJI_Motor *motor);
-fp32 MIUecdZeroCrossing(DJI_Motor *motor);
-fp32 yawMotorpostProcess(DJI_Motor *motor);
+fp32 powerlimit_pro(DJI_Motor *motor);
+fp32 IMUecdZeroCrossing(DJI_Motor *motor);
+fp32 LADRCtest(DJI_Motor *motor);
+
+fp32 LADRC_YawControl(DJI_Motor *motor);
 
 #endif

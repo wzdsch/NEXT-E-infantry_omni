@@ -60,8 +60,17 @@
 "..\Components\IMU\BMI\Lib\arm_cortexM4lf_math.lib"
 "gimbal\mcuconnect.o"
 "gimbal\remote_control.o"
+"gimbal\app_et07.o"
+"gimbal\bsp_wbus.o"
+"gimbal\rc_task.o"
 "gimbal\shooter.o"
-"gimbal\bpnet.o"
+"gimbal\ladrc.o"
+"gimbal\robotmodmanage.o"
+"gimbal\visionconnect.o"
+"gimbal\crc8_crc16.o"
+"gimbal\fifo.o"
+"gimbal\referee.o"
+"gimbal\vofa.o"
 --library_type=microlib --strict --scatter "Gimbal\Gimbal.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

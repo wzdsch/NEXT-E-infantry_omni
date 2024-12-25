@@ -7,7 +7,7 @@ gimbal\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 gimbal\stm32f4xx_it.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 gimbal\stm32f4xx_it.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 gimbal\stm32f4xx_it.o: ../Drivers/CMSIS/Include/core_cm4.h
-gimbal\stm32f4xx_it.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+gimbal\stm32f4xx_it.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
 gimbal\stm32f4xx_it.o: ../Drivers/CMSIS/Include/cmsis_version.h
 gimbal\stm32f4xx_it.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 gimbal\stm32f4xx_it.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -15,7 +15,7 @@ gimbal\stm32f4xx_it.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 gimbal\stm32f4xx_it.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 gimbal\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-gimbal\stm32f4xx_it.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+gimbal\stm32f4xx_it.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stddef.h
 gimbal\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 gimbal\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 gimbal\stm32f4xx_it.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -42,7 +42,9 @@ gimbal\stm32f4xx_it.o: ../Core/Inc/can.h
 gimbal\stm32f4xx_it.o: ../Components/Basic_Control/Pid/pid.h
 gimbal\stm32f4xx_it.o: ../Components/Basic/structs/struct_typedef.h
 gimbal\stm32f4xx_it.o: ../Components/MCUConnect/MCUConnect.h
+gimbal\stm32f4xx_it.o: ../Components/remoteControl/bsp_wbus.h
 gimbal\stm32f4xx_it.o: ../Components/Gimbal/gimbal.h
 gimbal\stm32f4xx_it.o: ../Components/Basic_Control/Pid/pid.h
 gimbal\stm32f4xx_it.o: ../Components/Basic_Control/Pid/pidData.h
+gimbal\stm32f4xx_it.o: ../Components/Referee/referee.h
 gimbal\stm32f4xx_it.o: ../Components/remoteControl/remote_control.h

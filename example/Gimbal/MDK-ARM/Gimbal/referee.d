@@ -1,0 +1,48 @@
+gimbal\referee.o: ..\Components\Referee\referee.c
+gimbal\referee.o: ..\Components\Referee\referee.h
+gimbal\referee.o: ../Core/Inc/main.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
+gimbal\referee.o: ../Core/Inc/stm32f4xx_hal_conf.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
+gimbal\referee.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
+gimbal\referee.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
+gimbal\referee.o: ../Drivers/CMSIS/Include/core_cm4.h
+gimbal\referee.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
+gimbal\referee.o: ../Drivers/CMSIS/Include/cmsis_version.h
+gimbal\referee.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+gimbal\referee.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+gimbal\referee.o: ../Drivers/CMSIS/Include/mpu_armv7.h
+gimbal\referee.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
+gimbal\referee.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stddef.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
+gimbal\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
+gimbal\referee.o: ..\Components\Referee\CRC8_CRC16.h
+gimbal\referee.o: ..\Components\Referee\fifo.h
+gimbal\referee.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdio.h
+gimbal\referee.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\string.h
+gimbal\referee.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdlib.h
+gimbal\referee.o: ..\Components\Referee\protocol.h
+gimbal\referee.o: ..\Components\Referee\refereeData_v1.6.h
+gimbal\referee.o: ../Components/Basic/structs/struct_typedef.h
+gimbal\referee.o: ../Core/Inc/tim.h

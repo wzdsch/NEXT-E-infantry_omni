@@ -76,7 +76,7 @@ void Error_Handler(void);
 #define CS1_GYRO_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-
+#define IMU_PITCH 1  // 1是使用陀螺仪的pitch轴数据进行闭�?
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

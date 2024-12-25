@@ -1,8 +1,7 @@
-gimbal\robotmodmanage.o: ..\Core\lib\RobotModManage\RobotModManage.c
-gimbal\robotmodmanage.o: ..\Core\lib\RobotModManage\RobotModManage.h
-gimbal\robotmodmanage.o: ../Core/lib/canMotor/struct_typedef.h
-gimbal\robotmodmanage.o: ../Core/lib/MCUConnect/MCUConnect.h
-gimbal\robotmodmanage.o: ../Core/Inc/can.h
+gimbal\robotmodmanage.o: ..\Components\RobotModManage\RobotModManage.c
+gimbal\robotmodmanage.o: ..\Components\RobotModManage\RobotModManage.h
+gimbal\robotmodmanage.o: ../Components/Basic/structs/struct_typedef.h
+gimbal\robotmodmanage.o: ../Core/Inc/usart.h
 gimbal\robotmodmanage.o: ../Core/Inc/main.h
 gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\robotmodmanage.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -11,7 +10,7 @@ gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 gimbal\robotmodmanage.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 gimbal\robotmodmanage.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 gimbal\robotmodmanage.o: ../Drivers/CMSIS/Include/core_cm4.h
-gimbal\robotmodmanage.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+gimbal\robotmodmanage.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
 gimbal\robotmodmanage.o: ../Drivers/CMSIS/Include/cmsis_version.h
 gimbal\robotmodmanage.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 gimbal\robotmodmanage.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -19,7 +18,7 @@ gimbal\robotmodmanage.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 gimbal\robotmodmanage.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-gimbal\robotmodmanage.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+gimbal\robotmodmanage.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stddef.h
 gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -40,10 +39,21 @@ gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.
 gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd.h
 gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_usb.h
 gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.h
-gimbal\robotmodmanage.o: ../Core/lib/canMotor/canmotor.h
-gimbal\robotmodmanage.o: ../Core/lib/BMI/Components/Algorithm/Include/arm_math.h
-gimbal\robotmodmanage.o: ../Drivers/CMSIS/Include/core_cm4.h
-gimbal\robotmodmanage.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
-gimbal\robotmodmanage.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
-gimbal\robotmodmanage.o: ../Core/lib/canMotor/pid.h
-gimbal\robotmodmanage.o: ../Core/lib/remoteControl/remote_control.h
+gimbal\robotmodmanage.o: ../Components/IMU/BMI/Application/BMI088.h
+gimbal\robotmodmanage.o: ../Components/DJI_Motor/DJI_Motor.h
+gimbal\robotmodmanage.o: ../Core/Inc/can.h
+gimbal\robotmodmanage.o: ../Components/Basic_Control/Pid/pid.h
+gimbal\robotmodmanage.o: ../Components/MCUConnect/MCUConnectStructs.h
+gimbal\robotmodmanage.o: ../Components/remoteControl/RC_task.h
+gimbal\robotmodmanage.o: ../Components/remoteControl/app_et07.h
+gimbal\robotmodmanage.o: ../Components/VisionConnect/VisionConnect.h
+gimbal\robotmodmanage.o: ../Components/Basic_Control/Pid/pid.h
+gimbal\robotmodmanage.o: ../Components/Vofa/Vofa.h
+gimbal\robotmodmanage.o: ../Components/Chassis/chassis.h
+gimbal\robotmodmanage.o: ../Components/Gimbal/gimbal.h
+gimbal\robotmodmanage.o: ../Components/Referee/referee.h
+gimbal\robotmodmanage.o: ../Components/Referee/refereeData_v1.6.h
+gimbal\robotmodmanage.o: ../Components/Referee/protocol.h
+gimbal\robotmodmanage.o: ../Components/remoteControl/remote_control.h
+gimbal\robotmodmanage.o: ../Components/shooter/shooter.h
+gimbal\robotmodmanage.o: ../Core/Inc/tim.h
