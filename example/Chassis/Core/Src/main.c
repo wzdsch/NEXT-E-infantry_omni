@@ -168,33 +168,33 @@ int main(void) {
   DJI_MotorInit(&motor1, 0x203, 0, pid0, NULL);  // 起火步兵地盘ID为3412，另外一台1234
   DJI_MotorPidSet(&motor1, &(motor1.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor1.realSpeedF),
                   &(motor1.target));
-  // DJI_MotorPostProcessHandlerSet(&motor1, &powerlimit_pro);
-  // DJI_MotorCalculateResultSet(&motor1, &(motor1.postProcessResult));
-  DJI_MotorCalculateResultSet(&motor1, &(motor1.pidOutput0));
+  DJI_MotorPostProcessHandlerSet(&motor1, &powerlimit_pro);
+  DJI_MotorCalculateResultSet(&motor1, &(motor1.postProcessResult));
+//   DJI_MotorCalculateResultSet(&motor1, &(motor1.pidOutput0));
   DJI_MotorListAdd(&group1, &motor1);
 
   DJI_MotorInit(&motor2, 0x204, 0, pid0, NULL);
   DJI_MotorPidSet(&motor2, &(motor2.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor2.realSpeedF),
                   &(motor2.target));
-  // DJI_MotorPostProcessHandlerSet(&motor2, &powerlimit_pro);
-  // DJI_MotorCalculateResultSet(&motor2, &(motor2.postProcessResult));
-  DJI_MotorCalculateResultSet(&motor2, &(motor2.pidOutput0));
+  DJI_MotorPostProcessHandlerSet(&motor2, &powerlimit_pro);
+  DJI_MotorCalculateResultSet(&motor2, &(motor2.postProcessResult));
+//   DJI_MotorCalculateResultSet(&motor2, &(motor2.pidOutput0));
   DJI_MotorListAdd(&group1, &motor2);
 
   DJI_MotorInit(&motor3, 0x202, 0, pid0, NULL);
   DJI_MotorPidSet(&motor3, &(motor3.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor3.realSpeedF),
                   &(motor3.target));
-  // DJI_MotorPostProcessHandlerSet(&motor3, &powerlimit_pro);
-  // DJI_MotorCalculateResultSet(&motor3, &(motor3.postProcessResult));
-  DJI_MotorCalculateResultSet(&motor3, &(motor3.pidOutput0));
+  DJI_MotorPostProcessHandlerSet(&motor3, &powerlimit_pro);
+  DJI_MotorCalculateResultSet(&motor3, &(motor3.postProcessResult));
+//   DJI_MotorCalculateResultSet(&motor3, &(motor3.pidOutput0));
   DJI_MotorListAdd(&group1, &motor3);
 
   DJI_MotorInit(&motor4, 0x201, 0, pid0, NULL);
   DJI_MotorPidSet(&motor4, &(motor4.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor4.realSpeedF),
                   &(motor4.target));
-  // DJI_MotorPostProcessHandlerSet(&motor4, &powerlimit_pro);
-  // DJI_MotorCalculateResultSet(&motor4, &(motor4.postProcessResult));
-  DJI_MotorCalculateResultSet(&motor4, &(motor4.pidOutput0));
+  DJI_MotorPostProcessHandlerSet(&motor4, &powerlimit_pro);
+  DJI_MotorCalculateResultSet(&motor4, &(motor4.postProcessResult));
+//   DJI_MotorCalculateResultSet(&motor4, &(motor4.pidOutput0));
   DJI_MotorListAdd(&group1, &motor4);
 
 #endif
