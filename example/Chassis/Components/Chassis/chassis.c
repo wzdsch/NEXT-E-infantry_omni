@@ -117,8 +117,7 @@ void chassisFollowRun(chassis* chassis) {
       temp = temp - (4096 * 2);
     }
     // 计算pid
-    chassis->followPidout = PID_calc(&(chassis->followPid1), chassis->gimbalMotor->realSpeedF,
-                                     PID_calc(&(chassis->followPid0), temp, 0));
+    chassis->followPidout = 0;//PID_calc(&(chassis->followPid1), chassis->gimbalMotor->realSpeedF, PID_calc(&(chassis->followPid0), -temp, 0));
   }
 }
 
@@ -187,7 +186,7 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
       DJI_MotorEnable(chassis->chassisMotor3);
       DJI_MotorEnable(chassis->chassisMotor4);
       chassisFollowDisable(chassis);
-      yAngle = ((0 + 1024) / 8192.0f) * 2 * PI;  // 取得y轴与行进方向的夹角，(从yaw电机的编码得出)
+      yAngle = ((angle + 1024) / 8192.0f) * 2 * PI;  // 取得y轴与行进方向的夹角，(从yaw电机的编码得出)
       xAngle = -yAngle;                          // 进而得到x与chassis_x的夹角
       // 根据夹角对速速度向量做坐标系转换
       speed_x = cos(yAngle + PI / 2) * y + cos(xAngle) * x;

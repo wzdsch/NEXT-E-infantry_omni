@@ -1,13 +1,12 @@
 chassis\pid.o: ..\Components\Basic_Control\Pid\pid.c
 chassis\pid.o: ..\Components\Basic_Control\Pid\pid.h
-chassis\pid.o: ../Components/Basic/structs/struct_typedef.h
 chassis\pid.o: ../Core/Inc/main.h
 chassis\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 chassis\pid.o: ../Core/Inc/stm32f4xx_hal_conf.h
 chassis\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
 chassis\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 chassis\pid.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
-chassis\pid.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h
+chassis\pid.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 chassis\pid.o: ../Drivers/CMSIS/Include/core_cm4.h
 chassis\pid.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
 chassis\pid.o: ../Drivers/CMSIS/Include/cmsis_version.h
@@ -34,5 +33,6 @@ chassis\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 chassis\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 chassis\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 chassis\pid.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-chassis\pid.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdio.h
+chassis\pid.o: ../Components/Basic/structs/struct_typedef.h
 chassis\pid.o: ..\Components\Basic_Control\Pid\pidData.h
+chassis\pid.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdio.h

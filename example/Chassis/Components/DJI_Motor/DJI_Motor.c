@@ -72,33 +72,33 @@ void DJI_MotorGroupInit(DJI_MotorGroup *group, CAN_HandleTypeDef *_canHandler, u
     HAL_CAN_ConfigFilter(_canHandler, &sFilterConfig);
   }
 
-  sFilterConfig.FilterActivation = ENABLE;            // 过滤器开启
-  sFilterConfig.FilterMode = CAN_FILTERMODE_IDLIST;   // 列表模式
-  sFilterConfig.FilterScale = CAN_FILTERSCALE_16BIT;  // 16位
-  sFilterConfig.FilterIdHigh = 0x1ff << 5;
-  sFilterConfig.FilterIdLow = 0x200 << 5;
-  sFilterConfig.FilterMaskIdHigh = 0x2ff << 5;
-  sFilterConfig.FilterMaskIdLow = 0x200 << 5;
-  if (_canHandler == &hcan1) {  // 使用can1,过滤器使用0-13
-    sFilterConfig.FilterBank = 4;
-    sFilterConfig.SlaveStartFilterBank = 14;  // 顾名思义，从can使用的过滤器第一个id号,
-                                              // can1过滤器不够用可以改，但相应的can2的会减少
-  }
-  else if (_canHandler == &hcan2) {  // 使用can2，过滤器使用14-27
-    sFilterConfig.FilterBank = 17;
-    sFilterConfig.SlaveStartFilterBank = 14;
-  }
+  // sFilterConfig.FilterActivation = ENABLE;            // 过滤器开启
+  // sFilterConfig.FilterMode = CAN_FILTERMODE_IDLIST;   // 列表模式
+  // sFilterConfig.FilterScale = CAN_FILTERSCALE_16BIT;  // 16位
+  // sFilterConfig.FilterIdHigh = 0x1ff << 5;
+  // sFilterConfig.FilterIdLow = 0x200 << 5;
+  // sFilterConfig.FilterMaskIdHigh = 0x2ff << 5;
+  // sFilterConfig.FilterMaskIdLow = 0x200 << 5;
+  // if (_canHandler == &hcan1) {  // 使用can1,过滤器使用0-13
+  //   sFilterConfig.FilterBank = 4;
+  //   sFilterConfig.SlaveStartFilterBank = 14;  // 顾名思义，从can使用的过滤器第一个id号,
+  //                                             // can1过滤器不够用可以改，但相应的can2的会减少
+  // }
+  // else if (_canHandler == &hcan2) {  // 使用can2，过滤器使用14-27
+  //   sFilterConfig.FilterBank = 17;
+  //   sFilterConfig.SlaveStartFilterBank = 14;
+  // }
 
-  if (_FIFO == CAN_RX_FIFO0) {  // 如果用fifo0,那么在cube里也就是rx0中断
-    sFilterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;
-    group->MSG_PENDING = CAN_IT_RX_FIFO0_MSG_PENDING;
-  }
-  else if (_FIFO == CAN_RX_FIFO1) {  // 如果用fifo1,那么在cube里也就是rx1中断
-    sFilterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO1;
-    group->MSG_PENDING = CAN_IT_RX_FIFO1_MSG_PENDING;
-  }
+  // if (_FIFO == CAN_RX_FIFO0) {  // 如果用fifo0,那么在cube里也就是rx0中断
+  //   sFilterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO0;
+  //   group->MSG_PENDING = CAN_IT_RX_FIFO0_MSG_PENDING;
+  // }
+  // else if (_FIFO == CAN_RX_FIFO1) {  // 如果用fifo1,那么在cube里也就是rx1中断
+  //   sFilterConfig.FilterFIFOAssignment = CAN_FILTER_FIFO1;
+  //   group->MSG_PENDING = CAN_IT_RX_FIFO1_MSG_PENDING;
+  // }
 
-  HAL_CAN_ConfigFilter(_canHandler, &sFilterConfig);
+  // HAL_CAN_ConfigFilter(_canHandler, &sFilterConfig);
   // 开启can中断
   HAL_CAN_ActivateNotification(_canHandler, group->MSG_PENDING);
   HAL_CAN_Start(_canHandler);
@@ -119,6 +119,15 @@ void DJI_MotorGroupInit(DJI_MotorGroup *group, CAN_HandleTypeDef *_canHandler, u
   group->txHandler2ff.DLC = 0x08;
   group->txHandler2ff.StdId = 0x2ff;
 
+  group->txHandler1fe.IDE = CAN_ID_STD;
+  group->txHandler1fe.RTR = CAN_RTR_DATA;
+  group->txHandler1fe.DLC = 0x08;
+  group->txHandler1fe.StdId = 0x1fe;
+
+  group->txHandler2fe.IDE = CAN_ID_STD;
+  group->txHandler2fe.RTR = CAN_RTR_DATA;
+  group->txHandler2fe.DLC = 0x08;
+  group->txHandler2fe.StdId = 0x2fe;
   // 电机注册表初始化
   for (uint8_t i = 0; i < 11; i++) {
     group->list[i] = NULL;
@@ -259,15 +268,26 @@ void DJI_MotorSendData(DJI_MotorGroup *group) {
       // *)CAN_TX_MAILBOX0);
       // HAL_CAN_AddTxMessage(group->canHandler,&(group->txHandler1ff),group->motorTXdata1ff,(uint32_t
       // *)CAN_TX_MAILBOX1);
+#if MG6020ControlMode == 1
+      HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler2fe),
+                           group->motorTXdata2ff,  // 不要在意这里两个都是用的TXdata2ff,懒得改罢了
+                           (uint32_t *)CAN_TX_MAILBOX2);
+#else
       HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler2ff), group->motorTXdata2ff,
                            (uint32_t *)CAN_TX_MAILBOX2);
+#endif
       break;
 
     case 0x010:
       // HAL_CAN_AddTxMessage(group->canHandler,&(group->txHandler200),group->motorTXdata200,(uint32_t
       // *)CAN_TX_MAILBOX0);
+#if MG6020ControlMode == 1
+      HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler1fe), group->motorTXdata1ff,
+                           (uint32_t *)CAN_TX_MAILBOX1);
+#else
       HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler1ff), group->motorTXdata1ff,
                            (uint32_t *)CAN_TX_MAILBOX1);
+#endif
       // HAL_CAN_AddTxMessage(group->canHandler,&(group->txHandler2ff),group->motorTXdata2ff,(uint32_t
       // *)CAN_TX_MAILBOX2);
       break;
@@ -275,10 +295,18 @@ void DJI_MotorSendData(DJI_MotorGroup *group) {
     case 0x011:
       // HAL_CAN_AddTxMessage(group->canHandler,&(group->txHandler200),group->motorTXdata200,(uint32_t
       // *)CAN_TX_MAILBOX0);
+
+#if MG6020ControlMode == 1
+      HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler1fe), group->motorTXdata1ff,
+                           (uint32_t *)CAN_TX_MAILBOX1);
+      HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler2fe), group->motorTXdata2ff,
+                           (uint32_t *)CAN_TX_MAILBOX2);
+#else
       HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler1ff), group->motorTXdata1ff,
                            (uint32_t *)CAN_TX_MAILBOX1);
       HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler2ff), group->motorTXdata2ff,
                            (uint32_t *)CAN_TX_MAILBOX2);
+#endif
       break;
 
     case 0x100:
@@ -293,17 +321,27 @@ void DJI_MotorSendData(DJI_MotorGroup *group) {
     case 0x101:
       HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler200), group->motorTXdata200,
                            (uint32_t *)CAN_TX_MAILBOX0);
-      // HAL_CAN_AddTxMessage(group->canHandler,&(group->txHandler1ff),group->motorTXdata1ff,(uint32_t
-      // *)CAN_TX_MAILBOX1);
+// HAL_CAN_AddTxMessage(group->canHandler,&(group->txHandler1ff),group->motorTXdata1ff,(uint32_t
+// *)CAN_TX_MAILBOX1);
+#if MG6020ControlMode == 1
+      HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler2fe), group->motorTXdata2ff,
+                           (uint32_t *)CAN_TX_MAILBOX2);
+#else
       HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler2ff), group->motorTXdata2ff,
                            (uint32_t *)CAN_TX_MAILBOX2);
+#endif
       break;
 
     case 0x110:
       HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler200), group->motorTXdata200,
                            (uint32_t *)CAN_TX_MAILBOX0);
+#if MG6020ControlMode == 1
+      HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler1fe), group->motorTXdata1ff,
+                           (uint32_t *)CAN_TX_MAILBOX1);
+#else
       HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler1ff), group->motorTXdata1ff,
                            (uint32_t *)CAN_TX_MAILBOX1);
+#endif
       // HAL_CAN_AddTxMessage(group->canHandler,&(group->txHandler2ff),group->motorTXdata2ff,(uint32_t
       // *)CAN_TX_MAILBOX2);
       break;
@@ -311,10 +349,17 @@ void DJI_MotorSendData(DJI_MotorGroup *group) {
     case 0x111:
       HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler200), group->motorTXdata200,
                            (uint32_t *)CAN_TX_MAILBOX0);
+#if MG6020ControlMode == 1
+      HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler1fe), group->motorTXdata1ff,
+                           (uint32_t *)CAN_TX_MAILBOX1);
+      HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler2fe), group->motorTXdata2ff,
+                           (uint32_t *)CAN_TX_MAILBOX2);
+#else
       HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler1ff), group->motorTXdata1ff,
                            (uint32_t *)CAN_TX_MAILBOX1);
       HAL_CAN_AddTxMessage(group->canHandler, &(group->txHandler2ff), group->motorTXdata2ff,
                            (uint32_t *)CAN_TX_MAILBOX2);
+#endif
       break;
   }
 }

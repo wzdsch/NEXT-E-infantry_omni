@@ -65,15 +65,15 @@
 #define YAW_Angle_PID_MAX_IOUT 100.0f
 */
 // yaw速度环
-#define YAW_Speed_PID_KP       10000.0f
+#define YAW_Speed_PID_KP       2000.0f
 #define YAW_Speed_PID_KI       0.1f
 #define YAW_Speed_PID_KD       0.0f
-#define YAW_Speed_PID_MAX_OUT  30000.0f
-#define YAW_Speed_PID_MAX_IOUT 30000.0f
+#define YAW_Speed_PID_MAX_OUT  15000.0f
+#define YAW_Speed_PID_MAX_IOUT 5000.0f
 // yaw角度环
-#define YAW_Angle_PID_KP       0.3f
-#define YAW_Angle_PID_KI       0.0001f
-#define YAW_Angle_PID_KD       0.01f
+#define YAW_Angle_PID_KP       0.2f
+#define YAW_Angle_PID_KI       0.0f
+#define YAW_Angle_PID_KD       0.0f
 #define YAW_Angle_PID_MAX_OUT  12.0f
 #define YAW_Angle_PID_MAX_IOUT 2.0f
 

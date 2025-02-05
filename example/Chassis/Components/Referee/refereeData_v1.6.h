@@ -28,7 +28,7 @@ typedef enum {
 typedef enum {
   PROGRESS_UNSTART = 0,      // 未开始
   PROGRESS_PREPARE = 1,      // 准备阶段
-  PROGRESS_SELFCHECK = 2,    // 自检阶段
+  PROGRESS_SELFCHECK = 2,    // 自捡阶段
   PROGRESS_5sCOUNTDOWN = 3,  // 5秒倒计时
   PROGRESS_BATTLE = 4,       // 比赛中
   PROGRESS_CALCULATING = 5,  // 比赛结算中

@@ -5,7 +5,7 @@ chassis\main.o: ../Core/Inc/stm32f4xx_hal_conf.h
 chassis\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
 chassis\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 chassis\main.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
-chassis\main.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h
+chassis\main.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 chassis\main.o: ../Drivers/CMSIS/Include/core_cm4.h
 chassis\main.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
 chassis\main.o: ../Drivers/CMSIS/Include/cmsis_version.h
@@ -34,21 +34,25 @@ chassis\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 chassis\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 chassis\main.o: ../Core/Inc/can.h
 chassis\main.o: ../Core/Inc/dma.h
-chassis\main.o: ../Core/Inc/gpio.h
 chassis\main.o: ../Core/Inc/tim.h
 chassis\main.o: ../Core/Inc/usart.h
+chassis\main.o: ../Core/Inc/gpio.h
 chassis\main.o: ../Components/DJI_Motor/DJI_Motor.h
 chassis\main.o: ../Components/Basic_Control/Pid/pid.h
 chassis\main.o: ../Components/Basic/structs/struct_typedef.h
 chassis\main.o: ../Components/MCUConnect/MCUConnect.h
 chassis\main.o: ../Components/MCUConnect/MCUConnectStructs.h
+chassis\main.o: ../Components/RemoteControl/RC_task.h
+chassis\main.o: ../Components/RemoteControl/app_et07.h
 chassis\main.o: ../Components/Basic/Tools/Tools.h
 chassis\main.o: ../Components/DJI_Motor/addOns.h
+chassis\main.o: ../Components/RemoteControl/bsp_wbus.h
 chassis\main.o: ../Components/Chassis/chassis.h
 chassis\main.o: ../Components/Basic_Control/Pid/pid.h
 chassis\main.o: ../Components/Basic_Control/Pid/pidData.h
 chassis\main.o: ../Components/Referee/referee.h
-chassis\main.o: ../Components/RemoteControl/remote_control.h
+chassis\main.o: ../Components/Referee/refereeData_v1.6.h
+chassis\main.o: ../Components/Referee/protocol.h
 chassis\main.o: ../Components/UI/ui.h
 chassis\main.o: ../Components/UI/ui_interface.h
 chassis\main.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdio.h

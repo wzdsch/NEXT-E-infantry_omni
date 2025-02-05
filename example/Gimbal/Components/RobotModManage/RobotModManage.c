@@ -83,10 +83,10 @@ void remote_controller() {
 	
 
 			if (RC_Data.ET07_DATA.RightDirection_CH2 > 1124) {  // 遥控抬头
-				GimbalControlData.pitchAngle -= OneStep;
+				GimbalControlData.pitchAngle += OneStep;
 			}
 			if (RC_Data.ET07_DATA.RightDirection_CH2 < 924) {
-				GimbalControlData.pitchAngle += OneStep;
+				GimbalControlData.pitchAngle -= OneStep;
 			}
 	}
 

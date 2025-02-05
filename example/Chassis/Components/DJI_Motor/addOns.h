@@ -9,9 +9,10 @@ fp32 ecdZeroCrossing(DJI_Motor *motor);
 fp32 chassisFollowZeroCrossing(DJI_Motor *motor);
 fp32 powerlimit(DJI_Motor *motor);
 fp32 powerlimit_pro(DJI_Motor *motor);
+fp32 powerlimit_pro_helm(DJI_Motor *motor);
 fp32 IMUecdZeroCrossing(DJI_Motor *motor);
 fp32 LADRCtest(DJI_Motor *motor);
 
 fp32 LADRC_YawControl(DJI_Motor *motor);
-
+extern fp32 super_cup_energy;
 #endif

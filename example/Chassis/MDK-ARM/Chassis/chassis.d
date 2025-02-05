@@ -1,5 +1,5 @@
-chassis\chassis.o: ..\Components\chassis\chassis.c
-chassis\chassis.o: ..\Components\chassis\chassis.h
+chassis\chassis.o: ..\Components\Chassis\chassis.c
+chassis\chassis.o: ..\Components\Chassis\chassis.h
 chassis\chassis.o: ../Components/DJI_Motor/DJI_Motor.h
 chassis\chassis.o: ../Core/Inc/can.h
 chassis\chassis.o: ../Core/Inc/main.h
@@ -8,7 +8,7 @@ chassis\chassis.o: ../Core/Inc/stm32f4xx_hal_conf.h
 chassis\chassis.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
 chassis\chassis.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 chassis\chassis.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
-chassis\chassis.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h
+chassis\chassis.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 chassis\chassis.o: ../Drivers/CMSIS/Include/core_cm4.h
 chassis\chassis.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
 chassis\chassis.o: ../Drivers/CMSIS/Include/cmsis_version.h

@@ -1,14 +1,14 @@
-chassis\remote_control.o: ..\Components\remoteControl\remote_control.c
-chassis\remote_control.o: ..\Components\remoteControl\remote_control.h
-chassis\remote_control.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
+chassis\remote_control.o: ..\Components\RemoteControl\remote_control.c
+chassis\remote_control.o: ..\Components\RemoteControl\remote_control.h
 chassis\remote_control.o: ../Core/Inc/main.h
 chassis\remote_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 chassis\remote_control.o: ../Core/Inc/stm32f4xx_hal_conf.h
 chassis\remote_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
 chassis\remote_control.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 chassis\remote_control.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
-chassis\remote_control.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h
+chassis\remote_control.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 chassis\remote_control.o: ../Drivers/CMSIS/Include/core_cm4.h
+chassis\remote_control.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
 chassis\remote_control.o: ../Drivers/CMSIS/Include/cmsis_version.h
 chassis\remote_control.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 chassis\remote_control.o: ../Drivers/CMSIS/Include/cmsis_armcc.h

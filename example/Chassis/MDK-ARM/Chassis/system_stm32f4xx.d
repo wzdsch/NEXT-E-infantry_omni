@@ -1,6 +1,6 @@
 chassis\system_stm32f4xx.o: ../Core/Src/system_stm32f4xx.c
 chassis\system_stm32f4xx.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
-chassis\system_stm32f4xx.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h
+chassis\system_stm32f4xx.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 chassis\system_stm32f4xx.o: ../Drivers/CMSIS/Include/core_cm4.h
 chassis\system_stm32f4xx.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
 chassis\system_stm32f4xx.o: ../Drivers/CMSIS/Include/cmsis_version.h

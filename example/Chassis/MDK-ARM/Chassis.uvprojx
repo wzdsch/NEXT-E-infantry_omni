@@ -10,16 +10,15 @@
       <TargetName>Chassis</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
-      <pArmCC>5060750::V5.06 update 6 (build 750)::.\ARMCC</pArmCC>
       <pCCUsed>5060750::V5.06 update 6 (build 750)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
-          <Device>STM32F427IIHx</Device>
+          <Device>STM32F407IGHx</Device>
           <Vendor>STMicroelectronics</Vendor>
           <PackID>Keil.STM32F4xx_DFP.2.17.1</PackID>
           <PackURL>https://www.keil.com/pack/</PackURL>
-          <Cpu>IRAM(0x20000000-0x2002FFFF) IRAM2(0x10000000-0x1000FFFF) IROM(0x8000000-0x81FFFFF) CLOCK(25000000) FPU2 CPUTYPE("Cortex-M4") TZ</Cpu>
+          <Cpu>IRAM(0x20000000-0x2001BFFF) IRAM2(0x2001C000-0x2001FFFF) IROM(0x8000000-0x80FFFFF) CLOCK(25000000) FPU2 CPUTYPE("Cortex-M4") TZ</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
           <FlashDriverDll></FlashDriverDll>
@@ -34,7 +33,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>$$Device:STM32F427IIHx$CMSIS\SVD\STM32F427x.svd</SFDFile>
+          <SFDFile>$$Device:STM32F407IGHx$CMSIS\SVD\STM32F40x.svd</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
@@ -138,7 +137,7 @@
             <DriverSelection>4101</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
-          <Flash2>BIN\UL2V8M.DLL</Flash2>
+          <Flash2>BIN\UL2CM3.DLL</Flash2>
           <Flash3></Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
@@ -191,7 +190,7 @@
             <hadIRAM2>1</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
-            <useUlib>1</useUlib>
+            <useUlib>0</useUlib>
             <EndSel>0</EndSel>
             <uLtcg>0</uLtcg>
             <nSecure>0</nSecure>
@@ -248,12 +247,12 @@
               <IRAM>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x30000</Size>
+                <Size>0x1c000</Size>
               </IRAM>
               <IROM>
                 <Type>1</Type>
                 <StartAddress>0x8000000</StartAddress>
-                <Size>0x200000</Size>
+                <Size>0x100000</Size>
               </IROM>
               <XRAM>
                 <Type>0</Type>
@@ -278,7 +277,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x8000000</StartAddress>
-                <Size>0x200000</Size>
+                <Size>0x100000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -303,12 +302,12 @@
               <OCR_RVCT9>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x30000</Size>
+                <Size>0x1c000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
-                <StartAddress>0x10000000</StartAddress>
-                <Size>0x10000</Size>
+                <StartAddress>0x2001c000</StartAddress>
+                <Size>0x4000</Size>
               </OCR_RVCT10>
             </OnChipMemories>
             <RvctStartVector></RvctStartVector>
@@ -339,9 +338,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>USE_HAL_DRIVER,STM32F427xx</Define>
+              <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Components/Basic/CallBacks;../Components/Basic_Control/Pid;../Components/Chassis;../Components/DJI_Motor;../Components/MCUConnect;../Components/Referee;../Components/RemoteControl;../Components/Basic/structs;../Components/Basic/Tools;../Components/UI</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Components/Basic/CallBacks;../Components/Basic/structs;../Components/Basic/Tools;../Components/Basic_Control/Pid;../Components/Basic_Control/LADRC;../Components/Chassis;../Components/DJI_Motor;../Components/MCUConnect;../Components/Referee;../Components/RemoteControl;../Components/SuperCupConnect;../Components/UI</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -386,9 +385,9 @@
           <GroupName>Application/MDK-ARM</GroupName>
           <Files>
             <File>
-              <FileName>startup_stm32f427xx.s</FileName>
+              <FileName>startup_stm32f407xx.s</FileName>
               <FileType>2</FileType>
-              <FilePath>startup_stm32f427xx.s</FilePath>
+              <FilePath>startup_stm32f407xx.s</FilePath>
             </File>
           </Files>
         </Group>
@@ -538,7 +537,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>DJI_Motors</GroupName>
+          <GroupName>DJI_Motor</GroupName>
           <Files>
             <File>
               <FileName>addOns.c</FileName>
@@ -553,12 +552,47 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Basic</GroupName>
+          <Files>
+            <File>
+              <FileName>CallBacks.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\Basic\CallBacks\CallBacks.c</FilePath>
+            </File>
+            <File>
+              <FileName>Tools.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\Basic\Tools\Tools.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>BasicControl</GroupName>
+          <Files>
+            <File>
+              <FileName>pid.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\Basic_Control\Pid\pid.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Chassis</GroupName>
           <Files>
             <File>
               <FileName>chassis.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Components\chassis\chassis.c</FilePath>
+              <FilePath>..\Components\Chassis\chassis.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>MCUConnect</GroupName>
+          <Files>
+            <File>
+              <FileName>MCUConnect.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\MCUConnect\MCUConnect.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -583,47 +617,27 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Remote_Control</GroupName>
+          <GroupName>RemoteControl</GroupName>
           <Files>
+            <File>
+              <FileName>app_et07.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\RemoteControl\app_et07.c</FilePath>
+            </File>
+            <File>
+              <FileName>bsp_wbus.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\RemoteControl\bsp_wbus.c</FilePath>
+            </File>
+            <File>
+              <FileName>RC_task.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\RemoteControl\RC_task.c</FilePath>
+            </File>
             <File>
               <FileName>remote_control.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\Components\remoteControl\remote_control.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Mcu_Connect</GroupName>
-          <Files>
-            <File>
-              <FileName>MCUConnect.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Components\MCUConnect\MCUConnect.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Basic</GroupName>
-          <Files>
-            <File>
-              <FileName>CallBacks.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Components\Basic\CallBacks\CallBacks.c</FilePath>
-            </File>
-            <File>
-              <FileName>Tools.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Components\Basic\Tools\Tools.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>PID</GroupName>
-          <Files>
-            <File>
-              <FileName>pid.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Components\Basic_Control\Pid\pid.c</FilePath>
+              <FilePath>..\Components\RemoteControl\remote_control.c</FilePath>
             </File>
           </Files>
         </Group>

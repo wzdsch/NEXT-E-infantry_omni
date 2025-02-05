@@ -11,7 +11,7 @@ chassis\ui_default_always_1.o: ../Core/Inc/stm32f4xx_hal_conf.h
 chassis\ui_default_always_1.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
 chassis\ui_default_always_1.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 chassis\ui_default_always_1.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
-chassis\ui_default_always_1.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f427xx.h
+chassis\ui_default_always_1.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 chassis\ui_default_always_1.o: ../Drivers/CMSIS/Include/core_cm4.h
 chassis\ui_default_always_1.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
 chassis\ui_default_always_1.o: ../Drivers/CMSIS/Include/cmsis_version.h

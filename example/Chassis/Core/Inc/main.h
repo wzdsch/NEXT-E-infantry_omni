@@ -7,7 +7,7 @@
  ******************************************************************************
  * @attention
  *
- * Copyright (c) 2023 STMicroelectronics.
+ * Copyright (c) 2024 STMicroelectronics.
  * All rights reserved.
  *
  * This software is licensed under terms that can be found in the LICENSE file
@@ -59,7 +59,13 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 
 /* USER CODE BEGIN Private defines */
-#define NEW_ID 0  // 1就是给新车用的ID和底盘跟随值
+#define MG6020ControlMode                                                                                                                   \
+  1 /*6020有两种控制模式，电压控制(标识符为1FF/2FF),以及电流控制(1FE/2FE),目前 \ \ \ \ \ \                                                                                                                                          \
+只有舵轮底盘舵向6020使用电流控制(为的是去做底盘功率限�?)，这个宏定义指在切换HAL_CAN_AddTxMessage()函数 \
+\                                                                                                                                           \
+\ \                                                                                                                                          \
+\ \ \ 发�?�结构体的stdid,是该套代码最为底层的部分�? \ \                                                                                                                                          \
+因此此宏定义旨在起一个提示作�?,1为使用电流控�?(舵轮默认)(2024.10.25,by \ \ Nan)*/
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

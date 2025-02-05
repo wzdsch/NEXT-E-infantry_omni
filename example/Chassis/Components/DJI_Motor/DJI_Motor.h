@@ -15,6 +15,12 @@
 #include "pid.h"
 #include "struct_typedef.h"
 
+#define Current_Control 1  // 判断6020为电流环还是电压环控制，0为电压环
+
+/**
+ * 还是保留下来
+ *
+ */
 enum cycleMode {
   pid0 = 0,  // 仅使用pid0
   pidBoth,   // 串级pid
@@ -78,16 +84,19 @@ typedef struct groupData {
   CAN_HandleTypeDef *canHandler;  // can
   uint16_t txEnFlag;  // 发送端口使能标识，有3位(0x0-0x7)，高有效，每一位按200，1ff，2ff控制使能
   CAN_TxHeaderTypeDef txHandler200;  // id为0x200的发送端口
+  CAN_TxHeaderTypeDef txHandler1fe;  // id为0x1fe的发送端口  6020电流环标识符
+  CAN_TxHeaderTypeDef txHandler2fe;  // id为0x2fe的发送端口
   CAN_TxHeaderTypeDef txHandler1ff;  // id为0x1ff的发送端口
   CAN_TxHeaderTypeDef txHandler2ff;  // id为0x2ff的发送端口
   CAN_RxHeaderTypeDef rxHandler;     // 接收端口
-  uint32_t FIFO;                     // 接收FIFO
+  uint32_t FIFO;                     // 接收FIFO    ac
   uint32_t MSG_PENDING;              // 接收中断标志
   uint8_t motorRXdata[8];            // 接收缓存
   uint8_t motorTXdata1ff[8];         // 发送缓存0x1ff
   uint8_t motorTXdata200[8];         // 发送缓存0x200
   uint8_t motorTXdata2ff[8];         // 发送缓存0x2ff
   DJI_Motor *list[11];               // 电机映射表
+  // 在这里并没有加入0x1fe和0x2fe的发送缓存，因为判断发送缓存是依据的电机ID
 } DJI_MotorGroup;
 
 // 初始化按上下顺序调用
@@ -119,11 +128,8 @@ extern void DJI_MotorSendData(DJI_MotorGroup *group);
 
 extern DJI_MotorGroup group1;
 extern DJI_MotorGroup group2;
-extern DJI_Motor motor1;
 extern DJI_Motor motor2;
-extern DJI_Motor motor3;
 extern DJI_Motor motor4;
-
 extern DJI_Motor motorYaw;
 
 #endif
