@@ -37,6 +37,7 @@ chassis\addons.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 chassis\addons.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 chassis\addons.o: ../Components/Basic_Control/Pid/pid.h
 chassis\addons.o: ../Components/Basic/structs/struct_typedef.h
+chassis\addons.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdlib.h
 chassis\addons.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\math.h
 chassis\addons.o: ../Components/Referee/referee.h
 chassis\addons.o: ../Components/Referee/refereeData_v1.6.h

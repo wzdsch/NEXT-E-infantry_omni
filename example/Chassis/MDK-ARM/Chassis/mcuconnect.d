@@ -37,6 +37,7 @@ chassis\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 chassis\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 chassis\mcuconnect.o: ../Components/Basic_Control/Pid/pid.h
 chassis\mcuconnect.o: ../Components/Basic/structs/struct_typedef.h
+chassis\mcuconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdlib.h
 chassis\mcuconnect.o: ..\Components\MCUConnect\MCUConnectStructs.h
 chassis\mcuconnect.o: ../Components/Basic/Tools/Tools.h
 chassis\mcuconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\math.h

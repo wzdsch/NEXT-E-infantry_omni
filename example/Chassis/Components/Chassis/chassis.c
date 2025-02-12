@@ -157,6 +157,15 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
     angle = angle - chassis->followFlagEcd + 8191;
   }
 
+  // 防止急刹，给速度滤波
+  static fp32 spd_x_buf[10] = {0};
+  static fp32 spd_y_buf[10] = {0};
+  static fp32 spd_z_buf[10] = {0};
+
+  x = filterF(x, spd_x_buf, (int)(sizeof(spd_x_buf) / 4));
+  y = filterF(y, spd_y_buf, (int)(sizeof(spd_y_buf) / 4));
+  z = filterF(x, spd_z_buf, (int)(sizeof(spd_z_buf) / 4));
+
   switch (chassis->mode) {
     case CHASSIS_DISABLE:  // 底盘失能
       DJI_MotorDisable(chassis->chassisMotor1);
@@ -249,4 +258,25 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
       break;
   }
   chassisFollowRun(chassis);  // 底盘跟随pid计算
+}
+
+/// @brief float滤波函数
+/// @param new_data 新数据
+/// @param buf 数据缓存的地址
+/// @param num 缓存区数据个数
+/// @return 
+fp32 filterF(fp32 new_data, fp32* buf, int num)
+{
+  static unsigned char i = 0; // 新数据覆盖到缓存中的位置
+  buf[i] = new_data;
+  i++;
+  i %= num;
+
+  fp32 sum = 0;
+  for (unsigned char j = 0; j < num; j++)
+  {
+    sum += buf[j];
+  }
+
+  return sum / num;
 }

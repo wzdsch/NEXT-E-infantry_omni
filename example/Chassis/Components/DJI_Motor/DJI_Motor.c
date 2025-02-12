@@ -416,17 +416,48 @@ void DJI_MotorPidRUN(DJI_MotorGroup *group) {
  * @param  motor: 电机地址
  */
 void DJI_MotorClassifyMotorData(DJI_MotorGroup *group, DJI_Motor *motor) {
-  motor->realEcd = (group->motorRXdata[0] << 8);
-  motor->realEcd += group->motorRXdata[1];
-  motor->realEcdF = motor->realEcd;
+  if (motor->ID == motorYaw_ID) // 判断yaw轴是否反装，对yaw编码值等数据做处理
+  {
+#ifdef YAW_REVERSE
+    motor->realEcd = (group->motorRXdata[0] << 8);
+    motor->realEcd += group->motorRXdata[1];
+    motor->realEcdF = 8192 - motor->realEcd;
 
-  motor->realSpeed = (group->motorRXdata[2] << 8);
-  motor->realSpeed += group->motorRXdata[3];
-  motor->realSpeedF = motor->realSpeed;
+    motor->realSpeed = (group->motorRXdata[2] << 8);
+    motor->realSpeed += group->motorRXdata[3];
+    motor->realSpeedF = -motor->realSpeed;
 
-  motor->realCurrent = (group->motorRXdata[4] << 8);
-  motor->realCurrent += group->motorRXdata[5];
-  motor->realCurrentF = motor->realCurrent;
+    motor->realCurrent = (group->motorRXdata[4] << 8);
+    motor->realCurrent += group->motorRXdata[5];
+    motor->realCurrentF = -motor->realCurrent;
+#else
+    motor->realEcd = (group->motorRXdata[0] << 8);
+    motor->realEcd += group->motorRXdata[1];
+    motor->realEcdF = motor->realEcd;
+
+    motor->realSpeed = (group->motorRXdata[2] << 8);
+    motor->realSpeed += group->motorRXdata[3];
+    motor->realSpeedF = motor->realSpeed;
+
+    motor->realCurrent = (group->motorRXdata[4] << 8);
+    motor->realCurrent += group->motorRXdata[5];
+    motor->realCurrentF = motor->realCurrent;
+#endif
+  }
+  else
+  {
+    motor->realEcd = (group->motorRXdata[0] << 8);
+    motor->realEcd += group->motorRXdata[1];
+    motor->realEcdF = motor->realEcd;
+
+    motor->realSpeed = (group->motorRXdata[2] << 8);
+    motor->realSpeed += group->motorRXdata[3];
+    motor->realSpeedF = motor->realSpeed;
+
+    motor->realCurrent = (group->motorRXdata[4] << 8);
+    motor->realCurrent += group->motorRXdata[5];
+    motor->realCurrentF = motor->realCurrent;
+  }
 
   motor->temperature = group->motorRXdata[6];
 }

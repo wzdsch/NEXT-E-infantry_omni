@@ -40,6 +40,7 @@ chassis\main.o: ../Core/Inc/gpio.h
 chassis\main.o: ../Components/DJI_Motor/DJI_Motor.h
 chassis\main.o: ../Components/Basic_Control/Pid/pid.h
 chassis\main.o: ../Components/Basic/structs/struct_typedef.h
+chassis\main.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdlib.h
 chassis\main.o: ../Components/MCUConnect/MCUConnect.h
 chassis\main.o: ../Components/MCUConnect/MCUConnectStructs.h
 chassis\main.o: ../Components/RemoteControl/RC_task.h

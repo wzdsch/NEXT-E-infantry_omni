@@ -48,6 +48,7 @@ extern void chassisFollowEnable(chassis *chassis);
 extern void chassisFollowDisable(chassis *chassis);
 extern void followResultSet(chassis *chassis, fp32 *result);
 extern void chassisRun(chassis *chassis, fp32 x, fp32 y, fp32 z, int16_t angle);
+extern fp32 filterF(fp32 new_data, fp32* buf, int num);
 
 extern chassis chassis1;
 
