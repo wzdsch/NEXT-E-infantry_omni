@@ -102,7 +102,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+float yaw_spd = 0;
 /* USER CODE END 0 */
 
 /**
@@ -165,7 +165,7 @@ extern DMA_HandleTypeDef hdma2;
   DJI_MotorPreProcessHandlerSet(&motorYaw, &IMUecdZeroCrossing);
 
   DJI_MotorPidSet(&motorYaw, &(motorYaw.motorPid0), PID_POSITION, YAW_Angle_PID,
-                  &(motorYaw.preProcessResult), &(motorYaw.target));
+				  &(motorYaw.preProcessResult), &(motorYaw.target));
   DJI_MotorPidSet(&motorYaw, &(motorYaw.motorPid1), PID_POSITION, YAW_Speed_PID,
                   (fp32 *)&(BMI088_gimbal.yawSpeed), &(motorYaw.pidOutput0));
   DJI_MotorCalculateResultSet(&motorYaw, &(motorYaw.pidOutput1));
@@ -211,7 +211,7 @@ extern DMA_HandleTypeDef hdma2;
   DJI_MotorListAdd(&group2, &motorfriR);
 
   // DJI_MotorInit(&motorfriL, 0x201, 1, pid0, NULL);  // 起火步兵
-  DJI_MotorInit(&motorfriL, 0x204, 0, pid0, NULL);  // 另外�?台步�?
+  DJI_MotorInit(&motorfriL, 0x202, 0, pid0, NULL);  // 另外�?台步�?
   DJI_MotorPidSet(&motorfriL, &(motorfriL.motorPid0), PID_POSITION, FRI_Speed_PID,
                   &(motorfriL.realSpeedF), &(motorfriL.target));
   DJI_MotorCalculateResultSet(&motorfriL, &(motorfriL.pidOutput0));
@@ -221,7 +221,7 @@ extern DMA_HandleTypeDef hdma2;
   DJI_MotorPidSet(&motor2006, &(motor2006.motorPid0), PID_POSITION, M2006_Speed_PID,
                   &(motor2006.realSpeedF), &(motor2006.target));
   DJI_MotorCalculateResultSet(&motor2006, &(motor2006.pidOutput0));
-  DJI_MotorListAdd(&group2, &motor2006);
+  DJI_MotorListAdd(&group1, &motor2006); // 拨弹在底盘，用can1
 
   /***********************************************************************************************/
   /**************************************云台初始�?************************************************/

@@ -117,7 +117,7 @@ void chassisFollowRun(chassis* chassis) {
       temp = temp - (4096 * 2);
     }
     // 计算pid
-    chassis->followPidout = 0;//PID_calc(&(chassis->followPid1), chassis->gimbalMotor->realSpeedF, PID_calc(&(chassis->followPid0), -temp, 0));
+    chassis->followPidout = PID_calc(&(chassis->followPid1), chassis->gimbalMotor->realSpeedF, PID_calc(&(chassis->followPid0), -temp, 0));
   }
 }
 
@@ -150,21 +150,22 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
   fp32 speed_x = 0;
   fp32 speed_y = 0;
   // 从电机数据得到实际角度
+  angle = 8192 - angle;
   if (angle >= chassis->followFlagEcd) {
     angle = angle - chassis->followFlagEcd;
   }
   else {
-    angle = angle - chassis->followFlagEcd + 8191;
+    angle = angle - chassis->followFlagEcd + 8192;
   }
 
   // 防止急刹，给速度滤波
-  static fp32 spd_x_buf[10] = {0};
-  static fp32 spd_y_buf[10] = {0};
-  static fp32 spd_z_buf[10] = {0};
+  static fp32 spd_x_buf[20] = {0};
+  static fp32 spd_y_buf[20] = {0};
+  static fp32 spd_z_buf[20] = {0};
 
   x = filterF(x, spd_x_buf, (int)(sizeof(spd_x_buf) / 4));
   y = filterF(y, spd_y_buf, (int)(sizeof(spd_y_buf) / 4));
-  z = filterF(x, spd_z_buf, (int)(sizeof(spd_z_buf) / 4));
+  z = filterF(z, spd_z_buf, (int)(sizeof(spd_z_buf) / 4));
 
   switch (chassis->mode) {
     case CHASSIS_DISABLE:  // 底盘失能
@@ -235,6 +236,7 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
       break;
 
     case CHASSIS_TOP:  // 小陀螺（也就是以云台指向为行进y轴正方向，然后加z）
+		z = 3000;
       DJI_MotorEnable(chassis->chassisMotor1);
       DJI_MotorEnable(chassis->chassisMotor2);
       DJI_MotorEnable(chassis->chassisMotor3);

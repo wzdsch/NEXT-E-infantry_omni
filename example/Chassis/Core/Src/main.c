@@ -220,7 +220,7 @@ int main(void)
   // 云台yaw轴电机，这里可以把相关计算放在底盘，这里是为了接收电机数据才创建�??
   DJI_MotorGroupInit(&group2, &hcan1, CAN_RX_FIFO0);  // 电机组初始化
   // 这里flagEcd只能�??0
-  DJI_MotorInit(&motorYaw, 0x207, 0, NULL, NULL);  // 电机初始�? 起火步兵的ID
+  DJI_MotorInit(&motorYaw, motorYaw_ID, 0, NULL, NULL);  // 电机初始�? 起火步兵的ID
   // DJI_MotorInit(&motorYaw, 0x205, 0, NULL, NULL);  // 电机初始�? 另一台步兵的ID
   DJI_MotorListAdd(&group2, &motorYaw);
 
@@ -233,7 +233,7 @@ int main(void)
   chasisFollowINIT(&chassis1, 2079, PID_POSITION, Chassis_Angle_PID, PID_POSITION,
                    Chassis_Speed_PID);  // 底盘跟随初始�?(起火步兵)
 #else
-  chasisFollowINIT(&chassis1, 4687, PID_POSITION, Chassis_Angle_PID, PID_POSITION,
+  chasisFollowINIT(&chassis1, 8100, PID_POSITION, Chassis_Angle_PID, PID_POSITION,
                    Chassis_Speed_PID);  // 底盘跟随初始�?(起火步兵)
 #endif
   followResultSet(&chassis1, &(chassis1.followPidout));  // 底盘跟随结果设置

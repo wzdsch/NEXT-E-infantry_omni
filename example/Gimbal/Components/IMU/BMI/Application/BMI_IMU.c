@@ -95,11 +95,11 @@ void INS_Task(void) {
 
     // 获取最终数据
     INS.IMU->yawAngle = QEKF_INS.Yaw;
-    INS.IMU->pitchAngle = -QEKF_INS.Roll;
+    INS.IMU->pitchAngle = QEKF_INS.Roll;
     INS.IMU->rollAngle = QEKF_INS.Pitch;
     INS.IMU->yawTotalAngle = QEKF_INS.YawTotalAngle;
     INS.IMU->yawSpeed = QEKF_INS.Gyro[2];
-    INS.IMU->pitchSpeed = -QEKF_INS.Gyro[1];
+    INS.IMU->pitchSpeed = QEKF_INS.Gyro[1];
     INS.IMU->rollSpeed = QEKF_INS.Gyro[0];
   }
 

@@ -421,15 +421,15 @@ void DJI_MotorClassifyMotorData(DJI_MotorGroup *group, DJI_Motor *motor) {
 #ifdef YAW_REVERSE
     motor->realEcd = (group->motorRXdata[0] << 8);
     motor->realEcd += group->motorRXdata[1];
-    motor->realEcdF = 8192 - motor->realEcd;
+    motor->realEcdF = motor->realEcd;
 
     motor->realSpeed = (group->motorRXdata[2] << 8);
     motor->realSpeed += group->motorRXdata[3];
-    motor->realSpeedF = -motor->realSpeed;
+    motor->realSpeedF = motor->realSpeed;
 
     motor->realCurrent = (group->motorRXdata[4] << 8);
     motor->realCurrent += group->motorRXdata[5];
-    motor->realCurrentF = -motor->realCurrent;
+    motor->realCurrentF = motor->realCurrent;
 #else
     motor->realEcd = (group->motorRXdata[0] << 8);
     motor->realEcd += group->motorRXdata[1];

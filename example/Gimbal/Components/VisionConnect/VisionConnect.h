@@ -84,6 +84,18 @@ typedef struct VisionDataAll {
   visionTX TXData;
 } VisionConnect;
 
+typedef struct { // 导航结构体
+  uint8_t head; // 0xf5
+  fp32 spd_y;
+  fp32 spd_x;
+  fp32 spd_z;
+} nav_rxd_t;
+
+union nav_rxd_u {
+  nav_rxd_t nav_rxd;
+  uint8_t rx_buf[13];
+};
+
 #pragma pack() // 恢复默认对齐
 
 enum aim_type	// 从视觉接收的 正在自瞄的目标类型

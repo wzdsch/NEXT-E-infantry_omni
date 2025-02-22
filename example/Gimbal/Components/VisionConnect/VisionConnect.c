@@ -5,6 +5,7 @@
 #include "usbd_cdc_if.h"
 
 VisionState visionState;
+union nav_rxd_u nav_rxd;
 
 /**
  * @brief

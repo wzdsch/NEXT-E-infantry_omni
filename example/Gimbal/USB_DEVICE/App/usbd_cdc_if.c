@@ -31,7 +31,7 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-
+extern union nav_rxd_u nav_rxd;
 /* USER CODE END PV */
 
 /** @addtogroup STM32_USB_OTG_DEVICE_LIBRARY
@@ -266,13 +266,22 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   if (Buf[0] == 0Xa5) {  // 视觉USB接收
     for (uint8_t i = 0; i < sizeof(vision1.RXData.VisionRxData); i++) {
       vision1.RXData.Rxdata[i] = Buf[i];
-    }
+    }	
+    vision1.RXData.VisionRxData.PitchAngleTarget *= -1;	// 视觉的pitchAngle是反�?
+    vision1.RXData.VisionRxData.YawAngleTarget -= 180; // 视觉的yaw从0~360 改为 -180~180
+    VisionGetState(&vision1, &visionState);
   }
 
-	vision1.RXData.VisionRxData.PitchAngleTarget *= -1;	// 视觉的pitchAngle是反�?
-	vision1.RXData.VisionRxData.YawAngleTarget -= 180; // 视觉的yaw从0~360 改为 -180~180
-	
-	VisionGetState(&vision1, &visionState);
+  if (Buf[0] == 0xf5) {
+    for (uint8_t i = 0; i < sizeof(nav_rxd.nav_rxd); i++)
+    {
+      nav_rxd.rx_buf[i] = Buf[i];
+    }
+    nav_rxd.nav_rxd.spd_x *= -5000.0f;
+    nav_rxd.nav_rxd.spd_y *= 5000.0f;
+    nav_rxd.nav_rxd.spd_z *= 5000.0f;
+  }
+
 	// code end
   return (USBD_OK);
   /* USER CODE END 6 */
