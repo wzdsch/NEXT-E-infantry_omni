@@ -24,76 +24,139 @@ union VofaDATA Vofa;
 #define Xfactor 100.0f
 #define Yfactor 100.0f
 
+#define DEADBAND 10 // 遥控死区
+
 extern VisionState visionState;
+extern nav_rxd_t nav_rxd;
 /////////////////////////////////////////////////////////////////////////////////////////
 void remote_controller() {
   //  givespeed = RAMP_float(setspeed, givespeed, 1.5);
   //	RC_Data.ET07_DATA.V1_CH9=1807;
-  if (RC_Data.ET07_DATA.LeftTransverse_CH4 > RC_SW_DOWN
-      || RC_Data.ET07_DATA.LeftTransverse_CH4 < RC_SW_UP) {
-    RC_Data.ET07_DATA.LeftTransverse_CH4 = 1024;
+  // if (RC_Data.ET07_DATA.LeftTransverse_CH4 > RC_SW_DOWN
+  //     || RC_Data.ET07_DATA.LeftTransverse_CH4 < RC_SW_UP) {
+  //   RC_Data.ET07_DATA.LeftTransverse_CH4 = 1024;
+  // }
+  // if (RC_Data.ET07_DATA.LeftDirection_CH3 > RC_SW_DOWN
+  //     || RC_Data.ET07_DATA.LeftDirection_CH3 < RC_SW_UP) {
+  //   RC_Data.ET07_DATA.LeftDirection_CH3 = 1024;
+  // }
+  // if (RC_Data.ET07_DATA.RightDirection_CH2 > RC_SW_DOWN
+  //     || RC_Data.ET07_DATA.RightDirection_CH2 < RC_SW_UP) {
+  //   RC_Data.ET07_DATA.RightDirection_CH2 = 1024;
+  // }
+  // if (RC_Data.ET07_DATA.RightTransverse_CH1 > RC_SW_DOWN
+  //     || RC_Data.ET07_DATA.RightTransverse_CH1 < RC_SW_UP) {
+  //   RC_Data.ET07_DATA.RightTransverse_CH1 = 1024;
+  // }
+
+  // 遥控限幅
+  if (RC_Data.ET07_DATA.LeftTransverse_CH4 > RC_SW_DOWN){
+    RC_Data.ET07_DATA.LeftTransverse_CH4 = RC_SW_DOWN;
   }
-  if (RC_Data.ET07_DATA.LeftDirection_CH3 > RC_SW_DOWN
-      || RC_Data.ET07_DATA.LeftDirection_CH3 < RC_SW_UP) {
-    RC_Data.ET07_DATA.LeftDirection_CH3 = 1024;
+  if (RC_Data.ET07_DATA.LeftTransverse_CH4 < RC_SW_UP){
+    RC_Data.ET07_DATA.LeftTransverse_CH4 = RC_SW_UP;
   }
-  if (RC_Data.ET07_DATA.RightDirection_CH2 > RC_SW_DOWN
-      || RC_Data.ET07_DATA.RightDirection_CH2 < RC_SW_UP) {
-    RC_Data.ET07_DATA.RightDirection_CH2 = 1024;
+  
+  if (RC_Data.ET07_DATA.LeftDirection_CH3 > RC_SW_DOWN){
+    RC_Data.ET07_DATA.LeftDirection_CH3 = RC_SW_DOWN;
   }
-  if (RC_Data.ET07_DATA.RightTransverse_CH1 > RC_SW_DOWN
-      || RC_Data.ET07_DATA.RightTransverse_CH1 < RC_SW_UP) {
-    RC_Data.ET07_DATA.RightTransverse_CH1 = 1024;
+  if (RC_Data.ET07_DATA.LeftDirection_CH3 < RC_SW_UP){
+    RC_Data.ET07_DATA.LeftDirection_CH3 = RC_SW_UP;
+  }
+
+  if (RC_Data.ET07_DATA.RightDirection_CH2 > RC_SW_DOWN){
+    RC_Data.ET07_DATA.RightDirection_CH2 = RC_SW_DOWN;
+  }
+  if (RC_Data.ET07_DATA.RightDirection_CH2 < RC_SW_UP){
+    RC_Data.ET07_DATA.RightDirection_CH2 = RC_SW_UP;
+  }
+
+  if (RC_Data.ET07_DATA.RightTransverse_CH1 > RC_SW_DOWN){
+    RC_Data.ET07_DATA.RightTransverse_CH1 = RC_SW_DOWN;
+  }
+  if (RC_Data.ET07_DATA.RightTransverse_CH1 < RC_SW_UP){
+    RC_Data.ET07_DATA.RightTransverse_CH1 = RC_SW_UP;
   }
 
   __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, PWMpulse);  // 舵机位置
 
   if (RC_Data.ET07_DATA.V1_CH9 < 1800
       && RC_Data.ET07_DATA.V1_CH9 >= 240) {  // 如果V1旋钮没有顺时针旋到底，则为遥控器控制
-    if (ChassisControlData.mode == CHASSIS_TOP) {
-      if (RC_Data.ET07_DATA.SD_CH8 == RC_SW_UP) {
-        ChassisControlData.speedz = zSpeed;
-      }
-      else {
-        ChassisControlData.speedz = -zSpeed;
-      }
-    }
-    else {
-      ChassisControlData.speedz = 0;
-    }
 
-    if (RC_Data.ET07_DATA.LeftTransverse_CH4 < 974  // X轴速度
-        || RC_Data.ET07_DATA.LeftTransverse_CH4 > 1074) {
-      ChassisControlData.speedx = (RC_Data.ET07_DATA.LeftTransverse_CH4 - 1024) * 10;
-    }
-    else {
+    if (RC_Data.ET07_DATA.LeftTransverse_CH4 <= (RC_SW_MID + DEADBAND)  // X轴速度
+        && RC_Data.ET07_DATA.LeftTransverse_CH4 >= (RC_SW_MID - DEADBAND)) {
       ChassisControlData.speedx = 0;
     }
-
-    if (RC_Data.ET07_DATA.LeftDirection_CH3 < 974 || RC_Data.ET07_DATA.LeftDirection_CH3 > 1074) {
-      ChassisControlData.speedy = (RC_Data.ET07_DATA.LeftDirection_CH3 - 1024) * 20;  // Y轴速度
-    }
     else {
+      ChassisControlData.speedx = 15 * ((RC_Data.ET07_DATA.LeftTransverse_CH4 > RC_SW_MID) ? \
+        RC_Data.ET07_DATA.LeftTransverse_CH4 - (RC_SW_MID + DEADBAND) : RC_Data.ET07_DATA.LeftTransverse_CH4 - (RC_SW_MID - DEADBAND));
+      if(ChassisControlData.speedx > 8000) {
+        ChassisControlData.speedx = 8000;
+      }
+      if(ChassisControlData.speedx < -8000) {
+        ChassisControlData.speedx = -8000;
+      }
+    }
+
+    if (RC_Data.ET07_DATA.LeftDirection_CH3 <= (RC_SW_MID + DEADBAND)  // y轴速度
+        && RC_Data.ET07_DATA.LeftDirection_CH3 >= (RC_SW_MID - DEADBAND)) {
       ChassisControlData.speedy = 0;
     }
+    else {
+      ChassisControlData.speedy = 15 * ((RC_Data.ET07_DATA.LeftDirection_CH3 > RC_SW_MID) ? \
+        RC_Data.ET07_DATA.LeftDirection_CH3 - (RC_SW_MID + DEADBAND) : RC_Data.ET07_DATA.LeftDirection_CH3 - (RC_SW_MID - DEADBAND));
+      if(ChassisControlData.speedy > 15000) {
+        ChassisControlData.speedy = 15000;
+      }
+      if(ChassisControlData.speedy < -15000) {
+        ChassisControlData.speedy = -15000;
+      }
+    }
+    
+    if (RC_Data.ET07_DATA.SD_CH8 == RC_SW_UP) { // 小陀螺速度逻辑已移至底盘 此处换位更改是否有超电的逻辑 / 导航
+      // ChassisControlData.withSuperCap = 0;
+    }
+    else {
+      // ChassisControlData.withSuperCap = 1;
+      ChassisControlData.speedx = nav_rxd.spd_x;
+      ChassisControlData.speedy = nav_rxd.spd_y;
+      // ChassisControlData.speedz = nav_rxd.spd_z;
+    }
+    
+
 
 	if (GimbalControlData.mode == GIMBAL_YAW_EN || GimbalControlData.mode == GIMBAL_ALL_EN) {
 
-    	GimbalControlData.yawAngle += (RC_Data.ET07_DATA.RightTransverse_CH1 - 1024) * (-0.0009);
+    	// GimbalControlData.yawAngle += (RC_Data.ET07_DATA.RightTransverse_CH1 - 1024) * (-0.0006);
+
+      if (RC_Data.ET07_DATA.RightTransverse_CH1 >= (RC_SW_MID + DEADBAND)) {  // 遥控左右转
+				GimbalControlData.yawAngle += (-0.0006) * \
+          (RC_Data.ET07_DATA.RightTransverse_CH1 - (RC_SW_MID + DEADBAND));
+			}
+			if (RC_Data.ET07_DATA.RightTransverse_CH1 <= (RC_SW_MID - DEADBAND)) {
+				GimbalControlData.yawAngle -= (-0.0006) * \
+          ((RC_SW_MID - DEADBAND) - RC_Data.ET07_DATA.RightTransverse_CH1);
+			}
 	
 
-			if (RC_Data.ET07_DATA.RightDirection_CH2 > 1124) {  // 遥控抬头
-				GimbalControlData.pitchAngle += OneStep;
+			if (RC_Data.ET07_DATA.RightDirection_CH2 >= (RC_SW_MID + DEADBAND)) {  // 遥控抬头低头
+				
+
+				GimbalControlData.pitchAngle += OneStep * \
+          ((fp32)(RC_Data.ET07_DATA.RightDirection_CH2 - (RC_SW_MID + DEADBAND)) / (fp32)(RC_SW_DOWN - (RC_SW_MID + DEADBAND)));
+
+				
 			}
-			if (RC_Data.ET07_DATA.RightDirection_CH2 < 924) {
-				GimbalControlData.pitchAngle -= OneStep;
+			if (RC_Data.ET07_DATA.RightDirection_CH2 <= (RC_SW_MID - DEADBAND)) {
+				GimbalControlData.pitchAngle += OneStep * \
+          ((fp32)((RC_SW_MID - DEADBAND) - RC_Data.ET07_DATA.RightDirection_CH2) / (fp32)((RC_SW_MID - DEADBAND) - RC_SW_DOWN));
 			}
 	}
 
     if (RC_Data.ET07_DATA.SA_CH5 == RC_SW_DOWN && visionState.tracking == 0x01) {  // SA扳机向下开启自瞄
 
-      GimbalControlData.yawAngle = vision1.RXData.VisionRxData.YawAngleTarget;
-      GimbalControlData.pitchAngle =(vision1.RXData.VisionRxData.PitchAngleTarget) * MotorRate;  // 由角度值换算为编码器值
+      // GimbalControlData.yawAngle = vision1.RXData.VisionRxData.YawAngleTarget;
+      // GimbalControlData.pitchAngle = (vision1.RXData.VisionRxData.PitchAngleTarget) * MotorRate;  // 由角度值换算为编码器值
     }
 
     //                        角度幅值限制
@@ -118,13 +181,34 @@ void remote_controller() {
       ChassisControlData.mode = CHASSIS_DISABLE;
       GimbalControlData.mode = GIMBAL_STOP;
     }
-    PWMpulse = 2000;
+    else if (RC_Data.ET07_DATA.SA_CH5 == RC_SW_DOWN)
+    {
+    }
+    else
+    {
+      switch (RC_Data.ET07_DATA.SC_CH7) {  // SC键逻辑
+        case RC_SW_MID:
+          GimbalControlData.mode = GIMBAL_ALL_EN;
+          ChassisControlData.mode = CHASSIS_FOLLOW;
+          break;
+        case RC_SW_DOWN:
+          ChassisControlData.mode = CHASSIS_TOP;
+          GimbalControlData.mode = GIMBAL_ALL_EN;
+          break;
+        default:
+          break;
+      }
+    }
+    
+    // PWMpulse = 2000;
     // switch (RC_Data.ET07_DATA.SD_CH8) {  // SD单独控制弹仓盖
     //   case RC_SW_DOWN:
-
+    //     ChassisControlData.speedx = nav_rxd.spd_x;
+    //     ChassisControlData.speedy = nav_rxd.spd_y;
+    //     // ChassisControlData.speedz = nav_rxd.spd_z; // 暂时用不上z
     //     break;
     //   case RC_SW_UP:
-    //     PWMpulse = 1000;
+    //     // PWMpulse = 1000;
     //     break;
     //   default:
     //     break;
@@ -137,7 +221,12 @@ void remote_controller() {
       GimbalControlData.mode = GIMBAL_ALL_EN;
       switch (RC_Data.ET07_DATA.SB_CH6) {
         case RC_SW_DOWN:
-          shooter1.shooterMode = SHOOTER_FIRE;
+		  if (vision1.RXData.VisionRxData.fireControl == 0xff || RC_Data.ET07_DATA.SA_CH5 == RC_SW_UP) {
+			shooter1.shooterMode = SHOOTER_FIRE;
+		  }
+		  else {
+		    shooter1.shooterMode = SHOOTER_HOLD;
+		  }
           break;
         case RC_SW_UP:
           shooter1.shooterMode = SHOOTER_HOLD;
@@ -147,18 +236,6 @@ void remote_controller() {
       }
     }
 
-    switch (RC_Data.ET07_DATA.SC_CH7) {  // SC键逻辑
-      case RC_SW_MID:
-        GimbalControlData.mode = GIMBAL_ALL_EN;
-        ChassisControlData.mode = CHASSIS_FOLLOW;
-        break;
-      case RC_SW_DOWN:
-        ChassisControlData.mode = CHASSIS_TOP;
-        GimbalControlData.mode = GIMBAL_ALL_EN;
-        break;
-      default:
-        break;
-    }
   }
   else if (RC_Data.ET07_DATA.V1_CH9 >= 1800
            && RC_Data.ET07_DATA.V1_CH9 <= 1810) {  // 如果V1旋钮选到底，则为PC控制，图传链路
@@ -281,8 +358,8 @@ void remote_controller() {
     __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, PWMpulse);  // 舵机位置
   }
   ChassisControlData.AutoAim = vision1.RXData.VisionRxData.fireControl == 1 ? 1 : 0;
-  ChassisControlData.cover =
-    PWMpulse == 1000 ? 0 : 1;  // UI的两个变量赋值，通过chassiscontrol结构体发送
+  // ChassisControlData.cover =
+  //   PWMpulse == 1000 ? 0 : 1;  // UI的两个变量赋值，通过chassiscontrol结构体发送
 #ifdef refereedebug
   PCflags.FreeFlag = 1;
 #endif

@@ -267,8 +267,8 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
     for (uint8_t i = 0; i < sizeof(vision1.RXData.VisionRxData); i++) {
       vision1.RXData.Rxdata[i] = Buf[i];
     }	
-    vision1.RXData.VisionRxData.PitchAngleTarget *= -1;	// 视觉的pitchAngle是反�?
-    vision1.RXData.VisionRxData.YawAngleTarget -= 180; // 视觉的yaw从0~360 改为 -180~180
+    vision1.RXData.VisionRxData.PitchAngleTarget *= -1;	// 视觉的pitchAngle是反�??
+    vision1.RXData.VisionRxData.YawAngleTarget -= 180; // 视觉的yaw�?0~360 改为 -180~180
     VisionGetState(&vision1, &visionState);
   }
 

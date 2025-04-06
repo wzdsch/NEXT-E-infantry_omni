@@ -30,9 +30,9 @@
 #define PITCH_Speed_PID_MAX_OUT  30000.0f
 #define PITCH_Speed_PID_MAX_IOUT 500.0f
 // PITCH角度环
-#define PITCH_Angle_PID_KP       0.9f
-#define PITCH_Angle_PID_KI       0.0002f
-#define PITCH_Angle_PID_KD       -0.01f
+#define PITCH_Angle_PID_KP       2.0f
+#define PITCH_Angle_PID_KI       0.0001f
+#define PITCH_Angle_PID_KD       -1.0f
 #define PITCH_Angle_PID_MAX_OUT  600.0f
 #define PITCH_Angle_PID_MAX_IOUT 0.7f
 
@@ -40,14 +40,14 @@
 #define PITCH_Speed_IMU_PID_KP       3000.0f
 #define PITCH_Speed_IMU_PID_KI       10.0f
 #define PITCH_Speed_IMU_PID_KD       0.0f
-#define PITCH_Speed_IMU_PID_MAX_OUT  30000.0f
+#define PITCH_Speed_IMU_PID_MAX_OUT  10000.0f
 #define PITCH_Speed_IMU_PID_MAX_IOUT 5000.0f
 // PITCH角度环(陀螺仪闭环)
-#define PITCH_Angle_IMU_PID_KP       0.4f
-#define PITCH_Angle_IMU_PID_KI       0.004f
-#define PITCH_Angle_IMU_PID_KD       0.0f
+#define PITCH_Angle_IMU_PID_KP       0.9f
+#define PITCH_Angle_IMU_PID_KI       0.002f
+#define PITCH_Angle_IMU_PID_KD       0.01f
 #define PITCH_Angle_IMU_PID_MAX_OUT  600.0f
-#define PITCH_Angle_IMU_PID_MAX_IOUT 0.5f
+#define PITCH_Angle_IMU_PID_MAX_IOUT 200.0f
 
 /*
 //串口陀螺仪参数
@@ -65,17 +65,17 @@
 #define YAW_Angle_PID_MAX_IOUT 100.0f
 */
 // yaw速度环
-#define YAW_Speed_PID_KP       1200.0f
-#define YAW_Speed_PID_KI       0.1f
-#define YAW_Speed_PID_KD       0.0f
-#define YAW_Speed_PID_MAX_OUT  10000.0f
-#define YAW_Speed_PID_MAX_IOUT 5000.0f
+#define YAW_Speed_PID_KP 200.0f
+#define YAW_Speed_PID_KI 2.0f
+#define YAW_Speed_PID_KD 0.0f
+#define YAW_Speed_PID_MAX_OUT 15000.0f
+#define YAW_Speed_PID_MAX_IOUT 8000.0f
 // yaw角度环
-#define YAW_Angle_PID_KP       -0.8f
-#define YAW_Angle_PID_KI       -0.01f
-#define YAW_Angle_PID_KD       -5.0f
-#define YAW_Angle_PID_MAX_OUT  12.0f
-#define YAW_Angle_PID_MAX_IOUT 2.0f
+#define YAW_Angle_PID_KP -10.0f
+#define YAW_Angle_PID_KI -0.002f
+#define YAW_Angle_PID_KD -310.0f
+#define YAW_Angle_PID_MAX_OUT 100.0f
+#define YAW_Angle_PID_MAX_IOUT 20.0f
 
 // 摩擦轮速度环
 #define FRI_Speed_PID_KP       20.0f
@@ -86,7 +86,7 @@
 
 // 2006速度环
 #define M2006_Speed_PID_KP       5.0f
-#define M2006_Speed_PID_KI       0.0f
+#define M2006_Speed_PID_KI       0.01f
 #define M2006_Speed_PID_KD       0.1f
 #define M2006_Speed_PID_MAX_OUT  16384.0f
 #define M2006_Speed_PID_MAX_IOUT 1000.0f

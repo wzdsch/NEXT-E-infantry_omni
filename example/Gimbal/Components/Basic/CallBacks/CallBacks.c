@@ -22,8 +22,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     BMI088_RUN(&BMI088_gimbal);
   }
   if (htim == &htim8) {  // VOFA+调试200HZ
-    JustFloat(GimbalControlData.yawAngle, BMI088_gimbal.yawAngle,\
-	  motorYaw.pidOutput0, motorYaw.realSpeedF, &huart1);
+	  // JustFloat(GimbalControlData.yawAngle, BMI088_gimbal.yawAngle < 0 ? BMI088_gimbal.yawAngle + 360.0f : BMI088_gimbal.yawAngle,\
+	  // motorYaw.pidOutput0, motorYaw.realSpeedF, &huart1); // yaw
+    JustFloat(GimbalControlData.pitchAngle, BMI088_gimbal.pitchAngle,\
+      motorPitch.pidOutput0, motorPitch.realSpeedF, &huart1); // pitch
 	  // angle_set  angle_ref spd_set  spd_ref
   }
   if (htim == &htim9) {
@@ -55,8 +57,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     DJI_MotorSendData(gimbal1.gimbalGroup);
   }
   if (htim == &htim14) {  // 发射机构任务2ms@500Hz
-    // DJI_MotorPidRUN(shooter1.shooterGroup);
-    // DJI_MotorSendData(shooter1.shooterGroup);
+    DJI_MotorPidRUN(shooter1.shooterGroup);
+    DJI_MotorSendData(shooter1.shooterGroup);
   }
 }
 

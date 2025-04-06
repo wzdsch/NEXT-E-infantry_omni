@@ -13,7 +13,7 @@
 
 #define pitchAngleMax 15
 #define pitchAngleMin -15
-#define OneStep       0.08f
+#define OneStep       0.16f
 #define MotorRate     1.0f  // 主要是pitch编码器闭环下需要用这个角度到编码器值的换算倍数
 #define GetAngle      IMUToAngle
 

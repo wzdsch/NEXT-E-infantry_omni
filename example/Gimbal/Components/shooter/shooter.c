@@ -20,7 +20,7 @@ void shooterINIT(shooter *shooter, DJI_MotorGroup *group, DJI_Motor *friL, DJI_M
 }
 
 void shooterStuckProcess(shooter *shooter) {
-  if (shooter->gunHeat <= (shooter->maxHeat) - (4 * (shooter->heatPerShoot))) {
+  if (/*shooter->gunHeat <= (shooter->maxHeat) - (4 * (shooter->heatPerShoot))*/ 1) {
     if (shooter->supplierMode == SUPPLIER_RUN) {  // 正常模式下
       DJI_MotorSetTarget(shooter->supplierMotor, shooter->shootFreq);
       if (shooter->startDelay < startDelayLimit) {  // 如果电机还在启动阶段
@@ -40,7 +40,7 @@ void shooterStuckProcess(shooter *shooter) {
     }
     else if (shooter->supplierMode == SUPPLIER_ERROR) {           // 如果堵转了
       if (shooter->stuckProcessCount < stuckProcessCountLimit) {  // 还在堵转处理中
-        DJI_MotorSetTarget(shooter->supplierMotor, -(shooter->shootFreq));
+        DJI_MotorSetTarget(shooter->supplierMotor, -5000/*(shooter->shootFreq)*/);
         shooter->stuckProcessCount++;
       }
       else {  // 堵转处理完成
@@ -91,8 +91,8 @@ void shooterRun(shooter *shooter) {
       DJI_MotorEnable(shooter->supplierMotor);
       DJI_MotorSetTarget(shooter->friLmotor, shooter->friSpeed);
       DJI_MotorSetTarget(shooter->friRmotor, shooter->friSpeed);
+      // DJI_MotorSetTarget(shooter->supplierMotor, shooter->shootFreq);
       shooterStuckProcess(shooter);
-      DJI_MotorSetTarget(shooter->supplierMotor, shooter->shootFreq);
       break;
 
     case SHOOTER_DBUG:

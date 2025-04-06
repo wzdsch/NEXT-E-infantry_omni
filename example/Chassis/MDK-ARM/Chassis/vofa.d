@@ -1,0 +1,37 @@
+chassis\vofa.o: ..\Components\Vofa\Vofa.c
+chassis\vofa.o: ..\Components\Vofa\Vofa.h
+chassis\vofa.o: ../Core/Inc/usart.h
+chassis\vofa.o: ../Core/Inc/main.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
+chassis\vofa.o: ../Core/Inc/stm32f4xx_hal_conf.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
+chassis\vofa.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
+chassis\vofa.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
+chassis\vofa.o: ../Drivers/CMSIS/Include/core_cm4.h
+chassis\vofa.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
+chassis\vofa.o: ../Drivers/CMSIS/Include/cmsis_version.h
+chassis\vofa.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
+chassis\vofa.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
+chassis\vofa.o: ../Drivers/CMSIS/Include/mpu_armv7.h
+chassis\vofa.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
+chassis\vofa.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stddef.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_exti.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_dma_ex.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_cortex.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_can.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ex.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_flash_ramfunc.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
+chassis\vofa.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
+chassis\vofa.o: ../Components/Basic/structs/struct_typedef.h

@@ -233,7 +233,7 @@ int main(void)
   chasisFollowINIT(&chassis1, 2079, PID_POSITION, Chassis_Angle_PID, PID_POSITION,
                    Chassis_Speed_PID);  // 底盘跟随初始�?(起火步兵)
 #else
-  chasisFollowINIT(&chassis1, 8100, PID_POSITION, Chassis_Angle_PID, PID_POSITION,
+  chasisFollowINIT(&chassis1, 577, PID_POSITION, Chassis_Angle_PID, PID_POSITION,
                    Chassis_Speed_PID);  // 底盘跟随初始�?(起火步兵)
 #endif
   followResultSet(&chassis1, &(chassis1.followPidout));  // 底盘跟随结果设置

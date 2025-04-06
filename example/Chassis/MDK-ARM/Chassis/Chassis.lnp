@@ -49,6 +49,7 @@
 "chassis\ui_default_vision_0.o"
 "chassis\ui_draw.o"
 "chassis\ui_interface.o"
+"chassis\vofa.o"
 --strict --scatter "Chassis\Chassis.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

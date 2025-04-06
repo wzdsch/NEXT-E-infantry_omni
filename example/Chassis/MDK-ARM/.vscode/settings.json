@@ -14,6 +14,8 @@
     "functional": "c",
     "string_view": "c",
     "random": "c",
-    "main.h": "c"
+    "main.h": "c",
+    "stdio.h": "c",
+    "struct_typedef.h": "c"
   }
 }

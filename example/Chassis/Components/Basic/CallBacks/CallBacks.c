@@ -10,6 +10,7 @@
 #include "refereeData_v1.6.h"
 #include "struct_typedef.h"
 #include "ui.h"
+#include "vofa.h"
 
 // #include "remote_control.h"
 
@@ -17,7 +18,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &htim10) {  // UI发送100ms@10Hz
     UI_Refresh();
     uint16_t powerlimit = robot_state.chassis_power_limit;
-    HAL_UART_Transmit_DMA(&huart1, (uint8_t *)&powerlimit, sizeof(powerlimit));
+//    HAL_UART_Transmit_DMA(&huart1, (uint8_t *)&powerlimit, sizeof(powerlimit));
+	  JustFloat(chassis1.chassisMotor1->realSpeedF, chassis1.chassisMotor2->realSpeedF, chassis1.chassisMotor3->realSpeedF, chassis1.chassisMotor4->realSpeedF, &huart1);
   }
   if (htim == &htim11) {  // 底盘pid计算与发送1ms@1000Hz
 //    DJI_MotorPidRUN(chassis1.group);

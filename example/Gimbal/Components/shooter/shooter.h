@@ -4,14 +4,14 @@
 
 #define stuckProcessCountLimit 50    // 卡弹处理时间
 #define startDelayLimit        100   // 电机启动时间
-#define stuckCountLimit        100   // 卡弹处理触发时间
+#define stuckCountLimit        50   // 卡弹处理触发时间
 #define stuckPersent           0.3f  // 卡弹处理阈值
 
 #define shooterSpeed 7000.0f
-#define shooterFreq  19.0f * 270.0f  // num.0f @hz * 270.0f
+#define shooterFreq  27.0f * 540.0f  // num.0f @hz * 540.0f
 
 enum shooter_Mode {
-  SHOOTER_STOP = 0,    // 所有电机停转
+  SHOOTER_STOP = 0,    // 所有电机停转5
   SHOOTER_HOLD = 1,    // 只开摩擦轮
   SHOOTER_FIRE = 2,    // 所有电机运转
   SHOOTER_DBUG = 3,    // 摩擦轮停转，拨弹轮旋转

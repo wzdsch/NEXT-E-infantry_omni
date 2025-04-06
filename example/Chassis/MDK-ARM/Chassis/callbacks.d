@@ -59,3 +59,4 @@ chassis\callbacks.o: ../Components/UI/ui_default_always_3.h
 chassis\callbacks.o: ../Components/UI/ui_default_Vision_0.h
 chassis\callbacks.o: ../Components/UI/ui_default_Chassis_0.h
 chassis\callbacks.o: ../Components/UI/ui_default_Cover_0.h
+chassis\callbacks.o: ..\Components\Vofa\vofa.h
