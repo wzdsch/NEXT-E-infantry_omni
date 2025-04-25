@@ -15,6 +15,7 @@
 extern UART_HandleTypeDef huart6;
 extern DMA_HandleTypeDef hdma_usart6_rx;
 extern DMA_HandleTypeDef hdma_usart6_tx;
+extern uint8_t referee_rx_flg;
 
 uint8_t usart_buf[2][USART_RX_BUF_LENGHT];
 fifo_s_t referee_fifo;
@@ -303,6 +304,7 @@ void referee_unpack_fifo_data(void) {
  * @brief  �жϴ������������ж��е���
  */
 void refereeReceiveHandler(void) {
+  referee_rx_flg = 1;
   static volatile uint8_t res;
   if (USART6->SR & UART_FLAG_IDLE) {
     __HAL_UART_CLEAR_PEFLAG(&huart6);

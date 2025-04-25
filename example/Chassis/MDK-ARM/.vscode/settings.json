@@ -1,5 +1,8 @@
 {
   "files.associations": {
+    "*.sqlbook": "sql",
+    "*.ndjson": "jsonl",
+    "*.dbclient-js": "javascript",
     "referee.h": "c",
     "cmath": "c",
     "*.tcc": "c",
@@ -16,6 +19,8 @@
     "random": "c",
     "main.h": "c",
     "stdio.h": "c",
-    "struct_typedef.h": "c"
+    "struct_typedef.h": "c",
+    "chassis.h": "c",
+    "supercap.h": "c"
   }
 }

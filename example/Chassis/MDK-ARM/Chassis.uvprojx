@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Components/Basic/CallBacks;../Components/Basic/structs;../Components/Basic/Tools;../Components/Basic_Control/Pid;../Components/Basic_Control/LADRC;../Components/Chassis;../Components/DJI_Motor;../Components/MCUConnect;../Components/Referee;../Components/RemoteControl;../Components/SuperCupConnect;../Components/UI;..\Components\Vofa</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../Components/Basic/CallBacks;../Components/Basic/structs;../Components/Basic/Tools;../Components/Basic_Control/Pid;../Components/Basic_Control/LADRC;../Components/Chassis;../Components/DJI_Motor;../Components/MCUConnect;../Components/Referee;../Components/RemoteControl;..\Components\SuperCap;../Components/UI;..\Components\Vofa</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -689,6 +689,16 @@
               <FileName>ui_interface.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Components\UI\ui_interface.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>SuperCap</GroupName>
+          <Files>
+            <File>
+              <FileName>SuperCap.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Components\SuperCap\SuperCap.c</FilePath>
             </File>
           </Files>
         </Group>

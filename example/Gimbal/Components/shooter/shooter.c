@@ -20,7 +20,7 @@ void shooterINIT(shooter *shooter, DJI_MotorGroup *group, DJI_Motor *friL, DJI_M
 }
 
 void shooterStuckProcess(shooter *shooter) {
-  if (/*shooter->gunHeat <= (shooter->maxHeat) - (4 * (shooter->heatPerShoot))*/ 1) {
+  if (shooter->gunHeat <= (shooter->maxHeat) - (4 * (shooter->heatPerShoot))) {
     if (shooter->supplierMode == SUPPLIER_RUN) {  // 正常模式下
       DJI_MotorSetTarget(shooter->supplierMotor, shooter->shootFreq);
       if (shooter->startDelay < startDelayLimit) {  // 如果电机还在启动阶段

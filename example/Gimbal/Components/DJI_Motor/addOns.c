@@ -264,3 +264,8 @@ fp32 powerlimit_pro(DJI_Motor *motor) {
 fp32 example(DJI_Motor *motor) {
   return motor->pidOutput0 / 2;
 }
+fp32 negative(DJI_Motor *motor){
+	return  -motor->pidOutput1;
+}
+
+

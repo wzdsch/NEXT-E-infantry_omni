@@ -11,6 +11,8 @@
  */
 #include "chassis.h"
 
+#include <stdlib.h>
+
 #include "DJI_Motor.h"
 #include "MCUConnect.h"
 #include "Tools.h"
@@ -19,7 +21,9 @@
 #include "pidData.h"
 #include "remote_control.h"
 
-fp32 freeSpeed_z = 5000.0f;
+fp32 ave_spd_z = 0;
+int top_spd_z = 5000;
+fp32 correction_rate = 0.09f;
 
 /**
  * @brief  底盘结构体初始化
@@ -107,7 +111,7 @@ void chassisFollowRun(chassis* chassis) {
       temp = (chassis->gimbalMotor->realEcd) - (chassis->followFlagEcd);
     }
     else {
-      temp = (chassis->gimbalMotor->realEcd) - (chassis->followFlagEcd) + 8191;
+      temp = (chassis->gimbalMotor->realEcd) - (chassis->followFlagEcd) + 8192;
     }
     // 过零处理
     if (0 - temp > 4096) {
@@ -116,11 +120,6 @@ void chassisFollowRun(chassis* chassis) {
     else if (0 - temp <= -4096) {
       temp = temp - (4096 * 2);
     }
-    // // 设置死区
-    // if (temp < 50 && temp > -50)
-    // {
-    //   temp = 0;
-    // }
     // 计算pid
     chassis->followPidout = PID_calc(&(chassis->followPid1), chassis->gimbalMotor->realSpeedF, PID_calc(&(chassis->followPid0), -temp, 0));
   }
@@ -164,16 +163,16 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
   }
   angle = 8192 - angle;
 
-  fp32 spd_adj = 1; // 防止速度超过8000的缩放
+  fp32 spd_adj = 1; // 防止速度超过SPEED_LIMIT的缩放
   fp32 max_spd = 0;
 
   // 防止急刹，给速度滤波
   static fp32 spd_x_buf[20] = {0};
   static fp32 spd_y_buf[20] = {0};
   static fp32 spd_z_buf[20] = {0};
-  x = filterF(x, spd_x_buf, (int)(sizeof(spd_x_buf) / 4));
-  y = filterF(y, spd_y_buf, (int)(sizeof(spd_y_buf) / 4));
-  z = filterF(z, spd_z_buf, (int)(sizeof(spd_z_buf) / 4));
+  x = filterF(x, spd_x_buf, 20);
+  y = filterF(y, spd_y_buf, 20);
+  z = filterF(z, spd_z_buf, 20);
 
   switch (chassis->mode) {
     case CHASSIS_DISABLE:  // 底盘失能
@@ -220,9 +219,9 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
       max_spd = max_spd > speed1 ? max_spd : speed1;
       max_spd = max_spd > speed2 ? max_spd : speed2;
       max_spd = max_spd > speed3 ? max_spd : speed3;
-      if(max_spd > 8000)
+      if(fabs(max_spd) > SPEED_LIMIT)
       {
-        spd_adj = max_spd / 8000.0f;
+        spd_adj = max_spd / SPEED_LIMIT;
         speed0 *= spd_adj;
         speed1 *= spd_adj;
         speed2 *= spd_adj;
@@ -248,68 +247,72 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
       speed_x = cos(yAngle + PI / 2) * y + cos(xAngle) * x;
       speed_y = cos(xAngle + PI / 2) * x + cos(yAngle) * y;
       // 把转换好的速度发给各电机
-      speed0 = speed_x;
-      speed1 = speed_y;
-      speed2 = -speed_x;
-      speed3 = -speed_y;
+      speed0 = speed_x + *(chassis->follwoResult);
+      speed1 = speed_y + *(chassis->follwoResult);
+      speed2 = -speed_x + *(chassis->follwoResult);
+      speed3 = -speed_y + *(chassis->follwoResult);
 
       // 速度缩放
       max_spd = max_spd > speed0 ? max_spd : speed0;
       max_spd = max_spd > speed1 ? max_spd : speed1;
       max_spd = max_spd > speed2 ? max_spd : speed2;
       max_spd = max_spd > speed3 ? max_spd : speed3;
-      if(max_spd > 8000)
+      if(fabs(max_spd) > SPEED_LIMIT)
       {
-        spd_adj = 8000.0f / max_spd;
+        spd_adj = SPEED_LIMIT / max_spd;
         speed0 *= spd_adj;
         speed1 *= spd_adj;
         speed2 *= spd_adj;
         speed3 *= spd_adj;
       }
 
-      DJI_MotorSetTarget((chassis->chassisMotor1), speed0 + *(chassis->follwoResult));
-      DJI_MotorSetTarget((chassis->chassisMotor2), speed1 + *(chassis->follwoResult));
-      DJI_MotorSetTarget((chassis->chassisMotor3), speed2 + *(chassis->follwoResult));
-      DJI_MotorSetTarget((chassis->chassisMotor4), speed3 + *(chassis->follwoResult));
+      DJI_MotorSetTarget((chassis->chassisMotor1), speed0);
+      DJI_MotorSetTarget((chassis->chassisMotor2), speed1);
+      DJI_MotorSetTarget((chassis->chassisMotor3), speed2);
+      DJI_MotorSetTarget((chassis->chassisMotor4), speed3);
       break;
 
     case CHASSIS_TOP:  // 小陀螺（也就是以云台指向为行进y轴正方向，然后加z）
-		z = 3000;
+		z = top_spd_z;
       DJI_MotorEnable(chassis->chassisMotor1);
       DJI_MotorEnable(chassis->chassisMotor2);
       DJI_MotorEnable(chassis->chassisMotor3);
       DJI_MotorEnable(chassis->chassisMotor4);
       DJI_MotorDisable(chassis->gimbalMotor);
-      yAngle =
-        ((angle + 1024) / 8192.0f) * 2 * PI;  // 取得y轴与行进方向的夹角，(从yaw电机的编码得出)
+
+      ave_spd_z = (chassis->chassisMotor1->realSpeedF + chassis->chassisMotor2->realSpeedF\
+                        + chassis->chassisMotor3->realSpeedF + chassis->chassisMotor4->realSpeedF) / 4.0f;
+
+      yAngle = ((angle + 1024.0f + correction_rate * ave_spd_z) / 8192.0f) * 2 * PI;
+                                              // 取得y轴与行进方向的夹角，(从yaw电机的编码得出)
       xAngle = -yAngle;                       // 进而得到x与chassis_x的夹角
       // 根据夹角对速速度向量做坐标系转换
       speed_x = cos(yAngle + PI / 2) * y + cos(xAngle) * x;
       speed_y = cos(xAngle + PI / 2) * x + cos(yAngle) * y;
       // 把转换好的速度发给各电机
-      speed0 = speed_x;
-      speed1 = speed_y;
-      speed2 = -speed_x;
-      speed3 = -speed_y;
+      speed0 = speed_x + z;
+      speed1 = speed_y + z;
+      speed2 = -speed_x + z;
+      speed3 = -speed_y + z;
 
       // 速度缩放
       max_spd = max_spd > speed0 ? max_spd : speed0;
       max_spd = max_spd > speed1 ? max_spd : speed1;
       max_spd = max_spd > speed2 ? max_spd : speed2;
       max_spd = max_spd > speed3 ? max_spd : speed3;
-      if(max_spd > 8000)
+      if(max_spd > SPEED_LIMIT)
       {
-        spd_adj = max_spd / 8000.0f;
+        spd_adj = SPEED_LIMIT / max_spd;
         speed0 *= spd_adj;
         speed1 *= spd_adj;
         speed2 *= spd_adj;
         speed3 *= spd_adj;
       }
 
-      DJI_MotorSetTarget((chassis->chassisMotor1), speed0 + z);
-      DJI_MotorSetTarget((chassis->chassisMotor2), speed1 + z);
-      DJI_MotorSetTarget((chassis->chassisMotor3), speed2 + z);
-      DJI_MotorSetTarget((chassis->chassisMotor4), speed3 + z);
+      DJI_MotorSetTarget((chassis->chassisMotor1), speed0);
+      DJI_MotorSetTarget((chassis->chassisMotor2), speed1);
+      DJI_MotorSetTarget((chassis->chassisMotor3), speed2);
+      DJI_MotorSetTarget((chassis->chassisMotor4), speed3);
       break;
   }
   chassisFollowRun(chassis);  // 底盘跟随pid计算

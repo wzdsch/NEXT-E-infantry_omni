@@ -133,7 +133,9 @@ extern void DJI_MotorSendData(DJI_MotorGroup *group);
 
 extern DJI_MotorGroup group1;
 extern DJI_MotorGroup group2;
+extern DJI_Motor motor1;
 extern DJI_Motor motor2;
+extern DJI_Motor motor3;
 extern DJI_Motor motor4;
 extern DJI_Motor motorYaw;
 

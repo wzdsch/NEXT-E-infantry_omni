@@ -13,5 +13,6 @@ fp32 IMUecdZeroCrossing(DJI_Motor *motor);
 fp32 LADRCtest(DJI_Motor *motor);
 
 fp32 LADRC_YawControl(DJI_Motor *motor);
+fp32 negative(DJI_Motor *motor);
 
 #endif

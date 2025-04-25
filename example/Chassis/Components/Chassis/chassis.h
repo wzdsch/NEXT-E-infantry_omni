@@ -5,6 +5,8 @@
 #include "can.h"
 #include "struct_typedef.h"
 
+#define SPEED_LIMIT 6000.0f
+
 // 底盘模式列表
 enum chassisMode {
   CHASSIS_DISABLE = 0,  // 底盘无力
