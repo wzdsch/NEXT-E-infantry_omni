@@ -156,7 +156,7 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
     angle = angle - chassis->followFlagEcd;
   }
   else {
-    angle = angle - chassis->followFlagEcd + 8191;
+    angle = angle - chassis->followFlagEcd + 8192;
   }
 
   switch (chassis->mode) {

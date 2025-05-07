@@ -5,8 +5,9 @@
 #include "main.h"
 #include "protocol.h"
 // #include "refereeData_v1.4.h"
-//  #include "refereeData_v1.5.h"
-#include "refereeData_v1.6.h"
+// #include "refereeData_v1.5.h"
+// #include "refereeData_v1.6.h"
+#include "refereeData_v1.7.h"
 #include "stdio.h"
 #include "string.h"
 #include "struct_typedef.h"
@@ -15,7 +16,6 @@
 extern UART_HandleTypeDef huart6;
 extern DMA_HandleTypeDef hdma_usart6_rx;
 extern DMA_HandleTypeDef hdma_usart6_tx;
-extern uint8_t referee_rx_flg;
 
 uint8_t usart_buf[2][USART_RX_BUF_LENGHT];
 fifo_s_t referee_fifo;
@@ -28,14 +28,12 @@ game_state_t game_state;                              // 0x0001
 game_result_t game_result;                            // 0x0002
 game_robot_HP_t game_robot_HP;                        // 0x0003
 event_data_t event_data;                              // 0x0101
-supply_projectile_action_t supply_projectile_action;  // 0x0102
 referee_warning_t referee_warning;                    // 0x0104
 dart_remaining_time_t dart_remaining_time;            // 0x0105
 robot_state_t robot_state;                            // 0x0201
 power_heat_data_t power_heat_data;                    // 0x0202
 game_robot_pos_t game_robot_pos;                      // 0x0203
 robot_buff_t robot_buff;                              // 0x0204
-air_support_data_t air_support_data;                  // 0x0205
 hurt_data_t hurt_data;                                // 0x0206
 shoot_data_t shoot_data;                              // 0x0207
 projectile_allowance_t projectile_allowance;          // 0x0208
@@ -45,6 +43,7 @@ ground_robot_position_t ground_robot_position;        // 0x020B
 radar_mark_data_t radar_mark_data;                    // 0x020C
 robot_interaction_data_t robot_interaction_data;      // 0x0301
 referee_remote_control_t referee_remote_control;      // 0x0304
+robot_custom_data_t robot_custom_data;			      // 0x0309
 
 // ���ڳ�ʼ��
 void referee_usart_init(UART_HandleTypeDef *huart, DMA_HandleTypeDef *hdmarx,
@@ -106,7 +105,6 @@ void init_referee_struct_data(void) {
   memset(&game_robot_HP, 0, sizeof(game_robot_HP_t));
 
   memset(&event_data, 0, sizeof(event_data_t));
-  memset(&supply_projectile_action, 0, sizeof(supply_projectile_action_t));
   memset(&referee_warning, 0, sizeof(referee_warning_t));
 
   memset(&dart_remaining_time, 0, sizeof(dart_remaining_time_t));
@@ -114,7 +112,6 @@ void init_referee_struct_data(void) {
   memset(&power_heat_data, 0, sizeof(power_heat_data_t));
   memset(&game_robot_pos, 0, sizeof(game_robot_pos_t));
   memset(&robot_buff, 0, sizeof(robot_buff_t));
-  memset(&air_support_data, 0, sizeof(air_support_data_t));
   memset(&hurt_data, 0, sizeof(hurt_data_t));
   memset(&shoot_data, 0, sizeof(shoot_data_t));
   memset(&projectile_allowance, 0, sizeof(projectile_allowance_t));
@@ -151,10 +148,6 @@ void referee_data_solve(uint8_t *frame) {
     case EVENTS_CMD_ID: {
       memcpy(&event_data, frame + index, sizeof(event_data_t));
     } break;
-    case SUPPLY_PROJECTILE_ACTION_CMD_ID: {
-      memcpy(&supply_projectile_action, frame + index, sizeof(supply_projectile_action_t));
-    } break;
-
     case REFEREE_WARNING_CMD_ID: {
       memcpy(&referee_warning, frame + index, sizeof(referee_warning_t));
     } break;
@@ -172,9 +165,6 @@ void referee_data_solve(uint8_t *frame) {
     } break;
     case ROBOT_BUFF_CMD_ID: {
       memcpy(&robot_buff, frame + index, sizeof(robot_buff_t));
-    } break;
-    case AIR_SUPPORT_CMD_ID: {
-      memcpy(&air_support_data, frame + index, sizeof(air_support_data_t));
     } break;
     case HURT_DATA_CMD_ID: {
       memcpy(&hurt_data, frame + index, sizeof(hurt_data_t));
@@ -304,7 +294,6 @@ void referee_unpack_fifo_data(void) {
  * @brief  �жϴ������������ж��е���
  */
 void refereeReceiveHandler(void) {
-  referee_rx_flg = 1;
   static volatile uint8_t res;
   if (USART6->SR & UART_FLAG_IDLE) {
     __HAL_UART_CLEAR_PEFLAG(&huart6);

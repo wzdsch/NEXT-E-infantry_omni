@@ -20,7 +20,12 @@ void shooterINIT(shooter *shooter, DJI_MotorGroup *group, DJI_Motor *friL, DJI_M
 }
 
 void shooterStuckProcess(shooter *shooter) {
-  if (shooter->gunHeat <= (shooter->maxHeat) - (4 * (shooter->heatPerShoot))) {
+  shooter->shootFreq = shooterFreq;
+
+  if ((shooter->maxHeat - shooter->gunHeat) <= 4 * (shooter->heatPerShoot)) {
+    DJI_MotorSetTarget(shooter->supplierMotor, 0.0f);
+  }
+  else if (shooter->gunHeat <= (shooter->maxHeat) * 4 / 5 - (3 * (shooter->heatPerShoot))) {
     if (shooter->supplierMode == SUPPLIER_RUN) {  // 正常模式下
       DJI_MotorSetTarget(shooter->supplierMotor, shooter->shootFreq);
       if (shooter->startDelay < startDelayLimit) {  // 如果电机还在启动阶段
@@ -57,7 +62,7 @@ void shooterStuckProcess(shooter *shooter) {
     }
   }
   else {
-    DJI_MotorSetTarget(shooter->supplierMotor, 0.0f);
+    DJI_MotorSetTarget(shooter->supplierMotor, shooter->heat_cooling * 54);
   }
 }
 

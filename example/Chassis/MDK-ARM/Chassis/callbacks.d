@@ -41,6 +41,7 @@ chassis\callbacks.o: ../Components/Basic/structs/struct_typedef.h
 chassis\callbacks.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdlib.h
 chassis\callbacks.o: ../Components/MCUConnect/MCUConnectStructs.h
 chassis\callbacks.o: ../Components/Basic/Tools/Tools.h
+chassis\callbacks.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\math.h
 chassis\callbacks.o: ../Components/DJI_Motor/addOns.h
 chassis\callbacks.o: ../Components/Chassis/chassis.h
 chassis\callbacks.o: ../Components/Referee/referee.h
@@ -61,4 +62,3 @@ chassis\callbacks.o: ../Components/UI/ui_default_Chassis_0.h
 chassis\callbacks.o: ../Components/UI/ui_default_Cover_0.h
 chassis\callbacks.o: ..\Components\Vofa\vofa.h
 chassis\callbacks.o: ..\Components\SuperCap\SuperCap.h
-chassis\callbacks.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\math.h

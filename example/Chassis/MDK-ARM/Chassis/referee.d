@@ -39,6 +39,6 @@ chassis\referee.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdio.h
 chassis\referee.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\string.h
 chassis\referee.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdlib.h
 chassis\referee.o: ..\Components\Referee\protocol.h
-chassis\referee.o: ..\Components\Referee\refereeData_v1.6.h
+chassis\referee.o: ..\Components\Referee\refereeData_v1.7.h
 chassis\referee.o: ../Components/Basic/structs/struct_typedef.h
 chassis\referee.o: ../Core/Inc/tim.h

@@ -21,6 +21,8 @@
     "stdio.h": "c",
     "struct_typedef.h": "c",
     "chassis.h": "c",
-    "supercap.h": "c"
+    "supercap.h": "c",
+    "mcuconnectstructs.h": "c",
+    "refereedata_v1.7.h": "c"
   }
 }

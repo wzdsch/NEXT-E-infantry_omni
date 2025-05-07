@@ -38,5 +38,6 @@ chassis\dji_motor.o: ../Components/Basic_Control/Pid/pid.h
 chassis\dji_motor.o: ../Components/Basic/structs/struct_typedef.h
 chassis\dji_motor.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdlib.h
 chassis\dji_motor.o: ../Components/Basic/Tools/Tools.h
+chassis\dji_motor.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\math.h
 chassis\dji_motor.o: ..\Components\DJI_Motor\addOns.h
 chassis\dji_motor.o: ../Components/Basic_Control/Pid/pid.h

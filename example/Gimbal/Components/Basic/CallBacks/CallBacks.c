@@ -24,9 +24,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &htim8) {  // VOFA+调试200HZ
 	  // JustFloat(GimbalControlData.yawAngle, BMI088_gimbal.yawAngle < 0 ? BMI088_gimbal.yawAngle + 360.0f : BMI088_gimbal.yawAngle,\
 	  // motorYaw.pidOutput0, motorYaw.realSpeedF, &huart1); // yaw
-    JustFloat(GimbalControlData.pitchAngle, BMI088_gimbal.pitchAngle,\
-      motorPitch.pidOutput0, motorPitch.realSpeedF, &huart1); // pitch
-	  // angle_set  angle_ref spd_set  spd_ref
+//    JustFloat(GimbalControlData.pitchAngle, BMI088_gimbal.pitchAngle,\
+//      vision1.RXData.VisionRxData.PitchAngleTarget, motorPitch.realSpeedF, &huart1); // pitch
+	  JustFloat(GimbalControlData.yawAngle, BMI088_gimbal.yawAngle,\
+		vision1.RXData.VisionRxData.YawAngleTarget, motorYaw.realSpeedF, &huart1); // pitch
+	  // angleJustFloat(GimbalControlData.pitchAngle, BMI088_gimbal.pitchAngle,\
+//      vision1.RXData.VisionRxData.PitchAngleTarget, motorPitch.realSpeedF, &huart1); // pitch_set  angle_ref spd_set  spd_ref
   }
   if (htim == &htim9) {
     VisionConnectSend(&vision1);  // 向视觉发送数据10ms@100hz
@@ -36,16 +39,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     connectionUnpackData(&connect);
     shooter1.maxHeat = RefereeData.maxHeat;  // 枪管热量赋值
     shooter1.gunHeat = RefereeData.gunHeat1;
-    VisionConnectUpdateTX(&vision1, vision1.TXData.OurColor,
+    shooter1.heat_cooling = RefereeData.heat_cooling;
+    VisionConnectUpdateTX(&vision1, RefereeData.OurColor,
                           BMI088_gimbal.yawAngle,  // 更新视觉发送缓存
-                          (motorPitch.realEcdF - 6244.0f) * 0.04395f, RefereeData.gunSpeed1);
-    // 起火步兵
-    /*
-     VisionConnectUpdateTX(&vision1, RefereeData.target,
-                            BMI088_gimbal.yawAngle,  // 更新视觉发送缓存
-                            (ecdZeroCrossing(&motorPitch)) * 0.04395f, RefereeData.gunSpeed1);
-    */
-    // 另一台
+                          (motorPitch.realEcdF - 4981.0f) * 0.04395f, RefereeData.gunSpeed1);
   }
   if (htim == &htim12) {  // 双机通信发送2ms@500HZ
     remote_controller();

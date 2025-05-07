@@ -260,19 +260,21 @@ void RefereeDataUpdate(Referee_data *data) {
     data->gunHeat1 =
       power_heat_data.shooter_17mm_2_barrel_heat;  // 如果是42mm枪管，后面再加一个判断
   }
-  if (shoot_data.initial_speed < 10.0f) {  // 如过初速度小于10m/s，则发送25m/s
-    data->gunSpeed1 = 25.0f;
+  if (shoot_data.initial_speed < 10.0f) {  // 如过初速度小于10m/s，则发送23m/s
+    data->gunSpeed1 = 23.0f;
   }
   else {
     data->gunSpeed1 = shoot_data.initial_speed;
   }
 
   data->maxHeat = robot_state.shooter_barrel_heat_limit;
+  data->heat_cooling = robot_state.shooter_barrel_cooling_value;
+
   if (robot_state.robot_id == 3 || robot_state.robot_id == 4 || robot_state.robot_id == 5
       || robot_state.robot_id == 7) {
-    data->target = 0;  // 目标为蓝色，代号为0
+    data->our_color = 'R';  // 己方为红色
   }
   else {
-    data->target = 1;  // 目标为红色，代号为1
+    data->our_color = 'B';  // 己方为蓝色
   }
 }

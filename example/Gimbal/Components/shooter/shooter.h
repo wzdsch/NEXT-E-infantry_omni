@@ -7,7 +7,7 @@
 #define stuckCountLimit        50   // 卡弹处理触发时间
 #define stuckPersent           0.3f  // 卡弹处理阈值
 
-#define shooterSpeed 7000.0f
+#define shooterSpeed 6200.0f
 #define shooterFreq  27.0f * 540.0f  // num.0f @hz * 540.0f
 
 enum shooter_Mode {
@@ -37,9 +37,10 @@ typedef struct shooterDat {  // 发射机构结构体
   uint8_t stuckCount;         // 卡弹周期计数
   uint8_t startDelay;         // 卡弹计数开始前的延时
   uint8_t stuckProcessCount;  // 卡弹处理时间
-  uint16_t maxHeat;
-  uint16_t gunHeat;
-  uint8_t heatPerShoot;
+  uint16_t maxHeat; // 最大热量
+  uint16_t gunHeat; // 当前热量
+  uint16_t heat_cooling; // 冷却速率
+  uint8_t heatPerShoot; // 每发子弹的热量
 } shooter;
 
 extern shooter shooter1;

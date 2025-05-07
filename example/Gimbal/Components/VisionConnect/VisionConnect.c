@@ -37,7 +37,7 @@ void VisionConnectUpdateTX(VisionConnect *connect, uint8_t OurColor, fp32 yawAng
   // connect->TXData.targetType = 0;
   connect->TXData.OurColor = OurColor;
 
-  connect->TXData.PitchAngle = -pitchAngle;	// 反转pitch轴
+  connect->TXData.PitchAngle = pitchAngle;
   connect->TXData.YawAngle = yawAngle + 180.0f;	// 将yawAngle的范围由-180~180改为0~360
   connect->TXData.ShootSpeed = shootSpeed;
 }

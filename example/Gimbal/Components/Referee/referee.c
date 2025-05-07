@@ -216,7 +216,7 @@ void refereeINIT(TIM_HandleTypeDef *timer) {
   referee_usart_init(&huart6, &hdma_usart6_rx, &hdma_usart6_tx, usart_buf[0], usart_buf[1],
                      USART_RX_BUF_LENGHT);
   // ��������õĶ�ʱ��
-  HAL_TIM_Base_Start_IT(timer);
+  // HAL_TIM_Base_Start_IT(timer);
   // 这里不需要开启了，因为和视觉共用了一个定时器
 }
 

@@ -20,9 +20,10 @@ typedef struct RefereeData {
   // 云台接收
   uint16_t maxHeat;   // 枪管最大热量
   uint16_t gunHeat1;  // 枪管1热量
-  uint8_t target;     // 目标
+  uint16_t heat_cooling; // 冷却速率
+  uint8_t our_color;     // 己方颜色 'B' = "blue"  'R' = "red"
   fp32 gunSpeed1;     // 枪管1射速
-
+  
 } Referee_data;
 
 // 双机通信数据

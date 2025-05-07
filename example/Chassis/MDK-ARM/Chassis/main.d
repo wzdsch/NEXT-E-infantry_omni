@@ -46,6 +46,7 @@ chassis\main.o: ../Components/MCUConnect/MCUConnectStructs.h
 chassis\main.o: ../Components/RemoteControl/RC_task.h
 chassis\main.o: ../Components/RemoteControl/app_et07.h
 chassis\main.o: ../Components/Basic/Tools/Tools.h
+chassis\main.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\math.h
 chassis\main.o: ../Components/DJI_Motor/addOns.h
 chassis\main.o: ../Components/RemoteControl/bsp_wbus.h
 chassis\main.o: ../Components/Chassis/chassis.h

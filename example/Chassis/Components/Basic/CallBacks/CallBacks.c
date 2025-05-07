@@ -19,7 +19,7 @@ extern uint8_t supercap_rx_flg;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &htim10) {  // UI发送100ms@10Hz
     UI_Refresh();
-	  JustFloat(chassis1.chassisMotor1->realSpeedF, chassis1.chassisMotor1->target, chassis1.chassisMotor3->realSpeedF, chassis1.chassisMotor3->target, &huart1);
+	//  JustFloat(chassis1.chassisMotor1->realSpeedF, chassis1.chassisMotor2->realSpeedF, chassis1.chassisMotor3->realSpeedF, chassis1.chassisMotor3->target, &huart1);
   //  JustFloat((fp32)power_heat_data.buffer_energy, 0.0f, 0.0f, 0.0f, &huart1);
 	  switch (vofa_mode)
     {
@@ -31,6 +31,14 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
         JustFloat(chassis1.chassisMotor1->target, chassis1.chassisMotor1->realSpeedF, \
           chassis1.chassisMotor2->target, chassis1.chassisMotor2->realSpeedF, &huart1);
         break;
+	  case 3:
+		JustFloat(chassis1.chassisMotor1->realSpeedF, chassis1.chassisMotor2->realSpeedF,\
+	  chassis1.chassisMotor3->realSpeedF, chassis1.chassisMotor4->realSpeedF, &huart1);
+	    break;
+	  case 4:
+		JustFloat(chassis1.chassisMotor1->target, chassis1.chassisMotor2->target,\
+	  chassis1.chassisMotor3->target, chassis1.chassisMotor4->target, &huart1);
+	    break;
       default:
         break;
     }
