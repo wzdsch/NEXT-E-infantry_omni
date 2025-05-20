@@ -1,5 +1,6 @@
 {
     "files.associations": {
+			"*.dbclient-js": "javascript",
 			"main.h": "c",
 			"gimbal.h": "c",
 			"canmotor.h": "c",
@@ -25,7 +26,10 @@
 			"struct_typedef.h": "c",
 			"cstdint": "c",
 			"dji_motor.h": "c",
-			"stdio.h": "c"
+			"stdio.h": "c",
+			"can.h": "c",
+			"crc8_crc16.h": "c",
+			"referee.h": "c"
 		},
     "C_Cpp.formatting": "clangFormat",
     "C_Cpp.vcFormat.indent.caseContentsWhenBlock": true,

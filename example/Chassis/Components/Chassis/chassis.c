@@ -24,6 +24,8 @@
 fp32 ave_spd_z = 0;
 int top_spd_z = 3000;
 fp32 correction_rate = 0.0f;
+int top_time_cnt = 0; // 变速小陀螺计数
+#define TOP_T 1000 // 变速小陀螺计数周期
 
 /**
  * @brief  底盘结构体初始化
@@ -191,9 +193,9 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
   real_gim_y = real_chassis_y * cos(PI / 4.0f - angle * PI / 8192.0f) - \
     real_chassis_x * cos(PI / 4.0f + angle * PI / 8192.0f);
 
-  current_x = rampPlanner(current_x, x, 50, 1000);
-  current_y = rampPlanner(current_y, y, 50, 1000);
-  current_z = rampPlanner(current_z, z, 50, 1000);
+  current_x = rampPlanner(current_x, x, 35, 1000);
+  current_y = rampPlanner(current_y, y, 35, 1000);
+  // current_z = rampPlanner(current_z, z, 50, 1000);
 
   real_chassis_xy_spd = sqrt(real_chassis_x * real_chassis_x + real_chassis_y * real_chassis_y); // 实际底盘xy速度
   static fp32 real_chassis_xy_spd_buf[2] = {0};
@@ -305,6 +307,12 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
       DJI_MotorEnable(chassis->chassisMotor3);
       DJI_MotorEnable(chassis->chassisMotor4);
       DJI_MotorDisable(chassis->gimbalMotor);
+
+      current_z = \
+        ((fp32)sin((fp32)top_time_cnt / (fp32)TOP_T * 2.0f * PI) + 1) * 0.5f * z + 1.0f * z;
+
+      top_time_cnt++;
+      top_time_cnt %= TOP_T;
 
       yAngle = (angle + 1024.0f + correction_rate * real_chassis_xy_spd_err) / 8192.0f * 2 * PI;
                                               // 取得y轴与行进方向的夹角，(从yaw电机的编码得出)

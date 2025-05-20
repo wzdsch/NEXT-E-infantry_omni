@@ -39,6 +39,7 @@
 #include "referee.h"
 #include "refereeData_v1.6.h"
 #include "ui.h"
+#include "SuperCap.h"
 
 // #include "remote_control.h"
 /* USER CODE END Includes */
@@ -212,6 +213,10 @@ int main(void)
   HAL_TIM_Base_Start_IT(&htim13);  // 双机通信
   HAL_TIM_Base_Start_IT(&htim11);  // UI
   HAL_TIM_Base_Start_IT(&htim10);
+  
+#ifdef SUPERCAP_H
+  HAL_UARTEx_ReceiveToIdle_DMA(&huart1, supercap_rxD.rx_buf, sizeof(supercap_rxD.rx_buf));
+#endif
   /* USER CODE END 2 */
 
   /* Infinite loop */

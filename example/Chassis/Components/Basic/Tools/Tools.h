@@ -39,4 +39,5 @@ extern int32_t window_filter(winter_variance_t* variable, int32_t data);
 
 extern fp32 linearTOrpm(fp32 linear, fp32 dia);
 extern int16_t floatTOint(fp32 flNum);
+extern fp32 tri_puls(int x,  int T, fp32 min_value, fp32 max_value);
 #endif

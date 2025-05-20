@@ -40,7 +40,7 @@ fp32 Supercap_powerlimit(DJI_Motor *motor) {
   if (initial_total_power_last > chassis_max_power)  // determine if larger than max power
   {
     fp32 power_scale = chassis_max_power / initial_total_power_last;
-    scaled_give_power = initial_give_power * power_scale * 0.90f;  // get scaled power
+    scaled_give_power = initial_give_power * power_scale;  // get scaled power
     if (scaled_give_power < 0) {
       return motor->pidOutput0;
     }
@@ -81,9 +81,9 @@ void Supercap_unpack(supercap_rx_t *supercap)
     supercap->cap_percent = (supercap->rx_buf[4] | supercap->rx_buf[5] << 8);
     supercap->input_power = (supercap->rx_buf[6] | supercap->rx_buf[7] << 8) * 0.01f;
     supercap->err_code = (supercap->rx_buf[8] | supercap->rx_buf[9] << 8);
-    if(supercap->max_cap_power >= 50) // 保证超电提供的功率不超过50W
+    if(supercap->max_cap_power >= 45) // 保证超电提供的功率不超过50W
     {
-      supercap_rxD.max_cap_power = 50;
+      supercap_rxD.max_cap_power = 45;
     }
     else if (supercap->max_cap_power < 0)
     {

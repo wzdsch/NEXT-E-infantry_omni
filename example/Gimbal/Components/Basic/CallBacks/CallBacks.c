@@ -15,21 +15,23 @@
 #include "referee.h"
 #include "shooter.h"
 
+unsigned int time_ms = 0;
+
 extern GimbalControl GimbalControlData;
+extern DJI_Motor motor2006;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &htim6) {  // BMI088@1KHZ
     BMI088_RUN(&BMI088_gimbal);
+    getSupplierTotalEcd(&shooter1);
+    time_ms++;
   }
   if (htim == &htim8) {  // VOFA+调试200HZ
 	  // JustFloat(GimbalControlData.yawAngle, BMI088_gimbal.yawAngle < 0 ? BMI088_gimbal.yawAngle + 360.0f : BMI088_gimbal.yawAngle,\
 	  // motorYaw.pidOutput0, motorYaw.realSpeedF, &huart1); // yaw
-//    JustFloat(GimbalControlData.pitchAngle, BMI088_gimbal.pitchAngle,\
-//      vision1.RXData.VisionRxData.PitchAngleTarget, motorPitch.realSpeedF, &huart1); // pitch
-	  JustFloat(GimbalControlData.yawAngle, BMI088_gimbal.yawAngle,\
-		vision1.RXData.VisionRxData.YawAngleTarget, motorYaw.realSpeedF, &huart1); // pitch
-	  // angleJustFloat(GimbalControlData.pitchAngle, BMI088_gimbal.pitchAngle,\
-//      vision1.RXData.VisionRxData.PitchAngleTarget, motorPitch.realSpeedF, &huart1); // pitch_set  angle_ref spd_set  spd_ref
+	  // JustFloat(GimbalControlData.yawAngle, BMI088_gimbal.yawAngle,\
+		// vision1.RXData.VisionRxData.YawAngleTarget, motorYaw.realSpeedF, &huart1); // pitch
+    JustFloat((int)motor2006.target % 1000000, (int)shooter1.supplier_total_ecd % 1000000, motor2006.pidOutput0, motor2006.realSpeedF, &huart1);  // shooter
   }
   if (htim == &htim9) {
     VisionConnectSend(&vision1);  // 向视觉发送数据10ms@100hz
@@ -42,7 +44,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     shooter1.heat_cooling = RefereeData.heat_cooling;
     VisionConnectUpdateTX(&vision1, RefereeData.OurColor,
                           BMI088_gimbal.yawAngle,  // 更新视觉发送缓存
-                          (motorPitch.realEcdF - 4981.0f) * 0.04395f, RefereeData.gunSpeed1);
+                          BMI088_gimbal.pitchAngle, RefereeData.gunSpeed1);
   }
   if (htim == &htim12) {  // 双机通信发送2ms@500HZ
     remote_controller();

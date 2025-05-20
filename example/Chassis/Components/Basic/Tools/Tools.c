@@ -192,3 +192,15 @@ float mapInputToOutput(float inputValue, RampConfig_t* config) {
 
   return outputValue;
 }
+
+
+/// @brief 三角波函数
+/// @param x 自变量
+/// @param T 周期
+/// @param min_value 最小值
+/// @param max_value 最大值
+/// @return 
+fp32 tri_puls(int x, int T, fp32 min_value, fp32 max_value) {
+  x %= T;
+  return min_value + (max_value - min_value) * ((x < T / 2) ? x / (T / 2.0f) : (max_value - min_value) * (T - x) / (T / 2.0f));
+}

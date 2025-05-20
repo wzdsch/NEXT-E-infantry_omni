@@ -218,18 +218,27 @@ extern DMA_HandleTypeDef hdma2;
   DJI_MotorCalculateResultSet(&motorfriL, &(motorfriL.pidOutput0));
   DJI_MotorListAdd(&group2, &motorfriL);
 
+#ifndef SUPPLIER_ECD
   DJI_MotorInit(&motor2006, 0x203, 0, pid0, NULL);
   DJI_MotorPidSet(&motor2006, &(motor2006.motorPid0), PID_POSITION, M2006_Speed_PID,
                   &(motor2006.realSpeedF), &(motor2006.target));
   DJI_MotorCalculateResultSet(&motor2006, &(motor2006.pidOutput0));
   DJI_MotorListAdd(&group1, &motor2006); // 拨弹在底盘，用can1
+#else
+  DJI_MotorInit(&motor2006, 0x203, 0, pidBoth, NULL);
+  DJI_MotorPidSet(&motor2006, &(motor2006.motorPid0), PID_POSITION, M2006_Angle_PID, &(shooter1.supplier_total_ecd), &(motor2006.target));
+  DJI_MotorPidSet(&motor2006, &(motor2006.motorPid1), PID_POSITION, M2006_Speed_PID,
+                  &(motor2006.realSpeedF), &(motor2006.pidOutput0));
+  DJI_MotorCalculateResultSet(&motor2006, &(motor2006.pidOutput1));
+  DJI_MotorListAdd(&group1, &motor2006);
+#endif
 
   /***********************************************************************************************/
   /**************************************云台初始�???************************************************/
   /***********************************************************************************************/
   gimbalINIT(&gimbal1, &group1, &motorYaw, &motorPitch);
-  shooterINIT(&shooter1, &group2, &motorfriL, &motorfriR, &motor2006, shooterSpeed, shooterFreq,
-              10);
+  shooterINIT(&shooter1, &group2, &motorfriL, &motorfriR, &motor2006, shooterSpeed, SHOOTER_FREQ_DFLT,
+              10, TOTAL_ECD_PER_SHOOT);
   connectionINIT(&connect, &hcan1, 0x400, CAN_RX_FIFO1);
   VisionConnectINIT(&vision1, BLUE);
   /***********************************************************************************************/

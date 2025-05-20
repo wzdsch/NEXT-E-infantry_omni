@@ -19,6 +19,10 @@ extern uint8_t supercap_rx_flg;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &htim10) {  // UI发送100ms@10Hz
     UI_Refresh();
+
+    Supercap_unpack(&supercap_rxD);
+    Supercap_update_txd(&supercap_txD, &robot_state);
+    Supercap_transmit(&huart1, &supercap_txD);
 	//  JustFloat(chassis1.chassisMotor1->realSpeedF, chassis1.chassisMotor2->realSpeedF, chassis1.chassisMotor3->realSpeedF, chassis1.chassisMotor3->target, &huart1);
   //  JustFloat((fp32)power_heat_data.buffer_energy, 0.0f, 0.0f, 0.0f, &huart1);
 	  switch (vofa_mode)
@@ -78,6 +82,7 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
 // 串口错误中断
 void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart) {
   if (huart == &huart1) {
+	HAL_UARTEx_ReceiveToIdle_DMA(&huart1, supercap_rxD.rx_buf, sizeof(supercap_rxD.rx_buf));
     error_count++;
   }
 }

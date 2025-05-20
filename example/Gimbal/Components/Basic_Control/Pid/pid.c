@@ -100,6 +100,8 @@ fp32 FRI_Speed_PID[5] = {FRI_Speed_PID_KP, FRI_Speed_PID_KI, FRI_Speed_PID_KD,
                          FRI_Speed_PID_MAX_OUT, FRI_Speed_PID_MAX_IOUT};
 fp32 M2006_Speed_PID[5] = {M2006_Speed_PID_KP, M2006_Speed_PID_KI, M2006_Speed_PID_KD,
                            M2006_Speed_PID_MAX_OUT, M2006_Speed_PID_MAX_IOUT};
+fp32 M2006_Angle_PID[5] = {M2006_Angle_PID_KP, M2006_Angle_PID_KI, M2006_Angle_PID_KD,
+                            M2006_Angle_PID_MAX_OUT, M2006_Angle_PID_MAX_IOUT};
 fp32 Vision_Yaw_PID[5] = {Vision_Yaw_PID_KP, Vision_Yaw_PID_KI, Vision_Yaw_PID_KD,
                           Vision_Yaw_PID_MAX_OUT, Vision_Yaw_PID_MAX_IOUT};
 fp32 Vision_Pitch_PID[5] = {Vision_Pitch_PID_KP, Vision_Pitch_PID_KI, Vision_Pitch_PID_KD,

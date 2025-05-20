@@ -43,6 +43,7 @@ extern fp32 PITCH_Speed_IMU_PID[5];
 extern fp32 PITCH_Angle_IMU_PID[5];
 extern fp32 FRI_Speed_PID[5];
 extern fp32 M2006_Speed_PID[5];
+extern fp32 M2006_Angle_PID[5];
 extern fp32 Vision_Yaw_PID[5];
 extern fp32 Vision_Pitch_PID[5];
 

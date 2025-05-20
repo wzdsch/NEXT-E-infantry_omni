@@ -13,6 +13,8 @@
 #include "struct_typedef.h"
 #include "tim.h"
 
+extern uint8_t referee_rx_flg;
+
 extern UART_HandleTypeDef huart6;
 extern DMA_HandleTypeDef hdma_usart6_rx;
 extern DMA_HandleTypeDef hdma_usart6_tx;
@@ -294,6 +296,9 @@ void referee_unpack_fifo_data(void) {
  * @brief  �жϴ������������ж��е���
  */
 void refereeReceiveHandler(void) {
+  if (referee_rx_flg == 0) {
+    referee_rx_flg = 1;
+  }
   static volatile uint8_t res;
   if (USART6->SR & UART_FLAG_IDLE) {
     __HAL_UART_CLEAR_PEFLAG(&huart6);
