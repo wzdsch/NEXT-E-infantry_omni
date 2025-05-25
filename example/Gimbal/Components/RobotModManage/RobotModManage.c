@@ -31,25 +31,6 @@ extern nav_rxd_t nav_rxd;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 void remote_controller() {
-  //  givespeed = RAMP_float(setspeed, givespeed, 1.5);
-  //	RC_Data.ET07_DATA.V1_CH9=1807;
-  // if (RC_Data.ET07_DATA.LeftTransverse_CH4 > RC_SW_DOWN
-  //     || RC_Data.ET07_DATA.LeftTransverse_CH4 < RC_SW_UP) {
-  //   RC_Data.ET07_DATA.LeftTransverse_CH4 = 1024;
-  // }
-  // if (RC_Data.ET07_DATA.LeftDirection_CH3 > RC_SW_DOWN
-  //     || RC_Data.ET07_DATA.LeftDirection_CH3 < RC_SW_UP) {
-  //   RC_Data.ET07_DATA.LeftDirection_CH3 = 1024;
-  // }
-  // if (RC_Data.ET07_DATA.RightDirection_CH2 > RC_SW_DOWN
-  //     || RC_Data.ET07_DATA.RightDirection_CH2 < RC_SW_UP) {
-  //   RC_Data.ET07_DATA.RightDirection_CH2 = 1024;
-  // }
-  // if (RC_Data.ET07_DATA.RightTransverse_CH1 > RC_SW_DOWN
-  //     || RC_Data.ET07_DATA.RightTransverse_CH1 < RC_SW_UP) {
-  //   RC_Data.ET07_DATA.RightTransverse_CH1 = 1024;
-  // }
-
   // 遥控限幅
   if (RC_Data.ET07_DATA.LeftTransverse_CH4 > RC_SW_DOWN) {
     RC_Data.ET07_DATA.LeftTransverse_CH4 = RC_SW_DOWN;
@@ -78,8 +59,6 @@ void remote_controller() {
   if (RC_Data.ET07_DATA.RightTransverse_CH1 < RC_SW_UP) {
     RC_Data.ET07_DATA.RightTransverse_CH1 = RC_SW_UP;
   }
-
-  __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, PWMpulse);  // 舵机位置
 
   if (RC_Data.ET07_DATA.V1_CH9 < 1800
       && RC_Data.ET07_DATA.V1_CH9 >= 240) {  // 如果V1旋钮没有顺时针旋到底，则为遥控器控制
@@ -123,14 +102,11 @@ void remote_controller() {
     if (RC_Data.ET07_DATA.SD_CH8
         == RC_SW_UP) {
       ChassisControlData.speedz = zSpeed;
-      // ChassisControlData.withSuperCap = 0;
+      ChassisControlData.with_supercap = 0;
     }
     else {
       ChassisControlData.speedz = -zSpeed;
-      // ChassisControlData.withSuperCap = 1;
-      // ChassisControlData.speedx = nav_rxd.spd_x;
-      // ChassisControlData.speedy = nav_rxd.spd_y;
-      // ChassisControlData.speedz = nav_rxd.spd_z;
+      ChassisControlData.with_supercap = 1;
     }
 
     if (GimbalControlData.mode == GIMBAL_YAW_EN || GimbalControlData.mode == GIMBAL_ALL_EN) {
@@ -187,8 +163,6 @@ void remote_controller() {
       ChassisControlData.mode = CHASSIS_DISABLE;
       GimbalControlData.mode = GIMBAL_STOP;
     }
-    else if (RC_Data.ET07_DATA.SA_CH5 == RC_SW_DOWN) {
-    }
     else {
       switch (RC_Data.ET07_DATA.SC_CH7) {  // SC键逻辑
         case RC_SW_MID:
@@ -203,20 +177,6 @@ void remote_controller() {
           break;
       }
     }
-
-    // PWMpulse = 2000;
-    // switch (RC_Data.ET07_DATA.SD_CH8) {  // SD单独控制弹仓盖
-    //   case RC_SW_DOWN:
-    //     ChassisControlData.speedx = nav_rxd.spd_x;
-    //     ChassisControlData.speedy = nav_rxd.spd_y;
-    //     // ChassisControlData.speedz = nav_rxd.spd_z; // 暂时用不上z
-    //     break;
-    //   case RC_SW_UP:
-    //     // PWMpulse = 1000;
-    //     break;
-    //   default:
-    //     break;
-    // }
     if (RC_Data.ET07_DATA.V2_CH10 < 650
         && RC_Data.ET07_DATA.V2_CH10 >= RC_SW_UP) {  // V2旋钮控制发射机构
       shooter1.shooterMode = SHOOTER_STOP;
@@ -246,28 +206,20 @@ void remote_controller() {
                                                    // 左键开火控制
     shooter1.shooterMode = SHOOTER_HOLD;
     GimbalControlData.mode = GIMBAL_ALL_EN;
-    switch (referee_remote_control.left_button_down) {
-      case 1: {
-        if (referee_remote_control.right_button_down
-            == 0) {  // 未按下右键开启自瞄时，单独左键控制打弹
-          shooter1.shooterMode = SHOOTER_FIRE;
-        }
-        else if (referee_remote_control.right_button_down == 1
-                 && vision1.RXData.VisionRxData.fireControl
-                      == 0xff) {  // 按下右键开启自瞄时，左键按下并且开火时机适宜，再打弹
-          shooter1.shooterMode = SHOOTER_FIRE;
-        }
-        else {
-          shooter1.shooterMode = SHOOTER_HOLD;
-        }
-      } break;
-      case 0: {
-        shooter1.shooterMode = SHOOTER_HOLD;
-      break;
-	  } 
-      default:
-        break;
+
+    // 开火: \
+            1. 按下右键: 自瞄 + 火控 \
+            2. 左右键同时按下: 自瞄 + 泼水 \
+            3. 左键按下: 直接打
+    if (referee_remote_control.left_button_down == 1 || \
+      referee_remote_control.right_button_down == 1 && vision1.RXData.VisionRxData.fireControl == 0xff) {
+      shooter1.shooterMode = SHOOTER_FIRE;
     }
+    // 待开火:
+    else {
+      shooter1.shooterMode = SHOOTER_HOLD;
+    }
+
     // 右键开启自瞄
     if (referee_remote_control.right_button_down == 1 && visionState.tracking == 1) {
       GimbalControlData.yawAngle = vision1.RXData.VisionRxData.YawAngleTarget;
@@ -311,6 +263,23 @@ void remote_controller() {
     else {
       ChassisControlData.speedz = 0;
     }
+
+    // shift 开超电
+    if (referee_remote_control.KEY_Shift == 1) {
+      ChassisControlData.with_supercap = 1;
+    }
+    else {
+      ChassisControlData.with_supercap = 0;
+    }
+    
+    // G键刷新UI
+    if (referee_remote_control.KEY_G == 1) {
+      ChassisControlData.ui_refresh = 1;
+    }
+    else {
+      ChassisControlData.ui_refresh = 0;
+    }
+
     // 运动逻辑
     // WS键逻辑
     if (referee_remote_control.KEY_W == 1) {
@@ -348,18 +317,7 @@ void remote_controller() {
       GimbalControlData.yawAngle -= 45.0f;
       PCflags.RightTurn = 0;
     }
-    // 弹仓盖逻辑
-    if (referee_remote_control.KEY_B == 1) {
-      PWMpulse = 2000;
-    }
-    if (referee_remote_control.KEY_V == 1) {
-      PWMpulse = 1000;
-    }
-    __HAL_TIM_SET_COMPARE(&htim1, TIM_CHANNEL_1, PWMpulse);  // 舵机位置
   }
-  ChassisControlData.AutoAim = vision1.RXData.VisionRxData.fireControl == 1 ? 1 : 0;
-  // ChassisControlData.cover =
-  //   PWMpulse == 1000 ? 0 : 1;  // UI的两个变量赋值，通过chassiscontrol结构体发送
 #ifdef refereedebug
   PCflags.FreeFlag = 1;
 #endif

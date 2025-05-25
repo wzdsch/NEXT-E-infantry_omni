@@ -12,40 +12,16 @@
 #include "ui.h"
 #include "vofa.h"
 #include "SuperCap.h"
+#include "ui_callbacks.h"
 
 uint8_t vofa_mode = 0;
 extern uint8_t supercap_rx_flg;
 
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &htim10) {  // UI发送100ms@10Hz
-    UI_Refresh();
-
-    Supercap_unpack(&supercap_rxD);
-    Supercap_update_txd(&supercap_txD, &robot_state);
-    Supercap_transmit(&huart1, &supercap_txD);
-	//  JustFloat(chassis1.chassisMotor1->realSpeedF, chassis1.chassisMotor2->realSpeedF, chassis1.chassisMotor3->realSpeedF, chassis1.chassisMotor3->target, &huart1);
-  //  JustFloat((fp32)power_heat_data.buffer_energy, 0.0f, 0.0f, 0.0f, &huart1);
-	  switch (vofa_mode)
-    {
-      case 1:
-        JustFloat(chassis1.chassisMotor1->target, chassis1.chassisMotor1->realSpeedF, \
-          chassis1.chassisMotor2->target, chassis1.chassisMotor2->realSpeedF, &huart1);
-        break;
-      case 2:
-        JustFloat(chassis1.chassisMotor1->target, chassis1.chassisMotor1->realSpeedF, \
-          chassis1.chassisMotor2->target, chassis1.chassisMotor2->realSpeedF, &huart1);
-        break;
-	  case 3:
-		JustFloat(chassis1.chassisMotor1->realSpeedF, chassis1.chassisMotor2->realSpeedF,\
-	  chassis1.chassisMotor3->realSpeedF, chassis1.chassisMotor4->realSpeedF, &huart1);
-	    break;
-	  case 4:
-		JustFloat(chassis1.chassisMotor1->target, chassis1.chassisMotor2->target,\
-	  chassis1.chassisMotor3->target, chassis1.chassisMotor4->target, &huart1);
-	    break;
-      default:
-        break;
-    }
+    ui_init_g();
+    ui_g_dynamic_graph_super_cap_persent->number = supercap_rxD.cap_percent;
+    ui_update_g();
   }
   if (htim == &htim11) {  // 底盘pid计算与发送1ms@1000Hz
     
@@ -54,6 +30,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     referee_unpack_fifo_data();
     RefereeDataUpdate(&RefereeData);
     connectionSendData(&connect, (uint8_t *)&RefereeData, sizeof(RefereeData), RefereeData_ID);
+
+    Supercap_unpack(&supercap_rxD);
+    Supercap_update_txd(&supercap_txD, &robot_state);
+    Supercap_transmit(&huart1, &supercap_txD);
   }
   if (htim == &htim13) {  // 双机通讯解包0.67ms@1500Hz
     connectionUnpackData(&connect);
@@ -64,6 +44,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     chassisChangeMode(&chassis1, ChassisControlData.mode);
     DJI_MotorPidRUN(chassis1.group);
     DJI_MotorSendData(chassis1.group);
+    get_if_with_supercap(&ChassisControlData);
   }
 }
 
@@ -93,6 +74,12 @@ void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
     supercap_rx_flg = 1;
     HAL_UARTEx_ReceiveToIdle_DMA(&huart1, supercap_rxD.rx_buf, sizeof(supercap_rxD.rx_buf));
     receive_count++;
+  }
+}
+
+void HAL_UART_TxCpltCallback(UART_HandleTypeDef* huart) {
+  if (huart == &huart6) {
+    ui_TxCpltCallback();
   }
 }
 

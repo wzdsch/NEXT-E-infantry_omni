@@ -15,7 +15,6 @@
 // #include "referee.h"
 // #include "refereeData_v1.4.h"
 #include "BMI088.h"
-#include "LADRC.h"
 #include "struct_typedef.h"
 
 #ifdef BMI088_H

@@ -43,4 +43,3 @@ gimbal\addons.o: ../Components/Basic_Control/Pid/pid.h
 gimbal\addons.o: ../Components/Basic/structs/struct_typedef.h
 gimbal\addons.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\math.h
 gimbal\addons.o: ../Components/IMU/BMI/Application/BMI088.h
-gimbal\addons.o: ../Components/Basic_Control/LADRC/LADRC.h

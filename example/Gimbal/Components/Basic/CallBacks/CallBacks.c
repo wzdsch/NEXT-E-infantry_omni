@@ -23,7 +23,9 @@ extern DJI_Motor motor2006;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &htim6) {  // BMI088@1KHZ
     BMI088_RUN(&BMI088_gimbal);
+#if SUPPLIER_ECD == 1
     getSupplierTotalEcd(&shooter1);
+#endif
     time_ms++;
   }
   if (htim == &htim8) {  // VOFA+调试200HZ
@@ -31,7 +33,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 	  // motorYaw.pidOutput0, motorYaw.realSpeedF, &huart1); // yaw
 	  // JustFloat(GimbalControlData.yawAngle, BMI088_gimbal.yawAngle,\
 		// vision1.RXData.VisionRxData.YawAngleTarget, motorYaw.realSpeedF, &huart1); // pitch
-    JustFloat((int)motor2006.target % 1000000, (int)shooter1.supplier_total_ecd % 1000000, motor2006.pidOutput0, motor2006.realSpeedF, &huart1);  // shooter
+    // JustFloat((int)motor2006.target % 1000000, (int)shooter1.supplier_total_ecd % 1000000, motor2006.pidOutput0, motor2006.realSpeedF, &huart1);  // shooter
+    // JustFloat(vision1.RXData.VisionRxData.YawAngleTarget, BMI088_gimbal.yawAngle, vision1.TXData.YawAngle, 0.0f, &huart1); // yaw
+    JustFloat(shooter1.friLmotor->realSpeedF, shooter1.friRmotor->realSpeedF, 0.0f, 0.0f, &huart1); // shooter
   }
   if (htim == &htim9) {
     VisionConnectSend(&vision1);  // 向视觉发送数据10ms@100hz
@@ -62,18 +66,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 }
 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart) {
-  //  RC_ReceiveCpltCallback(&rc_ctrl, huart);  //小白控
-  // RC_ReceiveCpltCallback(&RC_sbus, huart);
 }
 
-// void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart) {
-//   //  RC_ErrorCallback(&rc_ctrl, huart);
-//   // RC_ErrorCallback(&RC_sbus, huart);
-// }
+ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart) {
+ }
 
 void HAL_UARTEx_RxEventCallback(UART_HandleTypeDef *huart, uint16_t Size) {
-  //  RC_EventCallback(&rc_ctrl, huart);
-  // RC_EventCallback(&RC_sbus, huart);
 }
 
 // can中断0

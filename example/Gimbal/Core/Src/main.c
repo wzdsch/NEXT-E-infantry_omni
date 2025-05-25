@@ -31,7 +31,6 @@
 // #include "IMU.h"
 #include "BMI088.h"
 #include "DJI_Motor.h"
-#include "LADRC.h"
 #include "MCUConnect.h"
 #include "MCUConnectStructs.h"
 #include "RC_task.h"
@@ -40,7 +39,6 @@
 #include "addOns.h"
 #include "bsp_wbus.h"
 #include "gimbal.h"
-#include "ladrcData.h"
 #include "math.h"
 #include "pid.h"
 #include "pidData.h"
@@ -54,7 +52,6 @@
 /* USER CODE BEGIN PTD */
 DJI_MotorGroup group1;
 DJI_Motor motorYaw;
-LADRC_O2 LADRC_Yaw;
 
 DJI_Motor motorPitch;
 
@@ -102,7 +99,6 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-float temp=-10000.0f;
 /* USER CODE END 0 */
 
 /**
@@ -159,8 +155,7 @@ extern DMA_HandleTypeDef hdma2;
   /***********************************************************************************************/
   // 云台电机
   DJI_MotorGroupInit(&group1, &hcan1, CAN_RX_FIFO0);
-  DJI_MotorInit(&motorYaw, 0x207, 0, pidBoth, 0);  // 起火步兵yawID
-  // DJI_MotorInit(&motorYaw, 0x205, 0, pidBoth, 0);  // 另一�???
+  DJI_MotorInit(&motorYaw, 0x207, 0, pidBoth, 0);
   //  处理�???螺仪的数据，以及过零
   DJI_MotorPreProcessHandlerSet(&motorYaw, &IMUecdZeroCrossing);
 
@@ -168,14 +163,8 @@ extern DMA_HandleTypeDef hdma2;
 				  &(motorYaw.preProcessResult), &(motorYaw.target));
   DJI_MotorPidSet(&motorYaw, &(motorYaw.motorPid1), PID_POSITION, YAW_Speed_PID,
                   (fp32 *)&(BMI088_gimbal.yawSpeed), &(motorYaw.pidOutput0));
-	DJI_MotorPostProcessHandlerSet(&motorYaw, &negative);
- DJI_MotorCalculateResultSet(&motorYaw, &(motorYaw.postProcessResult));
-
-  //  // LADRC测试
-  //  LADRC_O2_Init(&LADRC_Yaw, LADRC_YAW_H, LADRC_YAW_R, LADRC_YAW_Wc, LADRC_YAW_W0, LADRC_YAW_B0);
-  //  LADRC_O2_REST(&LADRC_Yaw);
-  //  DJI_MotorCustonControlSet(&motorYaw, &LADRC_YawControl);
-  //  DJI_MotorCalculateResultSet(&motorYaw, &(motorYaw.customControlResult));
+  DJI_MotorPostProcessHandlerSet(&motorYaw, &negative);
+  DJI_MotorCalculateResultSet(&motorYaw, &(motorYaw.postProcessResult));
 
   DJI_MotorListAdd(&group1, &motorYaw);
 
@@ -204,15 +193,13 @@ extern DMA_HandleTypeDef hdma2;
 
   // 发射机构
   DJI_MotorGroupInit(&group2, &hcan2, CAN_RX_FIFO0);
-  // DJI_MotorInit(&motorfriR, 0x202, 0, pid0, NULL);  // 起火步兵
-  DJI_MotorInit(&motorfriR, 0x201, 0, pid0, NULL);  // 另一台步�???
+  DJI_MotorInit(&motorfriR, 0x201, 0, pid0, NULL);
   DJI_MotorPidSet(&motorfriR, &(motorfriR.motorPid0), PID_POSITION, FRI_Speed_PID,
                   &(motorfriR.realSpeedF), &(motorfriR.target));
   DJI_MotorCalculateResultSet(&motorfriR, &(motorfriR.pidOutput0));
   DJI_MotorListAdd(&group2, &motorfriR);
 
-  // DJI_MotorInit(&motorfriL, 0x201, 1, pid0, NULL);  // 起火步兵
-  DJI_MotorInit(&motorfriL, 0x202, 1, pid0, NULL);  // 另外�???台步�???
+  DJI_MotorInit(&motorfriL, 0x202, 1, pid0, NULL);
   DJI_MotorPidSet(&motorfriL, &(motorfriL.motorPid0), PID_POSITION, FRI_Speed_PID,
                   &(motorfriL.realSpeedF), &(motorfriL.target));
   DJI_MotorCalculateResultSet(&motorfriL, &(motorfriL.pidOutput0));
@@ -237,8 +224,14 @@ extern DMA_HandleTypeDef hdma2;
   /**************************************云台初始�???************************************************/
   /***********************************************************************************************/
   gimbalINIT(&gimbal1, &group1, &motorYaw, &motorPitch);
+#if SUPPLIER_ECD == 1
   shooterINIT(&shooter1, &group2, &motorfriL, &motorfriR, &motor2006, shooterSpeed, SHOOTER_FREQ_DFLT,
               10, TOTAL_ECD_PER_SHOOT);
+#elif SUPPLIER_ECD == 0
+  shooterINIT(&shooter1, &group2, &motorfriL, &motorfriR, &motor2006, shooterSpeed,
+              SHOOTER_FREQ_DFLT, 10, TOTAL_ECD_PER_SHOOT);
+#endif
+
   connectionINIT(&connect, &hcan1, 0x400, CAN_RX_FIFO1);
   VisionConnectINIT(&vision1, BLUE);
   /***********************************************************************************************/
@@ -248,7 +241,6 @@ extern DMA_HandleTypeDef hdma2;
   tuneINIT();
   tune(2);  // 初始化完成则响两�???
 
-//  RemoteControlINIT(&RC_sbus, &huart3);  // 遥控
   W_BUS_Init(W_BUSRxBuffer[0], W_BUSRxBuffer[1], RC_FRAME_NUM);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1);
   HAL_TIM_Base_Start_IT(&htim9);   // 视觉发�??

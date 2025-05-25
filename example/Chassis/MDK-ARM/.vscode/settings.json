@@ -25,6 +25,16 @@
     "mcuconnectstructs.h": "c",
     "refereedata_v1.7.h": "c",
     "tools.h": "c",
-    "refereedata_v1.6.h": "c"
+    "refereedata_v1.6.h": "c",
+    "ui_callbacks.h": "c",
+    "ui.h": "c",
+    "cstdint": "c",
+    "ui_default_always_0.h": "c",
+    "ui_g.h": "c",
+    "ui_interface.h": "c",
+    "usart.h": "c",
+    "system_error": "c",
+    "ui_types.h": "c",
+    "math.h": "c"
   }
 }

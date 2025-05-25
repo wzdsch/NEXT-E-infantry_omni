@@ -2,20 +2,16 @@
 #include "main.h"
 #include "struct_typedef.h"
 
-#define stuckProcessCountLimit 50    // 卡弹处理时间
+#define stuckProcessCountLimit 70    // 卡弹处理时间
 #define startDelayLimit        100   // 电机启动时间
-#define stuckCountLimit        50   // 卡弹处理触发时间
-#define stuckPersent           0.01f  // 卡弹处理阈值
+#define stuckCountLimit        100   // 卡弹处理触发时间
+#define stuckPersent           0.005f  // 卡弹处理阈值
 
 #define shooterSpeed 6200.0f
 
 #define TOTAL_ECD_PER_SHOOT 73728
 
-#if SUPPLIER_ECD == 0
-#define shooterFreq (27.0f * 540.0f)  // num.0f @hz * 540.0f
-#else
 #define SHOOTER_FREQ_DFLT 27.0f // 默认频率
-#endif
 
 enum shooter_Mode {
   SHOOTER_STOP = 0,    // 所有电机停转5

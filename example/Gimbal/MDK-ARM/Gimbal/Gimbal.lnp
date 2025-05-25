@@ -64,7 +64,6 @@
 "gimbal\bsp_wbus.o"
 "gimbal\rc_task.o"
 "gimbal\shooter.o"
-"gimbal\ladrc.o"
 "gimbal\robotmodmanage.o"
 "gimbal\visionconnect.o"
 "gimbal\crc8_crc16.o"

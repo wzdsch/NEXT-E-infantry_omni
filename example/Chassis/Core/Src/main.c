@@ -40,21 +40,22 @@
 #include "refereeData_v1.6.h"
 #include "ui.h"
 #include "SuperCap.h"
+#include "ui_callbacks.h"
 
 // #include "remote_control.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
-// 底盘电机结构�?
-// 底盘电机结构�???;
+// 底盘电机结构�???
+// 底盘电机结构�?????;
 DJI_MotorGroup group1;
 DJI_Motor motor1;
 DJI_Motor motor2;
 DJI_Motor motor3;
 DJI_Motor motor4;
 
-// 云台电机结构�???;
+// 云台电机结构�?????;
 DJI_MotorGroup group2;
 DJI_Motor motorYaw;
 
@@ -134,13 +135,13 @@ int main(void)
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
   /***********************************************************************************************/
-  /**************************************电机初始�???************************************************/
+  /**************************************电机初始�?????************************************************/
   /***********************************************************************************************/
   //  底盘电机
 
   DJI_MotorGroupInit(&group1, &hcan2, CAN_RX_FIFO0);
 
-  DJI_MotorInit(&motor1, 0x204, 0, pid0, NULL);  // 起火步兵地盘ID�?3412，另外一�?1234
+  DJI_MotorInit(&motor1, 0x204, 0, pid0, NULL);  // 起火步兵地盘ID�???3412，另外一�???1234
   DJI_MotorPidSet(&motor1, &(motor1.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor1.realSpeedF),
                   &(motor1.target));
 
@@ -187,20 +188,20 @@ int main(void)
   DJI_MotorEnable(&motor3);
   DJI_MotorEnable(&motor4);
 
-  // 云台yaw轴电机，这里可以把相关计算放在底盘，这里是为了接收电机数据才创建�??
+  // 云台yaw轴电机，这里可以把相关计算放在底盘，这里是为了接收电机数据才创建�????
   DJI_MotorGroupInit(&group2, &hcan1, CAN_RX_FIFO0);  // 电机组初始化
-  // 这里flagEcd只能�??0
-  DJI_MotorInit(&motorYaw, motorYaw_ID, 0, NULL, NULL);  // 电机初始�? 起火步兵的ID
-  // DJI_MotorInit(&motorYaw, 0x205, 0, NULL, NULL);  // 电机初始�? 另一台步兵的ID
+  // 这里flagEcd只能�????0
+  DJI_MotorInit(&motorYaw, motorYaw_ID, 0, NULL, NULL);  // 电机初始�??? 起火步兵的ID
+  // DJI_MotorInit(&motorYaw, 0x205, 0, NULL, NULL);  // 电机初始�??? 另一台步兵的ID
   DJI_MotorListAdd(&group2, &motorYaw);
 
   /***********************************************************************************************/
-  /**************************************底盘初始化************************************************/
+  /**************************************底盘初始�??************************************************/
   /***********************************************************************************************/
-  // 这里�??要依赖yaw轴电机或者底盘imu来底盘跟随，�??以上面创建了yaw轴电机的结构体来接收电机数据
+  // 这里�????要依赖yaw轴电机或者底盘imu来底盘跟随，�????以上面创建了yaw轴电机的结构体来接收电机数据
   chassisINIT(&chassis1, &group1, &motor1, &motor2, &motor3, &motor4, &motorYaw);
-  chasisFollowINIT(&chassis1, 2468, PID_POSITION, Chassis_Angle_PID, PID_POSITION,
-                   Chassis_Speed_PID);  // 底盘跟随初始�?(起火步兵)
+  chasisFollowINIT(&chassis1, 2881, PID_POSITION, Chassis_Angle_PID, PID_POSITION,
+                   Chassis_Speed_PID);  // 底盘跟随初始�???(起火步兵)
   followResultSet(&chassis1, &(chassis1.followPidout));  // 底盘跟随结果设置
   connectionINIT(&connect, &hcan1, 0x400, CAN_RX_FIFO1);
 
@@ -211,8 +212,7 @@ int main(void)
   refereeINIT(&htim12);
   HAL_TIM_Base_Start_IT(&htim14);  // 电机pid计算
   HAL_TIM_Base_Start_IT(&htim13);  // 双机通信
-  HAL_TIM_Base_Start_IT(&htim11);  // UI
-  HAL_TIM_Base_Start_IT(&htim10);
+  HAL_TIM_Base_Start_IT(&htim11);
   
 #ifdef SUPERCAP_H
   HAL_UARTEx_ReceiveToIdle_DMA(&huart1, supercap_rxD.rx_buf, sizeof(supercap_rxD.rx_buf));
@@ -222,9 +222,17 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1) {
-    UI_Init();  // UI初始�?
-    HAL_Delay(1);
-    ui_self_id = robot_state.robot_id;
+    static uint8_t ui_refresh_flg = 1; // 1为待刷新
+
+    if (ChassisControlData.ui_refresh == 1) {
+      ui_refresh_flg = 1;
+    }
+
+    if (ui_refresh_flg == 1) {
+    ui_DrawAtStartUP(&htim10);
+    ui_refresh_flg = 0;
+    }
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

@@ -49,16 +49,9 @@ chassis\callbacks.o: ../Components/Referee/refereeData_v1.6.h
 chassis\callbacks.o: ../Components/Referee/protocol.h
 chassis\callbacks.o: ../Components/UI/ui.h
 chassis\callbacks.o: ../Components/UI/ui_interface.h
-chassis\callbacks.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdio.h
 chassis\callbacks.o: ../Components/UI/ui_types.h
-chassis\callbacks.o: ../Components/UI/ui_draw.h
+chassis\callbacks.o: ../Components/UI/ui_callbacks.h
+chassis\callbacks.o: ../Components/UI/ui_g.h
+chassis\callbacks.o: ../Components/Vofa/vofa.h
 chassis\callbacks.o: ../Core/Inc/usart.h
-chassis\callbacks.o: ../Components/UI/ui_default_always_0.h
-chassis\callbacks.o: ../Components/UI/ui_default_always_1.h
-chassis\callbacks.o: ../Components/UI/ui_default_always_2.h
-chassis\callbacks.o: ../Components/UI/ui_default_always_3.h
-chassis\callbacks.o: ../Components/UI/ui_default_Vision_0.h
-chassis\callbacks.o: ../Components/UI/ui_default_Chassis_0.h
-chassis\callbacks.o: ../Components/UI/ui_default_Cover_0.h
-chassis\callbacks.o: ..\Components\Vofa\vofa.h
-chassis\callbacks.o: ..\Components\SuperCap\SuperCap.h
+chassis\callbacks.o: ../Components/SuperCap/SuperCap.h

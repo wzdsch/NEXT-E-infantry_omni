@@ -20,6 +20,10 @@
 #include "pid.h"
 #include "pidData.h"
 #include "remote_control.h"
+#include "SuperCap.h"
+
+extern uint8_t referee_rx_flg;
+extern uint8_t supercap_rx_flg;
 
 fp32 ave_spd_z = 0;
 int top_spd_z = 3000;
@@ -308,8 +312,8 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
       DJI_MotorEnable(chassis->chassisMotor4);
       DJI_MotorDisable(chassis->gimbalMotor);
 
-      current_z = \
-        ((fp32)sin((fp32)top_time_cnt / (fp32)TOP_T * 2.0f * PI) + 1) * 0.5f * z + 1.0f * z;
+      current_z = 3000;//\
+      ((fp32)sin((fp32)top_time_cnt / (fp32)TOP_T * 2.0f * PI) + 1) * 0.5f * z + 1.0f * z;
 
       top_time_cnt++;
       top_time_cnt %= TOP_T;
@@ -349,23 +353,59 @@ void chassisRun(chassis* chassis, fp32 x, fp32 y, fp32 z, int16_t angle) {
   chassisFollowRun(chassis);  // 底盘跟随pid计算
 }
 
-/// @brief float滤波函数
-/// @param new_data 新数据
-/// @param buf 数据缓存的地址
-/// @param num 缓存区数据个数
-/// @return 
-fp32 filterF(fp32 new_data, fp32* buf, int num)
+/// @brief 是否使用超电逻辑控制
+/// @param chassisControlData 
+void get_if_with_supercap(ChassisControl* chassisControlData)
 {
-  static unsigned char i = 0; // 新数据覆盖到缓存中的位置
-  buf[i] = new_data;
-  i++;
-  i %= num;
+  static uint8_t last_state = 0;
+  uint8_t now_state = chassisControlData->with_supercap;
 
-  fp32 sum = 0;
-  for (unsigned char j = 0; j < num; j++)
+  if (last_state != now_state)
   {
-    sum += buf[j];
-  }
+    if (chassisControlData->with_supercap == 1)
+    {
+      if (supercap_rx_flg == 1)
+      {
+        DJI_MotorPostProcessHandlerSet(&motor1, &Supercap_powerlimit);
+        DJI_MotorPostProcessHandlerSet(&motor2, &Supercap_powerlimit);
+        DJI_MotorPostProcessHandlerSet(&motor2, &Supercap_powerlimit);
+        DJI_MotorPostProcessHandlerSet(&motor2, &Supercap_powerlimit);
 
-  return sum / num;
+        DJI_MotorCalculateResultSet(&motor1, &motor1.postProcessResult);
+        DJI_MotorCalculateResultSet(&motor2, &motor2.postProcessResult);
+        DJI_MotorCalculateResultSet(&motor3, &motor3.postProcessResult);
+        DJI_MotorCalculateResultSet(&motor4, &motor4.postProcessResult);
+      }
+      else
+      {
+        DJI_MotorCalculateResultSet(&motor1, &motor1.postProcessResult);
+        DJI_MotorCalculateResultSet(&motor2, &motor2.postProcessResult);
+        DJI_MotorCalculateResultSet(&motor3, &motor3.postProcessResult);
+        DJI_MotorCalculateResultSet(&motor4, &motor4.postProcessResult);
+      }
+    }
+    else if (chassisControlData->with_supercap == 0)
+    {
+      if (referee_rx_flg == 1)
+      {
+        DJI_MotorPostProcessHandlerSet(&motor1, &powerlimit_pro);
+        DJI_MotorPostProcessHandlerSet(&motor2, &powerlimit_pro);
+        DJI_MotorPostProcessHandlerSet(&motor3, &powerlimit_pro);
+        DJI_MotorPostProcessHandlerSet(&motor4, &powerlimit_pro);
+
+        DJI_MotorCalculateResultSet(&motor1, &(motor1.postProcessResult));
+        DJI_MotorCalculateResultSet(&motor2, &(motor2.postProcessResult));
+        DJI_MotorCalculateResultSet(&motor3, &(motor3.postProcessResult));
+        DJI_MotorCalculateResultSet(&motor4, &(motor4.postProcessResult));
+      }
+      else
+      {
+        DJI_MotorCalculateResultSet(&motor1, &(motor1.postProcessResult));
+        DJI_MotorCalculateResultSet(&motor2, &(motor2.postProcessResult));
+        DJI_MotorCalculateResultSet(&motor3, &(motor3.postProcessResult));
+        DJI_MotorCalculateResultSet(&motor4, &(motor4.postProcessResult));
+      }
+    }
+    last_state = now_state;
+  }
 }

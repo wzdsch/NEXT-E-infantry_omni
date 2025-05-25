@@ -1,9 +1,11 @@
 chassis\ui_interface.o: ..\Components\UI\ui_interface.c
-chassis\ui_interface.o: ..\Components\UI\ui_interface.h
+chassis\ui_interface.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\string.h
 chassis\ui_interface.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdio.h
+chassis\ui_interface.o: ..\Components\UI\ui_interface.h
 chassis\ui_interface.o: ..\Components\UI\ui_types.h
+chassis\ui_interface.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
+chassis\ui_interface.o: ..\Components\UI\ui_callbacks.h
 chassis\ui_interface.o: ../Components/Basic/structs/struct_typedef.h
-chassis\ui_interface.o: ..\Components\UI\ui_draw.h
 chassis\ui_interface.o: ../Core/Inc/main.h
 chassis\ui_interface.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 chassis\ui_interface.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -12,7 +14,6 @@ chassis\ui_interface.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 chassis\ui_interface.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 chassis\ui_interface.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 chassis\ui_interface.o: ../Drivers/CMSIS/Include/core_cm4.h
-chassis\ui_interface.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
 chassis\ui_interface.o: ../Drivers/CMSIS/Include/cmsis_version.h
 chassis\ui_interface.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 chassis\ui_interface.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -37,5 +38,3 @@ chassis\ui_interface.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex
 chassis\ui_interface.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h
 chassis\ui_interface.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 chassis\ui_interface.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
-chassis\ui_interface.o: ../Core/Inc/usart.h
-chassis\ui_interface.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\string.h

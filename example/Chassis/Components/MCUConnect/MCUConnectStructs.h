@@ -1,4 +1,3 @@
-
 #ifndef MCUCONNECTSTRUCTS_H
 #define MCUCONNECTSTRUCTS_H
 
@@ -9,11 +8,11 @@
 
 typedef struct ChassisControlData {
   uint8_t mode;
-  uint8_t AutoAim;
-  uint8_t cover;
+  uint8_t with_supercap; // 是否使用超级电容w
   fp32 speedx;
   fp32 speedy;
   fp32 speedz;
+  uint8_t ui_refresh; // UI刷新标志位 1是刷新
 } ChassisControl;
 
 typedef struct RefereeData {

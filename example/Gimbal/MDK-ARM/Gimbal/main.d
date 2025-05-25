@@ -52,7 +52,6 @@ gimbal\main.o: ../Components/IMU/BMI/Application/BMI088.h
 gimbal\main.o: ../Components/Basic/structs/struct_typedef.h
 gimbal\main.o: ../Components/DJI_Motor/DJI_Motor.h
 gimbal\main.o: ../Components/Basic_Control/Pid/pid.h
-gimbal\main.o: ../Components/Basic_Control/LADRC/LADRC.h
 gimbal\main.o: ../Components/MCUConnect/MCUConnect.h
 gimbal\main.o: ../Components/MCUConnect/MCUConnectStructs.h
 gimbal\main.o: ../Components/remoteControl/RC_task.h
@@ -63,7 +62,6 @@ gimbal\main.o: ../Components/Basic_Control/Pid/pid.h
 gimbal\main.o: ../Components/DJI_Motor/addOns.h
 gimbal\main.o: ../Components/remoteControl/bsp_wbus.h
 gimbal\main.o: ../Components/Gimbal/gimbal.h
-gimbal\main.o: ../Components/Basic_Control/LADRC/ladrcData.h
 gimbal\main.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\math.h
 gimbal\main.o: ../Components/Basic_Control/Pid/pid.h
 gimbal\main.o: ../Components/Basic_Control/Pid/pidData.h

@@ -88,7 +88,7 @@
 #define M2006_Speed_PID_KP       10.0f
 #define M2006_Speed_PID_KI       0.000f
 #define M2006_Speed_PID_KD       0.0f
-#define M2006_Speed_PID_MAX_OUT  15000.0f
+#define M2006_Speed_PID_MAX_OUT  13000.0f
 #define M2006_Speed_PID_MAX_IOUT 1000.0f
 
 // 2006角度环

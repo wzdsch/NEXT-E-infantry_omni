@@ -4,6 +4,7 @@
 #include "DJI_Motor.h"
 #include "can.h"
 #include "struct_typedef.h"
+#include "MCUConnectStructs.h"
 
 #define SPEED_LIMIT 8000.0f
 #define SPEED_LIMIT_TOP 6000.0f
@@ -52,6 +53,7 @@ extern void chassisFollowDisable(chassis *chassis);
 extern void followResultSet(chassis *chassis, fp32 *result);
 extern void chassisRun(chassis *chassis, fp32 x, fp32 y, fp32 z, int16_t angle);
 extern fp32 filterF(fp32 new_data, fp32* buf, int num);
+extern void get_if_with_supercap(ChassisControl *chassisControlData);
 
 extern chassis chassis1;
 

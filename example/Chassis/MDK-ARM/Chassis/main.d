@@ -57,14 +57,7 @@ chassis\main.o: ../Components/Referee/refereeData_v1.6.h
 chassis\main.o: ../Components/Referee/protocol.h
 chassis\main.o: ../Components/UI/ui.h
 chassis\main.o: ../Components/UI/ui_interface.h
-chassis\main.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdio.h
 chassis\main.o: ../Components/UI/ui_types.h
-chassis\main.o: ../Components/UI/ui_draw.h
-chassis\main.o: ../Components/UI/ui_default_always_0.h
-chassis\main.o: ../Components/UI/ui_default_always_1.h
-chassis\main.o: ../Components/UI/ui_default_always_2.h
-chassis\main.o: ../Components/UI/ui_default_always_3.h
-chassis\main.o: ../Components/UI/ui_default_Vision_0.h
-chassis\main.o: ../Components/UI/ui_default_Chassis_0.h
-chassis\main.o: ../Components/UI/ui_default_Cover_0.h
-chassis\main.o: ..\Components\SuperCap\SuperCap.h
+chassis\main.o: ../Components/UI/ui_callbacks.h
+chassis\main.o: ../Components/UI/ui_g.h
+chassis\main.o: ../Components/SuperCap/SuperCap.h

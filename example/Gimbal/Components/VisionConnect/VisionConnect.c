@@ -49,7 +49,6 @@ void VisionConnectUpdateTX(VisionConnect *connect, uint8_t OurColor, fp32 yawAng
 void VisionConnectSend(VisionConnect *connnect) {
 
   connnect->TXData.packHead = 0x00a5;  // 包头
-  // connnect->TXData.targetType = 0x00;
   // 我方颜色
   if (connnect->TXData.OurColor == RED) {
     connnect->TXData.OurColor = RED;
