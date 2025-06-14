@@ -159,14 +159,14 @@
           <Type>0</Type>
           <LineNumber>1313</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134240396</Address>
+          <Address>134240276</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c</Filename>
+          <Filename>c:\Users\admin\Desktop\omni_test\NEXT-E_Robot_Component_Library\example\Gimbal\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\Gimbal\../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c\1313</Expression>
         </Bp>
@@ -175,14 +175,14 @@
           <Type>0</Type>
           <LineNumber>1353</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134240438</Address>
+          <Address>134240318</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c</Filename>
+          <Filename>c:\Users\admin\Desktop\omni_test\NEXT-E_Robot_Component_Library\example\Gimbal\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\Gimbal\../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c\1353</Expression>
         </Bp>
@@ -191,35 +191,19 @@
           <Type>0</Type>
           <LineNumber>1259</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134240228</Address>
+          <Address>134240108</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c</Filename>
+          <Filename>c:\Users\admin\Desktop\omni_test\NEXT-E_Robot_Component_Library\example\Gimbal\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\Gimbal\../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c\1259</Expression>
         </Bp>
         <Bp>
           <Number>3</Number>
-          <Type>0</Type>
-          <LineNumber>54</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134286708</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>..\Components\shooter\shooter.c</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\Gimbal\../Components/shooter/shooter.c\54</Expression>
-        </Bp>
-        <Bp>
-          <Number>4</Number>
           <Type>0</Type>
           <LineNumber>50</LineNumber>
           <EnabledFlag>1</EnabledFlag>
@@ -230,14 +214,14 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>0</BreakIfRCount>
-          <Filename>..\Components\shooter\shooter.c</Filename>
+          <Filename>startup_stm32f407xx.s</Filename>
           <ExecCommand></ExecCommand>
           <Expression></Expression>
         </Bp>
         <Bp>
-          <Number>5</Number>
+          <Number>4</Number>
           <Type>0</Type>
-          <LineNumber>50</LineNumber>
+          <LineNumber>54</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>0</Address>
           <ByteObject>0</ByteObject>
@@ -300,92 +284,7 @@
         <Ww>
           <count>9</count>
           <WinNumber>1</WinNumber>
-          <ItemText>correction</ItemText>
-        </Ww>
-        <Ww>
-          <count>10</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>RC_sbus</ItemText>
-        </Ww>
-        <Ww>
-          <count>11</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>W_BUSRxBuffer[0]</ItemText>
-        </Ww>
-        <Ww>
-          <count>12</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>W_BUSRxBuffer[1]</ItemText>
-        </Ww>
-        <Ww>
-          <count>13</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>Vofa</ItemText>
-        </Ww>
-        <Ww>
-          <count>14</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>HAL_UART_Transmit_DMA</ItemText>
-        </Ww>
-        <Ww>
-          <count>15</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>gState</ItemText>
-        </Ww>
-        <Ww>
-          <count>16</count>
-          <WinNumber>1</WinNumber>
           <ItemText>motorYaw,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>17</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>vision1,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>18</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>dbg</ItemText>
-        </Ww>
-        <Ww>
-          <count>19</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>visionState,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>20</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>shooter1,0x0A</ItemText>
-        </Ww>
-        <Ww>
-          <count>21</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>group2</ItemText>
-        </Ww>
-        <Ww>
-          <count>22</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>group1</ItemText>
-        </Ww>
-        <Ww>
-          <count>23</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>yaw_spd</ItemText>
-        </Ww>
-        <Ww>
-          <count>24</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>RefereeData</ItemText>
-        </Ww>
-        <Ww>
-          <count>25</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>hcan1</ItemText>
-        </Ww>
-        <Ww>
-          <count>26</count>
-          <WinNumber>1</WinNumber>
-          <ItemText>time_ms,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -1018,7 +917,7 @@
       <GroupNumber>9</GroupNumber>
       <FileNumber>43</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Components\Basic_Control\Pid\pid.c</PathWithFileName>

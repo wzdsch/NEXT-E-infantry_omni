@@ -8,14 +8,16 @@
 
 #include "ui_interface.h"
 
-extern ui_interface_figure_t ui_g_now_figures[5];
-extern uint8_t ui_g_dirty_figure[5];
+extern ui_interface_figure_t ui_g_now_figures[7];
+extern uint8_t ui_g_dirty_figure[7];
 
 #define ui_g_dynamic_graph_super_cap_persent ((ui_interface_number_t*)&(ui_g_now_figures[0]))
 #define ui_g_aim_auto_aim_scale ((ui_interface_rect_t*)&(ui_g_now_figures[1]))
 #define ui_g_aim_aim_line_l ((ui_interface_line_t*)&(ui_g_now_figures[2]))
 #define ui_g_aim_aim_line_r ((ui_interface_line_t*)&(ui_g_now_figures[3]))
 #define ui_g_aim_aim_line_center ((ui_interface_line_t*)&(ui_g_now_figures[4]))
+#define ui_g_Ungroup_left_car_road ((ui_interface_line_t*)&(ui_g_now_figures[5]))
+#define ui_g_Ungroup_right_car_road ((ui_interface_line_t*)&(ui_g_now_figures[6]))
 
 
 #ifdef MANUAL_DIRTY
@@ -24,6 +26,8 @@ extern uint8_t ui_g_dirty_figure[5];
 #define ui_g_aim_aim_line_l_dirty (ui_g_dirty_figure[2])
 #define ui_g_aim_aim_line_r_dirty (ui_g_dirty_figure[3])
 #define ui_g_aim_aim_line_center_dirty (ui_g_dirty_figure[4])
+#define ui_g_Ungroup_left_car_road_dirty (ui_g_dirty_figure[5])
+#define ui_g_Ungroup_right_car_road_dirty (ui_g_dirty_figure[6])
 
 #endif
 

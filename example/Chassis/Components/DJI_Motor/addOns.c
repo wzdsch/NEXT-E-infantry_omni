@@ -190,13 +190,6 @@ fp32 powerlimit(DJI_Motor *motor) {
  */  fp32 constant = 4.081f;
 float chassis_total_power = 0;
 fp32 powerlimit_pro(DJI_Motor *motor) {
-  static uint8_t pidsetCount = 0;
-  static pids buffer_pid;
-  if (pidsetCount == 0) {
-    pidINIT(&buffer_pid, PID_POSITION, 1.5, 0, 0, 30, 3);
-    pidsetCount++;
-  }
-  // fp32 buffer_pid_out = 0;
   uint16_t max_power_limit = robot_state.chassis_power_limit;
   fp32 chassis_max_power = 0;
   float input_power = 0;         // input power from battery (referee system)
@@ -209,10 +202,7 @@ fp32 powerlimit_pro(DJI_Motor *motor) {
   fp32 a = 1.23e-07;                        // k1
   fp32 k2 = 1.453e-07;                      // k2
 
-
-  // buffer_pid_out = PID_calc(&buffer_pid, power_heat_data.buffer_energy,
-  //                           40);                      // 适配代码(自己写的)
-  max_power_limit = robot_state.chassis_power_limit;  // 适配代码(自己写的)
+  max_power_limit = robot_state.chassis_power_limit;
   input_power = max_power_limit;
   chassis_max_power = input_power;
   static uint8_t count = 0;
@@ -238,8 +228,6 @@ fp32 powerlimit_pro(DJI_Motor *motor) {
     if (scaled_give_power < 0) {
       return motor->pidOutput0;
     }
-	
-    // chassis_total_power = scaled_give_power; //
 	
     fp32 b = toque_coefficient * motor->realSpeed;
     fp32 c = k2 * motor->realSpeed * motor->realSpeed - scaled_give_power + constant;

@@ -1,4 +1,6 @@
 #include "Supercap.h"
+#include "MCUConnectStructs.h"
+uint8_t supercap_err_flg = 0;
 
 supercap_rx_t supercap_rxD;
 supercap_tx_t supercap_txD;
@@ -17,9 +19,18 @@ fp32 Supercap_powerlimit(DJI_Motor *motor) {
   fp32 a = 1.23e-07;                        // k1
   fp32 k2 = 1.453e-07;                      // k2
   fp32 constant = 4.081f;
-
-  //supercap.max_cap_power = supercap.raw_cap_power/100;
-  chassis_max_power = supercap_rxD.max_cap_power + robot_state.chassis_power_limit;
+  //supercap.max_cap_power = supercap.raw_cap_power/100
+  if (supercap_err_flg == 1) { // 如果超电出错，直接忽略超电能提供的能量
+    chassis_max_power = robot_state.chassis_power_limit;
+  }
+  else {
+    if (ChassisControlData.with_supercap == 1) {
+      chassis_max_power = supercap_rxD.max_cap_power + robot_state.chassis_power_limit;
+    }
+    else {
+      chassis_max_power = robot_state.chassis_power_limit; // 留出10w给超电充电
+    }
+  }
 
   static uint8_t count = 0;
 
@@ -73,6 +84,9 @@ fp32 Supercap_powerlimit(DJI_Motor *motor) {
 
 void Supercap_unpack(supercap_rx_t *supercap)
 {
+	if (supercap->err_code != 0) {
+	HAL_UARTEx_ReceiveToIdle_DMA(&huart1, supercap_rxD.rx_buf, sizeof(supercap_rxD.rx_buf));
+	}
   supercap->head = supercap->rx_buf[0] << 8 | supercap->rx_buf[1];
   if (supercap->head == SUPERCAP_RX_HEAD && supercap_rx_flg == 1)
   {
@@ -81,72 +95,22 @@ void Supercap_unpack(supercap_rx_t *supercap)
     supercap->cap_percent = (supercap->rx_buf[4] | supercap->rx_buf[5] << 8);
     supercap->input_power = (supercap->rx_buf[6] | supercap->rx_buf[7] << 8) * 0.01f;
     supercap->err_code = (supercap->rx_buf[8] | supercap->rx_buf[9] << 8);
-    if(supercap->max_cap_power >= 45) // 保证超电提供的功率不超过50W
+	  
+    if(supercap->max_cap_power >= 50) // 保证超电提供的功率不超过50W
     {
-      supercap_rxD.max_cap_power = 45;
+      supercap_rxD.max_cap_power = 50;
     }
     else if (supercap->max_cap_power < 0)
     {
       supercap_rxD.max_cap_power = 0;
     }
 
-    if (supercap->err_code != 0) // 超电报错，改回原有功率限制
-    {
-      if (referee_rx_flg == 1)
-      {
-        DJI_MotorPostProcessHandlerSet(&motor1, &powerlimit_pro);
-        DJI_MotorPostProcessHandlerSet(&motor2, &powerlimit_pro);
-        DJI_MotorPostProcessHandlerSet(&motor3, &powerlimit_pro);
-        DJI_MotorPostProcessHandlerSet(&motor4, &powerlimit_pro);
-        
-        DJI_MotorCalculateResultSet(&motor1, &(motor1.postProcessResult));
-        DJI_MotorCalculateResultSet(&motor2, &(motor2.postProcessResult));
-        DJI_MotorCalculateResultSet(&motor3, &(motor3.postProcessResult));
-        DJI_MotorCalculateResultSet(&motor4, &(motor4.postProcessResult));
-      }
-      else
-      {
-        DJI_MotorCalculateResultSet(&motor1, &(motor1.pidOutput0));
-        DJI_MotorCalculateResultSet(&motor2, &(motor2.pidOutput0));
-        DJI_MotorCalculateResultSet(&motor3, &(motor3.pidOutput0));
-        DJI_MotorCalculateResultSet(&motor4, &(motor4.pidOutput0));
-      }
-    }
-    else //超电正常，改回超电功率限制
-    {
-      DJI_MotorPostProcessHandlerSet(&motor1, &Supercap_powerlimit);
-      DJI_MotorPostProcessHandlerSet(&motor2, &Supercap_powerlimit);
-      DJI_MotorPostProcessHandlerSet(&motor3, &Supercap_powerlimit);
-      DJI_MotorPostProcessHandlerSet(&motor4, &Supercap_powerlimit);
-
-      DJI_MotorCalculateResultSet(&motor1, &(motor1.postProcessResult));
-      DJI_MotorCalculateResultSet(&motor2, &(motor2.postProcessResult));
-      DJI_MotorCalculateResultSet(&motor3, &(motor3.postProcessResult));
-      DJI_MotorCalculateResultSet(&motor4, &(motor4.postProcessResult));
-    }
-  
+  if (supercap->err_code != 0) {
+    supercap_err_flg = 1;
   }
-  else // 收不到超电数据/收到的数据错误，改回原有功率限制
-  {
-    if (referee_rx_flg == 1)
-    {
-      DJI_MotorPostProcessHandlerSet(&motor1, &powerlimit_pro);
-      DJI_MotorPostProcessHandlerSet(&motor2, &powerlimit_pro);
-      DJI_MotorPostProcessHandlerSet(&motor3, &powerlimit_pro);
-      DJI_MotorPostProcessHandlerSet(&motor4, &powerlimit_pro);
-      
-      DJI_MotorCalculateResultSet(&motor1, &(motor1.postProcessResult));
-      DJI_MotorCalculateResultSet(&motor2, &(motor2.postProcessResult));
-      DJI_MotorCalculateResultSet(&motor3, &(motor3.postProcessResult));
-      DJI_MotorCalculateResultSet(&motor4, &(motor4.postProcessResult));
-    }
-    else
-    {
-      DJI_MotorCalculateResultSet(&motor1, &(motor1.pidOutput0));
-      DJI_MotorCalculateResultSet(&motor2, &(motor2.pidOutput0));
-      DJI_MotorCalculateResultSet(&motor3, &(motor3.pidOutput0));
-      DJI_MotorCalculateResultSet(&motor4, &(motor4.pidOutput0));
-    }
+  else {
+    supercap_err_flg = 0;
+  }
   }
 }
 
@@ -161,7 +125,7 @@ void Supercap_update_txd(supercap_tx_t* supercap_tx, robot_state_t* const robot_
     supercap_tx->chassis_power_limit = robot_state->chassis_power_limit;
   }
   else {
-    supercap_tx->chassis_power_limit = 60;
+    supercap_tx->chassis_power_limit = 50;
     supercap_tx->chassis_power_state = 1;
   }
 }

@@ -29,7 +29,9 @@
 			"stdio.h": "c",
 			"can.h": "c",
 			"crc8_crc16.h": "c",
-			"referee.h": "c"
+			"referee.h": "c",
+			"tools.h": "c",
+			"mcuconnect.h": "c"
 		},
     "C_Cpp.formatting": "clangFormat",
     "C_Cpp.vcFormat.indent.caseContentsWhenBlock": true,

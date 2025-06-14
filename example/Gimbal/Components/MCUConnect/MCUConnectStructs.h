@@ -12,6 +12,7 @@ typedef struct ChassisControlData {
   fp32 speedy;
   fp32 speedz;
   uint8_t ui_refresh; // UI刷新标志位 1是刷新
+  uint8_t vision_tracking; // 视觉跟踪标志位 1是跟踪
 } ChassisControl;
 
 typedef struct GimbalControlData {

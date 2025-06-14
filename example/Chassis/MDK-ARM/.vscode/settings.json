@@ -35,6 +35,11 @@
     "usart.h": "c",
     "system_error": "c",
     "ui_types.h": "c",
-    "math.h": "c"
+    "math.h": "c",
+    "string.h": "c",
+    "can.h": "c",
+    "dji_motor.h": "c",
+    "stdlib.h": "c",
+    "mcuconnect.h": "c"
   }
 }

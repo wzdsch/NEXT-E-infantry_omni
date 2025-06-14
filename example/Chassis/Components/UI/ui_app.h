@@ -1,5 +1,5 @@
-#ifndef UI_CALLBACKS_H
-#define UI_CALLBACKS_H
+#ifndef UI_APP_H
+#define UI_APP_H
 #include "struct_typedef.h"
 #include "main.h"
 volatile extern uint8_t ui_tx_cplt_flag;

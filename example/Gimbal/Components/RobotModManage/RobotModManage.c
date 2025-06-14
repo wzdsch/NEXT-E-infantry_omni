@@ -18,8 +18,9 @@ RC_SBUS_t RC_sbus;
 PC_Flags PCflags = {0};
 uint16_t PWMpulse = 1000;  // 弹仓盖
 union VofaDATA Vofa;
-#define zSpeed  2500
-#define xySpeed 30000
+#define zSpeed 5000
+																											
+#define xySpeed 15000
 
 #define Xfactor 100.0f
 #define Yfactor 100.0f
@@ -60,7 +61,7 @@ void remote_controller() {
     RC_Data.ET07_DATA.RightTransverse_CH1 = RC_SW_UP;
   }
 
-  if (RC_Data.ET07_DATA.V1_CH9 < 1800
+  if (RC_Data.ET07_DATA.V1_CH9 < 1000
       && RC_Data.ET07_DATA.V1_CH9 >= 240) {  // 如果V1旋钮没有顺时针旋到底，则为遥控器控制
 
     if (RC_Data.ET07_DATA.LeftTransverse_CH4 <= (RC_SW_MID + DEADBAND)  // X轴速度
@@ -101,11 +102,11 @@ void remote_controller() {
 
     if (RC_Data.ET07_DATA.SD_CH8
         == RC_SW_UP) {
-      ChassisControlData.speedz = zSpeed;
+      // ChassisControlData.speedz = zSpeed;
       ChassisControlData.with_supercap = 0;
     }
     else {
-      ChassisControlData.speedz = -zSpeed;
+      // ChassisControlData.speedz = -zSpeed;
       ChassisControlData.with_supercap = 1;
     }
 
@@ -201,7 +202,7 @@ void remote_controller() {
       }
     }
   }
-  else if (RC_Data.ET07_DATA.V1_CH9 >= 1800
+  else if (RC_Data.ET07_DATA.V1_CH9 >= 1000
            && RC_Data.ET07_DATA.V1_CH9 <= 1810) {  // 如果V1旋钮选到底，则为PC控制，图传链路
                                                    // 左键开火控制
     shooter1.shooterMode = SHOOTER_HOLD;
@@ -306,7 +307,7 @@ void remote_controller() {
       PCflags.LeftTurn = 1;
     }
     else if (PCflags.LeftTurn == 1) {
-      GimbalControlData.yawAngle += 45.0f;
+      GimbalControlData.yawAngle += 30.0f;
       PCflags.LeftTurn = 0;
     }
 
@@ -314,7 +315,7 @@ void remote_controller() {
       PCflags.RightTurn = 1;
     }
     else if (PCflags.RightTurn == 1) {
-      GimbalControlData.yawAngle -= 45.0f;
+      GimbalControlData.yawAngle -= 30.0f;
       PCflags.RightTurn = 0;
     }
   }

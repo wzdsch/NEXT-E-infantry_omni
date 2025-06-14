@@ -2,16 +2,16 @@
 #include "main.h"
 #include "struct_typedef.h"
 
-#define stuckProcessCountLimit 70    // 卡弹处理时间
-#define startDelayLimit        100   // 电机启动时间
+#define stuckProcessCountLimit 100    // 卡弹处理时间
+#define startDelayLimit        50   // 电机启动时间
 #define stuckCountLimit        100   // 卡弹处理触发时间
-#define stuckPersent           0.005f  // 卡弹处理阈值
+#define stuckPersent           0.01f  // 卡弹处理阈值
 
 #define shooterSpeed 6200.0f
 
 #define TOTAL_ECD_PER_SHOOT 73728
 
-#define SHOOTER_FREQ_DFLT 27.0f // 默认频率
+#define SHOOTER_FREQ_DFLT 20.0f // 默认频率
 
 enum shooter_Mode {
   SHOOTER_STOP = 0,    // 所有电机停转5
@@ -44,10 +44,11 @@ typedef struct shooterDat {  // 发射机构结构体
   uint16_t gunHeat; // 当前热量
   uint16_t heat_cooling; // 冷却速率
   uint8_t heatPerShoot; // 每发子弹的热量
-
-  fp32 supplier_total_ecd;
+#if SUPPLIER_ECD == 1
+  int supplier_total_round;
   uint16_t supplier_ecd_buf[2];
   fp32 ecd_per_shoot;
+#endif
 } shooter;
 
 extern shooter shooter1;
@@ -57,3 +58,4 @@ extern void shooterINIT(shooter *shooter, DJI_MotorGroup *group, DJI_Motor *friL
 extern void shooterRun(shooter *shooter);
 extern void getSupplierTotalEcd(shooter* shoot);
 extern void shooterFreqControl(shooter *shooter);
+extern uint8_t FriMotorSpdLvCtrl(void);

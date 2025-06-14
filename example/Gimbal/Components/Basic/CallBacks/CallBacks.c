@@ -35,7 +35,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
 		// vision1.RXData.VisionRxData.YawAngleTarget, motorYaw.realSpeedF, &huart1); // pitch
     // JustFloat((int)motor2006.target % 1000000, (int)shooter1.supplier_total_ecd % 1000000, motor2006.pidOutput0, motor2006.realSpeedF, &huart1);  // shooter
     // JustFloat(vision1.RXData.VisionRxData.YawAngleTarget, BMI088_gimbal.yawAngle, vision1.TXData.YawAngle, 0.0f, &huart1); // yaw
-    JustFloat(shooter1.friLmotor->realSpeedF, shooter1.friRmotor->realSpeedF, 0.0f, 0.0f, &huart1); // shooter
+    //JustFloat(motor2006.realCurrentF, motor2006.realSpeedF, 0.0f, 0.0f, &huart1); // shooter
   }
   if (htim == &htim9) {
     VisionConnectSend(&vision1);  // 向视觉发送数据10ms@100hz
@@ -52,6 +52,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   }
   if (htim == &htim12) {  // 双机通信发送2ms@500HZ
     remote_controller();
+    ChassisControlData.vision_tracking = visionState.tracking;
     connectionSendData(&connect, (uint8_t *)&ChassisControlData, sizeof(ChassisControlData),
                        ChassisControlData_ID);
   }

@@ -8,6 +8,7 @@
 #include "refereeData_v1.6.h"
 #include "math.h"
 #include "addons.h"
+#include "usart.h"
 
 #define SUPERCAP_RX_HEAD 0xF0F0
 #define SUPERCAP_TX_HEAD 0xF1F2

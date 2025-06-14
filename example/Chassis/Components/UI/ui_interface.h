@@ -7,7 +7,7 @@
 #define UI_INTERFACE_H
 
 #include "ui_types.h"
-#include "ui_callbacks.h"
+#include "ui_app.h"
 
 extern int ui_self_id;
 

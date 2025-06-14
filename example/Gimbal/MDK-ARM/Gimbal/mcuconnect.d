@@ -10,7 +10,7 @@ gimbal\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 gimbal\mcuconnect.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 gimbal\mcuconnect.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 gimbal\mcuconnect.o: ../Drivers/CMSIS/Include/core_cm4.h
-gimbal\mcuconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdint.h
+gimbal\mcuconnect.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 gimbal\mcuconnect.o: ../Drivers/CMSIS/Include/cmsis_version.h
 gimbal\mcuconnect.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 gimbal\mcuconnect.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -18,7 +18,7 @@ gimbal\mcuconnect.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 gimbal\mcuconnect.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 gimbal\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-gimbal\mcuconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stddef.h
+gimbal\mcuconnect.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 gimbal\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 gimbal\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 gimbal\mcuconnect.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -43,6 +43,6 @@ gimbal\mcuconnect.o: ../Components/Basic_Control/Pid/pid.h
 gimbal\mcuconnect.o: ../Components/Basic/structs/struct_typedef.h
 gimbal\mcuconnect.o: ..\Components\MCUConnect\MCUConnectStructs.h
 gimbal\mcuconnect.o: ../Components/Basic/Tools/Tools.h
-gimbal\mcuconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\math.h
-gimbal\mcuconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\stdio.h
-gimbal\mcuconnect.o: D:\qianrushi\keil5 MDK\ARM\ARMCC\Bin\..\include\string.h
+gimbal\mcuconnect.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\math.h
+gimbal\mcuconnect.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+gimbal\mcuconnect.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\string.h

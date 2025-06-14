@@ -14,11 +14,11 @@
 #define Chassis_Speed_PID_KP       2.0f
 #define Chassis_Speed_PID_KI       0.0f
 #define Chassis_Speed_PID_KD       0.00f
-#define Chassis_Speed_PID_MAX_OUT  3000.0f
+#define Chassis_Speed_PID_MAX_OUT  2000.0f
 #define Chassis_Speed_PID_MAX_IOUT 500.0f
 
 // 底盘跟随角度环
-#define Chassis_Angle_PID_KP       1.5f
+#define Chassis_Angle_PID_KP       0.7f
 #define Chassis_Angle_PID_KI       0.00f
 #define Chassis_Angle_PID_KD       0.0f
 #define Chassis_Angle_PID_MAX_OUT  2000.0f

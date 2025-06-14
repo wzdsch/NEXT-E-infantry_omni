@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
 <ProjectOpt xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="project_optx.xsd">
 
   <SchemaVersion>1.0</SchemaVersion>
@@ -45,7 +45,7 @@
         <PageWidth>79</PageWidth>
         <PageLength>66</PageLength>
         <TabStop>8</TabStop>
-        <ListingPath />
+        <ListingPath></ListingPath>
       </OPTLEX>
       <ListingPage>
         <CreateCListing>1</CreateCListing>
@@ -104,16 +104,16 @@
         <bSchkAxf>0</bSchkAxf>
         <bTchkAxf>0</bTchkAxf>
         <nTsel>3</nTsel>
-        <sDll />
-        <sDllPa />
-        <sDlgDll />
-        <sDlgPa />
-        <sIfile />
-        <tDll />
-        <tDllPa />
-        <tDlgDll />
-        <tDlgPa />
-        <tIfile />
+        <sDll></sDll>
+        <sDllPa></sDllPa>
+        <sDlgDll></sDlgDll>
+        <sDlgPa></sDlgPa>
+        <sIfile></sIfile>
+        <tDll></tDll>
+        <tDllPa></tDllPa>
+        <tDlgDll></tDlgDll>
+        <tDlgPa></tDlgPa>
+        <tIfile></tIfile>
         <pMon>BIN\CMSIS_AGDI.dll</pMon>
       </DebugOpt>
       <TargetDriverDllRegistry>
@@ -130,12 +130,12 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>ARMDBGFLAGS</Key>
-          <Name />
+          <Name></Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name />
+          <Name></Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -148,24 +148,7 @@
           <Name>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32F4xx_1024 -FS08000000 -FL0100000 -FP0($$Device:STM32F407IGHx$CMSIS\Flash\STM32F4xx_1024.FLM))</Name>
         </SetRegEntry>
       </TargetDriverDllRegistry>
-      <Breakpoint>
-        <Bp>
-          <Number>0</Number>
-          <Type>0</Type>
-          <LineNumber>3170</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134237238</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c</Filename>
-          <ExecCommand />
-          <Expression>\\Chassis\../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_uart.c\3170</Expression>
-        </Bp>
-      </Breakpoint>
+      <Breakpoint/>
       <WatchWindow1>
         <Ww>
           <count>0</count>
@@ -200,67 +183,67 @@
         <Ww>
           <count>6</count>
           <WinNumber>1</WinNumber>
-          <ItemText>constant</ItemText>
+          <ItemText>real_chassis_xy_spd</ItemText>
         </Ww>
         <Ww>
           <count>7</count>
           <WinNumber>1</WinNumber>
-          <ItemText>vofa_mode</ItemText>
+          <ItemText>real_chassis_xy_spd_err</ItemText>
         </Ww>
         <Ww>
           <count>8</count>
           <WinNumber>1</WinNumber>
-          <ItemText>motorYaw</ItemText>
+          <ItemText>real_gim_x</ItemText>
         </Ww>
         <Ww>
           <count>9</count>
           <WinNumber>1</WinNumber>
-          <ItemText>correction_rate</ItemText>
+          <ItemText>real_gim_y</ItemText>
         </Ww>
         <Ww>
           <count>10</count>
           <WinNumber>1</WinNumber>
-          <ItemText>real_chassis_xy_spd</ItemText>
+          <ItemText>real_chassis_x</ItemText>
         </Ww>
         <Ww>
           <count>11</count>
           <WinNumber>1</WinNumber>
-          <ItemText>real_chassis_xy_spd_err</ItemText>
+          <ItemText>real_chassis_y</ItemText>
         </Ww>
         <Ww>
           <count>12</count>
           <WinNumber>1</WinNumber>
-          <ItemText>real_gim_x</ItemText>
+          <ItemText>real_chassis_z</ItemText>
         </Ww>
         <Ww>
           <count>13</count>
           <WinNumber>1</WinNumber>
-          <ItemText>real_gim_y</ItemText>
+          <ItemText>vofa_mode</ItemText>
         </Ww>
         <Ww>
           <count>14</count>
           <WinNumber>1</WinNumber>
-          <ItemText>real_chassis_x</ItemText>
+          <ItemText>ChassisControlData</ItemText>
         </Ww>
         <Ww>
           <count>15</count>
           <WinNumber>1</WinNumber>
-          <ItemText>real_chassis_y</ItemText>
+          <ItemText>error_count</ItemText>
         </Ww>
         <Ww>
           <count>16</count>
           <WinNumber>1</WinNumber>
-          <ItemText>real_chassis_z</ItemText>
+          <ItemText>robot_state,0x0A</ItemText>
         </Ww>
         <Ww>
           <count>17</count>
           <WinNumber>1</WinNumber>
-          <ItemText>vofa_mode</ItemText>
+          <ItemText>correction_val</ItemText>
         </Ww>
         <Ww>
           <count>18</count>
           <WinNumber>1</WinNumber>
-          <ItemText>ChassisControlData</ItemText>
+          <ItemText>correction_rate</ItemText>
         </Ww>
         <Ww>
           <count>19</count>
@@ -275,17 +258,27 @@
         <Ww>
           <count>21</count>
           <WinNumber>1</WinNumber>
-          <ItemText>error_count</ItemText>
+          <ItemText>power_heat_data</ItemText>
         </Ww>
         <Ww>
           <count>22</count>
           <WinNumber>1</WinNumber>
-          <ItemText>huart1</ItemText>
+          <ItemText>initial_total_power_last</ItemText>
         </Ww>
         <Ww>
           <count>23</count>
           <WinNumber>1</WinNumber>
+          <ItemText>chassis_max_power</ItemText>
+        </Ww>
+        <Ww>
+          <count>24</count>
+          <WinNumber>1</WinNumber>
           <ItemText>robot_state,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>25</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>power_heat_data,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -334,19 +327,19 @@
         <newCpu>0</newCpu>
         <uProt>0</uProt>
       </DebugFlag>
-      <LintExecutable />
-      <LintConfigFile />
+      <LintExecutable></LintExecutable>
+      <LintConfigFile></LintConfigFile>
       <bLintAuto>0</bLintAuto>
       <bAutoGenD>0</bAutoGenD>
       <LntExFlags>0</LntExFlags>
-      <pMisraName />
-      <pszMrule />
-      <pSingCmds />
-      <pMultCmds />
-      <pMisraNamep />
-      <pszMrulep />
-      <pSingCmdsp />
-      <pMultCmdsp />
+      <pMisraName></pMisraName>
+      <pszMrule></pszMrule>
+      <pSingCmds></pSingCmds>
+      <pMultCmds></pMultCmds>
+      <pMisraNamep></pMisraNamep>
+      <pszMrulep></pszMrulep>
+      <pSingCmdsp></pSingCmdsp>
+      <pMultCmdsp></pMultCmdsp>
       <DebugDescription>
         <Enable>1</Enable>
         <EnableFlashSeq>1</EnableFlashSeq>
@@ -359,7 +352,7 @@
 
   <Group>
     <GroupName>Application/MDK-ARM</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -974,8 +967,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\Components\UI\ui_callbacks.c</PathWithFileName>
-      <FilenameWithoutPath>ui_callbacks.c</FilenameWithoutPath>
+      <PathWithFileName>..\Components\UI\ui_app.c</PathWithFileName>
+      <FilenameWithoutPath>ui_app.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

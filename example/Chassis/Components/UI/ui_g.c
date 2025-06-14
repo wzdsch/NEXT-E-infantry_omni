@@ -7,7 +7,7 @@
 #include "ui_interface.h"
 #include "ui_g.h"
 
-#define TOTAL_FIGURE 5
+#define TOTAL_FIGURE 7
 #define TOTAL_STRING 0
 
 ui_interface_figure_t ui_g_now_figures[TOTAL_FIGURE];
@@ -25,7 +25,7 @@ void ui_init_g() {
     ui_g_dynamic_graph_super_cap_persent->layer = 0;
     ui_g_dynamic_graph_super_cap_persent->color = 1;
     ui_g_dynamic_graph_super_cap_persent->start_x = 297;
-    ui_g_dynamic_graph_super_cap_persent->start_y = 753;
+    ui_g_dynamic_graph_super_cap_persent->start_y = 732;
     ui_g_dynamic_graph_super_cap_persent->width = 5;
     ui_g_dynamic_graph_super_cap_persent->font_size = 50;
     ui_g_dynamic_graph_super_cap_persent->number = 50;
@@ -47,14 +47,14 @@ void ui_init_g() {
     ui_g_aim_aim_line_l->start_x = 748;
     ui_g_aim_aim_line_l->start_y = 705;
     ui_g_aim_aim_line_l->width = 5;
-    ui_g_aim_aim_line_l->end_x = 950;
+    ui_g_aim_aim_line_l->end_x = 949;
     ui_g_aim_aim_line_l->end_y = 502;
 
     ui_g_aim_aim_line_r->figure_type = 0;
     ui_g_aim_aim_line_r->operate_type = 1;
     ui_g_aim_aim_line_r->layer = 0;
     ui_g_aim_aim_line_r->color = 3;
-    ui_g_aim_aim_line_r->start_x = 1151;
+    ui_g_aim_aim_line_r->start_x = 1150;
     ui_g_aim_aim_line_r->start_y = 705;
     ui_g_aim_aim_line_r->width = 5;
     ui_g_aim_aim_line_r->end_x = 949;
@@ -65,10 +65,30 @@ void ui_init_g() {
     ui_g_aim_aim_line_center->layer = 0;
     ui_g_aim_aim_line_center->color = 0;
     ui_g_aim_aim_line_center->start_x = 951;
-    ui_g_aim_aim_line_center->start_y = 799;
+    ui_g_aim_aim_line_center->start_y = 800;
     ui_g_aim_aim_line_center->width = 2;
     ui_g_aim_aim_line_center->end_x = 951;
     ui_g_aim_aim_line_center->end_y = 490;
+
+    ui_g_Ungroup_left_car_road->figure_type = 0;
+    ui_g_Ungroup_left_car_road->operate_type = 1;
+    ui_g_Ungroup_left_car_road->layer = 0;
+    ui_g_Ungroup_left_car_road->color = 0;
+    ui_g_Ungroup_left_car_road->start_x = 432;
+    ui_g_Ungroup_left_car_road->start_y = 7;
+    ui_g_Ungroup_left_car_road->width = 10;
+    ui_g_Ungroup_left_car_road->end_x = 762;
+    ui_g_Ungroup_left_car_road->end_y = 501;
+
+    ui_g_Ungroup_right_car_road->figure_type = 0;
+    ui_g_Ungroup_right_car_road->operate_type = 1;
+    ui_g_Ungroup_right_car_road->layer = 0;
+    ui_g_Ungroup_right_car_road->color = 0;
+    ui_g_Ungroup_right_car_road->start_x = 1528;
+    ui_g_Ungroup_right_car_road->start_y = 4;
+    ui_g_Ungroup_right_car_road->width = 10;
+    ui_g_Ungroup_right_car_road->end_x = 1149;
+    ui_g_Ungroup_right_car_road->end_y = 519;
 
     uint32_t idx = 0;
     for (int i = 0; i < TOTAL_FIGURE; i++) {

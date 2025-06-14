@@ -3,8 +3,10 @@
 #include "DJI_Motor.h"
 #include "MCUConnect.h"
 #include "math.h"
+#include "MCUConnectStructs.h"
 
 extern unsigned int time_ms;
+extern Referee_data RefereeData;
 
 void shooterINIT(shooter *shooter, DJI_MotorGroup *group, DJI_Motor *friL, DJI_Motor *friR,
                  DJI_Motor *supplier, fp32 friSpeed, fp32 shootFreq, uint8_t heatPerShoot, fp32 ecd_per_shoot) {
@@ -19,10 +21,12 @@ void shooterINIT(shooter *shooter, DJI_MotorGroup *group, DJI_Motor *friL, DJI_M
   shooter->startDelay = 0;
   shooter->stuckCount = 0;
   shooter->heatPerShoot = heatPerShoot;
+#if SUPPLIER_ECD == 1
   shooter->supplier_ecd_buf[0] = shooter->supplierMotor->realEcdF;
   shooter->supplier_ecd_buf[1] = shooter->supplierMotor->realEcdF;
   shooter->supplier_total_ecd = 0;
   shooter->ecd_per_shoot = ecd_per_shoot;
+#endif
 }
 
 void shooterStuckProcess(shooter *shooter) {
@@ -38,8 +42,12 @@ void shooterStuckProcess(shooter *shooter) {
       shooter->startDelay++;
     }
     // 如果过了启动阶段还在堵转
-    else if (fabs(shooter->supplierMotor->realSpeedF) < (fabs(shooter->supplierMotor->target) * stuckPersent)\
-            && shooter->supplierMotor->realCurrentF > 8000) {
+#if SUPPLIER_ECD == 1
+    else if (fabs(shooter->supplierMotor->realSpeedF) < (fabs(shooter->supplierMotor->pidOutput0) * stuckPersent)\
+            && (shooter->supplierMotor->realCurrentF < -8000 || shooter->supplierMotor->realCurrentF > 8000)) {
+#else
+    else if (fabs(shooter->supplierMotor->realSpeedF) < (fabs(shooter->supplierMotor->target) * stuckPersent)) {
+#endif
       shooter->stuckCount++;
     }
     else {
@@ -53,7 +61,7 @@ void shooterStuckProcess(shooter *shooter) {
   if (shooter->supplierMode == SUPPLIER_ERROR) {
     if (shooter->stuckProcessCount < stuckProcessCountLimit) {  // 还在堵转处理中
 #if SUPPLIER_ECD == 0
-      DJI_MotorSetTarget(shooter->supplierMotor, -5000/*(shooter->shootFreq)*/);
+      DJI_MotorSetTarget(shooter->supplierMotor, -8000.0f);
 #else
       if (supplier_reverse_flg == 0) {
         // 保证累计的没打出去的弹丸 不会在停止打弹后才打出
@@ -128,6 +136,16 @@ void shooterRun(shooter *shooter) {
   // }
 
   // else {
+  
+  // 弹速控制
+  int fri_motor_spd = shooter->friSpeed + 100 * FriMotorSpdLvCtrl();
+  if (fri_motor_spd > 8000) { // 
+    fri_motor_spd = 8000;
+  }
+  else if (fri_motor_spd < 3000) {
+    fri_motor_spd = 3000;
+  }
+
   switch (shooter->shooterMode) {
   case SHOOTER_STOP:
     DJI_MotorEnable(shooter->friLmotor);
@@ -146,6 +164,8 @@ void shooterRun(shooter *shooter) {
         (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 4 * 3) ? \
         shooter->supplierMotor->target : shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT);
     }
+#else
+    DJI_MotorSetTarget(shooter->supplierMotor, 0.0f);
 #endif
 
     shooter->startDelay = 0;
@@ -157,20 +177,22 @@ void shooterRun(shooter *shooter) {
     DJI_MotorEnable(shooter->friLmotor);
     DJI_MotorEnable(shooter->friRmotor);
     DJI_MotorEnable(shooter->supplierMotor);
-    DJI_MotorSetTarget(shooter->friLmotor, shooter->friSpeed);
-    DJI_MotorSetTarget(shooter->friRmotor, shooter->friSpeed);
+    DJI_MotorSetTarget(shooter->friLmotor, fri_motor_spd);
+    DJI_MotorSetTarget(shooter->friRmotor, fri_motor_spd);
 
 #if SUPPLIER_ECD == 1
-    if (mode_change_flg == 1 && shooter->supplierMode != SUPPLIER_ERROR) {
-      // 保证累计的没打出去的弹丸 不会在停止打弹后才打出
-      DJI_MotorSetTarget(shooter->supplierMotor, \
-        shooter->supplierMotor->target - (long long)((shooter->supplierMotor->target - shooter->supplier_total_ecd) / (int)TOTAL_ECD_PER_SHOOT) * TOTAL_ECD_PER_SHOOT);
-  
-      // 若拨盘已经拨出一颗弹的四分之一的编码值，则将这颗弹丸打出
-      DJI_MotorSetTarget(shooter->supplierMotor, \
-        (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 100 * 99) ? \
-        shooter->supplierMotor->target : shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT);
-      }
+  if (mode_change_flg == 1 && shooter->supplierMode != SUPPLIER_ERROR) {
+  // 保证累计的没打出去的弹丸 不会在停止打弹后才打出
+  DJI_MotorSetTarget(shooter->supplierMotor, \
+    shooter->supplierMotor->target - (long long)((shooter->supplierMotor->target - shooter->supplier_total_ecd) / (int)TOTAL_ECD_PER_SHOOT) * TOTAL_ECD_PER_SHOOT);
+
+  // 若拨盘已经拨出一颗弹的四分之一的编码值，则将这颗弹丸打出
+  DJI_MotorSetTarget(shooter->supplierMotor, \
+    (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 100 * 99) ? \
+    shooter->supplierMotor->target : shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT);
+  }
+#else
+    DJI_MotorSetTarget(shooter->supplierMotor, 0.0f);
 #endif
     
     shooter->startDelay = 0;
@@ -182,8 +204,8 @@ void shooterRun(shooter *shooter) {
     DJI_MotorEnable(shooter->friLmotor);
     DJI_MotorEnable(shooter->friRmotor);
     DJI_MotorEnable(shooter->supplierMotor);
-    DJI_MotorSetTarget(shooter->friLmotor, shooter->friSpeed);
-    DJI_MotorSetTarget(shooter->friRmotor, shooter->friSpeed);
+    DJI_MotorSetTarget(shooter->friLmotor, fri_motor_spd);
+    DJI_MotorSetTarget(shooter->friRmotor, fri_motor_spd);
 
     if (shooter->supplierMode == SUPPLIER_RUN)
       shooterFreqControl(shooter);
@@ -198,6 +220,7 @@ void shooterRun(shooter *shooter) {
   // }
 }
 
+#if SUPPLIER_ECD == 1
 void getSupplierTotalEcd(shooter* shoot) {
   fp32 delta_ecd = 0; // 编码值增量
 
@@ -220,6 +243,7 @@ void getSupplierTotalEcd(shooter* shoot) {
   // 四舍五入，防止误差累计
   shoot->supplier_total_ecd = (fp32)((long long)(shoot->supplier_total_ecd + 0.5f));
 }
+#endif
 
 void shooterFreqControl(shooter *shooter) {
   if (shooter->supplierMode == SUPPLIER_RUN) {
@@ -301,4 +325,27 @@ void shooterFreqControl(shooter *shooter) {
     #endif
     }
   }
+}
+
+uint8_t FriMotorSpdLvCtrl() {
+  static int fri_spd_lv = 0;
+  static int delay_cnt = 0;
+  static uint8_t last_spd = 20;
+  uint8_t now_spd = RefereeData.gunSpeed1;
+  delay_cnt++;
+  if (delay_cnt >= 1000) {
+    delay_cnt = 0;
+    last_spd = now_spd;
+    now_spd = RefereeData.gunSpeed1;
+    if (now_spd == last_spd) {
+      return fri_spd_lv;
+    }
+    else if (now_spd > last_spd && now_spd > 23.0f) {
+      fri_spd_lv--;
+    }
+    else if (now_spd < last_spd && now_spd < 18.0f) {
+      fri_spd_lv++;
+    }
+  }
+  return fri_spd_lv;
 }

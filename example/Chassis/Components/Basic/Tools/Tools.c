@@ -204,3 +204,7 @@ fp32 tri_puls(int x, int T, fp32 min_value, fp32 max_value) {
   x %= T;
   return min_value + (max_value - min_value) * ((x < T / 2) ? x / (T / 2.0f) : (max_value - min_value) * (T - x) / (T / 2.0f));
 }
+
+fp32 my_fabs(fp32 val) {
+  return val >= 0 ? val : -val;
+}

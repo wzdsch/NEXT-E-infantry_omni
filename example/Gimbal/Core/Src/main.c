@@ -205,7 +205,7 @@ extern DMA_HandleTypeDef hdma2;
   DJI_MotorCalculateResultSet(&motorfriL, &(motorfriL.pidOutput0));
   DJI_MotorListAdd(&group2, &motorfriL);
 
-#ifndef SUPPLIER_ECD
+#if SUPPLIER_ECD == 0
   DJI_MotorInit(&motor2006, 0x203, 0, pid0, NULL);
   DJI_MotorPidSet(&motor2006, &(motor2006.motorPid0), PID_POSITION, M2006_Speed_PID,
                   &(motor2006.realSpeedF), &(motor2006.target));

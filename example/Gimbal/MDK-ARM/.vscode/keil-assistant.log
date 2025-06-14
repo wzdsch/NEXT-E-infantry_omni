@@ -707,3 +707,55 @@
 
 [info] Log at : 2025/5/25|19:52:58|GMT+0800
 
+[info] Log at : 2025/5/26|19:46:45|GMT+0800
+
+[info] Log at : 2025/5/26|19:46:50|GMT+0800
+
+[info] Log at : 2025/5/26|19:48:26|GMT+0800
+
+[SyntaxError: Unexpected end of JSON input
+	at JSON.parse (<anonymous>)
+	at F.updateCppProperties (c:\Users\admin\.vscode\extensions\cl.keil-assistant-1.7.0\dist\extension.js:1:10849)
+	at F.<anonymous> (c:\Users\admin\.vscode\extensions\cl.keil-assistant-1.7.0\dist\extension.js:1:12579)
+	at Generator.next (<anonymous>)
+	at c:\Users\admin\.vscode\extensions\cl.keil-assistant-1.7.0\dist\extension.js:1:4480
+	at new Promise (<anonymous>)
+	at r (c:\Users\admin\.vscode\extensions\cl.keil-assistant-1.7.0\dist\extension.js:1:4225)
+	at F.load (c:\Users\admin\.vscode\extensions\cl.keil-assistant-1.7.0\dist\extension.js:1:11310)
+	at w.<anonymous> (c:\Users\admin\.vscode\extensions\cl.keil-assistant-1.7.0\dist\extension.js:1:8737)
+	at Generator.next (<anonymous>)
+	at a (c:\Users\admin\.vscode\extensions\cl.keil-assistant-1.7.0\dist\extension.js:1:4282)]
+[info] Log at : 2025/5/26|19:48:29|GMT+0800
+
+[info] Log at : 2025/5/26|23:28:53|GMT+0800
+
+[info] Log at : 2025/5/26|23:30:28|GMT+0800
+
+[info] Log at : 2025/5/28|03:15:23|GMT+0800
+
+[info] Log at : 2025/5/28|03:15:30|GMT+0800
+
+[info] Log at : 2025/5/28|23:48:36|GMT+0800
+
+[info] Log at : 2025/5/29|16:30:23|GMT+0800
+
+[info] Log at : 2025/5/30|05:04:03|GMT+0800
+
+[info] Log at : 2025/5/30|05:04:10|GMT+0800
+
+[info] Log at : 2025/5/30|08:41:36|GMT+0800
+
+[info] Log at : 2025/5/30|08:41:53|GMT+0800
+
+[info] Log at : 2025/5/31|18:27:32|GMT+0800
+
+[info] Log at : 2025/5/31|18:27:38|GMT+0800
+
+[info] Log at : 2025/6/8|17:20:12|GMT+0800
+
+[info] Log at : 2025/6/8|17:20:17|GMT+0800
+
+[info] Log at : 2025/6/14|11:33:48|GMT+0800
+
+[info] Log at : 2025/6/14|11:33:55|GMT+0800
+

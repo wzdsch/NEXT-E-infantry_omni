@@ -7,7 +7,35 @@
 #include "MCUConnectStructs.h"
 
 #define SPEED_LIMIT 8000.0f
-#define SPEED_LIMIT_TOP 6000.0f
+#define SPEED_LIMIT_TOP 5000.0f
+
+// 电机速度达到 set * UPDATE_SPD_RATE - UPDATE_SPD_ERR 时，认为已经达到设定速度
+#define UPDATE_SPD_RATE 0.7f
+#define UPDATE_SPD_ERR 100.0f
+
+#define MOTOR_SPD_UP_RATE 35.0f // 电机加速度
+#define MOTOR_SPD_DOWN_RATE 50.0f // 电机减速度
+
+#define TOP_SPD_SCALE 1.0f // 小陀螺平移时，对小陀螺速度和平移速度的分配比例，此值越大，小陀螺速度越快，平移速度越慢
+
+// 底盘速度结构体
+typedef struct chassis_motor_spd
+{
+    fp32 set_spd1; // 原始设定速度
+    fp32 set_spd2; // 原始设定速度
+    fp32 set_spd3; // 原始设定速度
+    fp32 set_spd4; // 原始设定速度
+
+    fp32 processed_set_spd1; // 处理过后的设定速度
+    fp32 processed_set_spd2; // 处理过后的设定速度
+    fp32 processed_set_spd3; // 处理过后的设定速度
+    fp32 processed_set_spd4; // 处理过后的设定速度
+
+    fp32 real_spd1; // 实际速度
+    fp32 real_spd2; // 实际速度
+    fp32 real_spd3; // 实际速度
+    fp32 real_spd4; // 实际速度
+} chassis_motor_spd_t;
 
 // 底盘模式列表
 enum chassisMode {
@@ -38,7 +66,10 @@ typedef struct chassisData {
   uint8_t followEN;        // 底盘跟随使能
   fp32 *follwoResult;      // 底盘跟随结果
   uint8_t mode;            // 底盘模式
+
+  chassis_motor_spd_t motor_spd;  // 底盘电机速度
 } chassis;
+
 
 extern void chassisINIT(chassis *chassis, DJI_MotorGroup *group, DJI_Motor *chassisMotor1,
                         DJI_Motor *chassisMotor2, DJI_Motor *chassisMotor3,
@@ -48,12 +79,16 @@ extern void chasisFollowINIT(chassis *chassis, uint16_t flagEcd, uint8_t pid0Mod
                              fp32 pid0Datas[5], uint8_t pid1Mode, fp32 pid1Datas[5]);
 
 extern void chassisChangeMode(chassis *chassis, uint8_t mode);
+
 extern void chassisFollowEnable(chassis *chassis);
 extern void chassisFollowDisable(chassis *chassis);
 extern void followResultSet(chassis *chassis, fp32 *result);
+
 extern void chassisRun(chassis *chassis, fp32 x, fp32 y, fp32 z, int16_t angle);
+
+// extern void chassisMotorSpdUpdate(chassis *chassis);
+
 extern fp32 filterF(fp32 new_data, fp32* buf, int num);
-extern void get_if_with_supercap(ChassisControl *chassisControlData);
 
 extern chassis chassis1;
 
