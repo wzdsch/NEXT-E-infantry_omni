@@ -118,46 +118,46 @@ void chassisChangeMode(chassis* chassis, uint8_t mode) {
   chassis->mode = mode;
 }
 
-void chassisMotorSpdProcess(chassis* chassis, fp32 set_spd1, fp32 set_spd2, fp32 set_spd3, fp32 set_spd4) {
-  chassis->motor_spd.real_spd1 = chassis->chassisMotor1->realSpeedF;
-  chassis->motor_spd.real_spd2 = chassis->chassisMotor2->realSpeedF;
-  chassis->motor_spd.real_spd3 = chassis->chassisMotor3->realSpeedF;
-  chassis->motor_spd.real_spd4 = chassis->chassisMotor4->realSpeedF;
+// void chassisMotorSpdProcess(chassis* chassis, fp32 set_spd1, fp32 set_spd2, fp32 set_spd3, fp32 set_spd4) {
+//   chassis->motor_spd.real_spd1 = chassis->chassisMotor1->realSpeedF;
+//   chassis->motor_spd.real_spd2 = chassis->chassisMotor2->realSpeedF;
+//   chassis->motor_spd.real_spd3 = chassis->chassisMotor3->realSpeedF;
+//   chassis->motor_spd.real_spd4 = chassis->chassisMotor4->realSpeedF;
 
-  chassis->motor_spd.set_spd1 = set_spd1;
-  chassis->motor_spd.set_spd2 = set_spd2;
-  chassis->motor_spd.set_spd3 = set_spd3;
-  chassis->motor_spd.set_spd4 = set_spd4;
+//   chassis->motor_spd.set_spd1 = set_spd1;
+//   chassis->motor_spd.set_spd2 = set_spd2;
+//   chassis->motor_spd.set_spd3 = set_spd3;
+//   chassis->motor_spd.set_spd4 = set_spd4;
 
-  fp32 max_set_spd = my_fabs(my_fabs(chassis->motor_spd.set_spd1) > my_fabs(chassis->motor_spd.set_spd2) ? \
-    chassis->motor_spd.set_spd1 : chassis->motor_spd.set_spd2);
-  max_set_spd = my_fabs(max_set_spd > my_fabs(chassis->motor_spd.set_spd3) ? max_set_spd : chassis->motor_spd.set_spd3);
-  max_set_spd = my_fabs(max_set_spd > my_fabs(chassis->motor_spd.set_spd4) ? max_set_spd : chassis->motor_spd.set_spd4);
+//   fp32 max_set_spd = my_fabs(my_fabs(chassis->motor_spd.set_spd1) > my_fabs(chassis->motor_spd.set_spd2) ? \
+//     chassis->motor_spd.set_spd1 : chassis->motor_spd.set_spd2);
+//   max_set_spd = my_fabs(max_set_spd > my_fabs(chassis->motor_spd.set_spd3) ? max_set_spd : chassis->motor_spd.set_spd3);
+//   max_set_spd = my_fabs(max_set_spd > my_fabs(chassis->motor_spd.set_spd4) ? max_set_spd : chassis->motor_spd.set_spd4);
 
-  if (max_set_spd > SPEED_LIMIT) {
-    fp32 spd_adj = SPEED_LIMIT / max_set_spd; // 这里max_spd一定大于0
-    chassis->motor_spd.set_spd1 *= spd_adj;
-    chassis->motor_spd.set_spd2 *= spd_adj;
-    chassis->motor_spd.set_spd3 *= spd_adj;
-    chassis->motor_spd.set_spd4 *= spd_adj;
-  }
+//   if (max_set_spd > SPEED_LIMIT) {
+//     fp32 spd_adj = SPEED_LIMIT / max_set_spd; // 这里max_spd一定大于0
+//     chassis->motor_spd.set_spd1 *= spd_adj;
+//     chassis->motor_spd.set_spd2 *= spd_adj;
+//     chassis->motor_spd.set_spd3 *= spd_adj;
+//     chassis->motor_spd.set_spd4 *= spd_adj;
+//   }
 
-  // 这个判断是为了保证在加速的过程中，等待所有电机的速度都跟上来，再继续加速
-  if (my_fabs(chassis->motor_spd.real_spd1) >= (my_fabs(chassis->motor_spd.set_spd1) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
-      && my_fabs(chassis->motor_spd.real_spd2) >= (my_fabs(chassis->motor_spd.set_spd2) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
-      && my_fabs(chassis->motor_spd.real_spd3) >= (my_fabs(chassis->motor_spd.set_spd3) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
-      && my_fabs(chassis->motor_spd.real_spd4) >= (my_fabs(chassis->motor_spd.set_spd4) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)) {
-    // 电机速度达到设定范围，开始进一步加速
-    chassis->motor_spd.processed_set_spd1 = \
-      rampPlanner(chassis->motor_spd.processed_set_spd1, chassis->motor_spd.set_spd1, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
-    chassis->motor_spd.processed_set_spd2 = \
-      rampPlanner(chassis->motor_spd.processed_set_spd2, chassis->motor_spd.set_spd2, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
-    chassis->motor_spd.processed_set_spd3 = \
-      rampPlanner(chassis->motor_spd.processed_set_spd3, chassis->motor_spd.set_spd3, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
-    chassis->motor_spd.processed_set_spd4 = \
-      rampPlanner(chassis->motor_spd.processed_set_spd4, chassis->motor_spd.set_spd4, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
-  }
-}
+//   // 这个判断是为了保证在加速的过程中，等待所有电机的速度都跟上来，再继续加速
+//   if (my_fabs(chassis->motor_spd.real_spd1) >= (my_fabs(chassis->motor_spd.set_spd1) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
+//       && my_fabs(chassis->motor_spd.real_spd2) >= (my_fabs(chassis->motor_spd.set_spd2) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
+//       && my_fabs(chassis->motor_spd.real_spd3) >= (my_fabs(chassis->motor_spd.set_spd3) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
+//       && my_fabs(chassis->motor_spd.real_spd4) >= (my_fabs(chassis->motor_spd.set_spd4) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)) {
+//     // 电机速度达到设定范围，开始进一步加速
+//     chassis->motor_spd.processed_set_spd1 = \
+//       rampPlanner(chassis->motor_spd.processed_set_spd1, chassis->motor_spd.set_spd1, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+//     chassis->motor_spd.processed_set_spd2 = \
+//       rampPlanner(chassis->motor_spd.processed_set_spd2, chassis->motor_spd.set_spd2, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+//     chassis->motor_spd.processed_set_spd3 = \
+//       rampPlanner(chassis->motor_spd.processed_set_spd3, chassis->motor_spd.set_spd3, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+//     chassis->motor_spd.processed_set_spd4 = \
+//       rampPlanner(chassis->motor_spd.processed_set_spd4, chassis->motor_spd.set_spd4, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+//   }
+// }
 
 void chassisFollowRun(chassis* chassis) {
   if (chassis->followEN == 1) {  // 如果底盘跟随使能
@@ -215,6 +215,9 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
   fp32 speed_x = 0;
   fp32 speed_y = 0;
 
+  fp32 max_spd = 0;
+  fp32 spd_adj = 1.0f;
+
   // 对云台发来的速度进行限幅
   if (my_fabs(gim_x) > 1.414f * SPEED_LIMIT || my_fabs(gim_y) > 1.414f * SPEED_LIMIT) {
     fp32 gim_spd_adj = SPEED_LIMIT * 1.414f / (my_fabs(gim_x) > my_fabs(gim_y) ? my_fabs(gim_x) : my_fabs(gim_y));
@@ -231,16 +234,18 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
   }
   yaw_err_ecd = 8192 - yaw_err_ecd; // yaw轴电机反装，对角度做处理
 
+  // x, y 速度解算
   yAngle = ((yaw_err_ecd + 1024) / 8192.0f) * 2 * PI;  // 取得y轴与行进方向的夹角，(从yaw电机的编码得出)
   xAngle = -yAngle;                          // 进而得到x与chassis_x的夹角
   // 根据夹角对速速度向量做坐标系转换
   speed_x = cos(yAngle + PI / 2) * gim_y + cos(xAngle) * gim_x;
   speed_y = cos(xAngle + PI / 2) * gim_x + cos(yAngle) * gim_y;
-  // 把转换好的速度发给各电机
-  fp32 spd_1 = speed_x;
-  fp32 spd_2 = speed_y;
-  fp32 spd_3 = -speed_x;
-  fp32 spd_4 = -speed_y;
+
+  fp32 spd_1 = speed_x + z;
+  fp32 spd_2 = speed_y + z;
+  fp32 spd_3 = -speed_x + z;
+  fp32 spd_4 = -speed_y + z;
+  
   
   // 这些是通过电机速度，反解得到底盘或云台坐标系下的速度，可能不太对
   // real_chassis_x = (chassis->chassisMotor1->realSpeedF - chassis->chassisMotor3->realSpeedF) / 2.0f;
@@ -290,12 +295,24 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
       DJI_MotorEnable(chassis->chassisMotor4);
       chassisFollowDisable(chassis);
 
-      chassisMotorSpdProcess(chassis, spd_1, spd_2, spd_3, spd_4);
+      z = 0;
 
-      DJI_MotorSetTarget((chassis->chassisMotor1), chassis->motor_spd.processed_set_spd1);
-      DJI_MotorSetTarget((chassis->chassisMotor2), chassis->motor_spd.processed_set_spd2);
-      DJI_MotorSetTarget((chassis->chassisMotor3), chassis->motor_spd.processed_set_spd3);
-      DJI_MotorSetTarget((chassis->chassisMotor4), chassis->motor_spd.processed_set_spd4);
+      max_spd = my_fabs(my_fabs(spd_1) > my_fabs(spd_2) ? spd_1 : spd_2);
+      max_spd = my_fabs(max_spd > my_fabs(spd_3) ? max_spd : spd_3);
+      max_spd = my_fabs(max_spd > my_fabs(spd_4) ? max_spd : spd_4);
+
+      if (max_spd > SPEED_LIMIT) {
+        spd_adj = SPEED_LIMIT / max_spd; // 这里max_spd一定大于0
+        spd_1 *= spd_adj;
+        spd_2 *= spd_adj;
+        spd_3 *= spd_adj;
+        spd_4 *= spd_adj;
+      }
+
+      DJI_MotorSetTarget((chassis->chassisMotor1), spd_1);
+      DJI_MotorSetTarget((chassis->chassisMotor2), spd_2);
+      DJI_MotorSetTarget((chassis->chassisMotor3), spd_3);
+      DJI_MotorSetTarget((chassis->chassisMotor4), spd_4);
       break;
 
     case CHASSIS_FOLLOW:  // 底盘跟随云台
@@ -305,16 +322,25 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
       DJI_MotorEnable(chassis->chassisMotor4);
       chassisFollowEnable(chassis);
 
+      chassisFollowRun(chassis);  // 底盘跟随pid计算
+
       spd_1 += *(chassis->follwoResult);
       spd_2 += *(chassis->follwoResult);
       spd_3 += *(chassis->follwoResult);
       spd_4 += *(chassis->follwoResult);
-      chassisMotorSpdProcess(chassis, spd_1, spd_2, spd_3, spd_4);
 
-      DJI_MotorSetTarget((chassis->chassisMotor1), chassis->motor_spd.processed_set_spd1);
-      DJI_MotorSetTarget((chassis->chassisMotor2), chassis->motor_spd.processed_set_spd2);
-      DJI_MotorSetTarget((chassis->chassisMotor3), chassis->motor_spd.processed_set_spd3);
-      DJI_MotorSetTarget((chassis->chassisMotor4), chassis->motor_spd.processed_set_spd4);
+      if (max_spd > SPEED_LIMIT) {
+        spd_adj = SPEED_LIMIT / max_spd; // 这里max_spd一定大于0
+        spd_1 *= spd_adj;
+        spd_2 *= spd_adj;
+        spd_3 *= spd_adj;
+        spd_4 *= spd_adj;
+      }
+
+      DJI_MotorSetTarget((chassis->chassisMotor1), spd_1);
+      DJI_MotorSetTarget((chassis->chassisMotor2), spd_2);
+      DJI_MotorSetTarget((chassis->chassisMotor3), spd_3);
+      DJI_MotorSetTarget((chassis->chassisMotor4), spd_4);
       break;
 
     case CHASSIS_TOP:  // 小陀螺（也就是以云台指向为行进y轴正方向，然后加z）
@@ -337,14 +363,19 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
       spd_3 += top_spd_z;
       spd_4 += top_spd_z;
 
-      chassisMotorSpdProcess(chassis, spd_1, spd_2, spd_3, spd_4);
+      if (max_spd > SPEED_LIMIT) {
+        spd_adj = SPEED_LIMIT / max_spd; // 这里max_spd一定大于0
+        spd_1 *= spd_adj;
+        spd_2 *= spd_adj;
+        spd_3 *= spd_adj;
+        spd_4 *= spd_adj;
+      }
 
-      DJI_MotorSetTarget((chassis->chassisMotor1), chassis->motor_spd.processed_set_spd1);
-      DJI_MotorSetTarget((chassis->chassisMotor2), chassis->motor_spd.processed_set_spd2);
-      DJI_MotorSetTarget((chassis->chassisMotor3), chassis->motor_spd.processed_set_spd3);
-      DJI_MotorSetTarget((chassis->chassisMotor4), chassis->motor_spd.processed_set_spd4);
+      DJI_MotorSetTarget((chassis->chassisMotor1), spd_1);
+      DJI_MotorSetTarget((chassis->chassisMotor2), spd_2);
+      DJI_MotorSetTarget((chassis->chassisMotor3), spd_3);
+      DJI_MotorSetTarget((chassis->chassisMotor4), spd_4);
       break;
   }
-  chassisFollowRun(chassis);  // 底盘跟随pid计算
 }
 
