@@ -218,12 +218,31 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
   fp32 max_spd = 0;
   fp32 spd_adj = 1.0f;
 
+  static fp32 current_x = 0;
+  static fp32 current_y = 0;
+  static fp32 current_z = 0;
+
   // 对云台发来的速度进行限幅
   if (my_fabs(gim_x) > 1.414f * SPEED_LIMIT || my_fabs(gim_y) > 1.414f * SPEED_LIMIT) {
     fp32 gim_spd_adj = SPEED_LIMIT * 1.414f / (my_fabs(gim_x) > my_fabs(gim_y) ? my_fabs(gim_x) : my_fabs(gim_y));
     gim_x *= gim_spd_adj;
     gim_y *= gim_spd_adj;
   }
+
+  if ((my_fabs(chassis->chassisMotor1->realSpeedF) > my_fabs(chassis->chassisMotor1->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
+    && my_fabs(chassis->chassisMotor2->realSpeedF) > my_fabs(chassis->chassisMotor2->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
+    && my_fabs(chassis->chassisMotor3->realSpeedF) > my_fabs(chassis->chassisMotor3->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
+    && my_fabs(chassis->chassisMotor4->realSpeedF) > my_fabs(chassis->chassisMotor4->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
+    || my_fabs(gim_x) < my_fabs(current_x)) {
+    current_x = rampPlanner(current_x, gim_x, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+    }
+  if ((my_fabs(chassis->chassisMotor1->realSpeedF) > my_fabs(chassis->chassisMotor1->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
+    && my_fabs(chassis->chassisMotor2->realSpeedF) > my_fabs(chassis->chassisMotor2->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
+    && my_fabs(chassis->chassisMotor3->realSpeedF) > my_fabs(chassis->chassisMotor3->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
+    && my_fabs(chassis->chassisMotor4->realSpeedF) > my_fabs(chassis->chassisMotor4->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
+    || my_fabs(gim_y) < my_fabs(current_y)) {
+    current_y = rampPlanner(current_y, gim_y, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+    }
 
   // 从yaw电机数据得到实际角度
   if (yaw_err_ecd >= chassis->followFlagEcd) {
@@ -238,13 +257,13 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
   yAngle = ((yaw_err_ecd + 1024) / 8192.0f) * 2 * PI;  // 取得y轴与行进方向的夹角，(从yaw电机的编码得出)
   xAngle = -yAngle;                          // 进而得到x与chassis_x的夹角
   // 根据夹角对速速度向量做坐标系转换
-  speed_x = cos(yAngle + PI / 2) * gim_y + cos(xAngle) * gim_x;
-  speed_y = cos(xAngle + PI / 2) * gim_x + cos(yAngle) * gim_y;
+  speed_x = cos(yAngle + PI / 2) * current_y + cos(xAngle) * current_x;
+  speed_y = cos(xAngle + PI / 2) * current_x + cos(yAngle) * current_y;
 
-  fp32 spd_1 = speed_x + z;
-  fp32 spd_2 = speed_y + z;
-  fp32 spd_3 = -speed_x + z;
-  fp32 spd_4 = -speed_y + z;
+  fp32 spd_1 = speed_x;
+  fp32 spd_2 = speed_y;
+  fp32 spd_3 = -speed_x;
+  fp32 spd_4 = -speed_y;
   
   
   // 这些是通过电机速度，反解得到底盘或云台坐标系下的速度，可能不太对
@@ -297,6 +316,8 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
 
       z = 0;
 
+      current_z = rampPlanner(current_z, z, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+
       max_spd = my_fabs(my_fabs(spd_1) > my_fabs(spd_2) ? spd_1 : spd_2);
       max_spd = my_fabs(max_spd > my_fabs(spd_3) ? max_spd : spd_3);
       max_spd = my_fabs(max_spd > my_fabs(spd_4) ? max_spd : spd_4);
@@ -324,10 +345,14 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
 
       chassisFollowRun(chassis);  // 底盘跟随pid计算
 
-      spd_1 += *(chassis->follwoResult);
-      spd_2 += *(chassis->follwoResult);
-      spd_3 += *(chassis->follwoResult);
-      spd_4 += *(chassis->follwoResult);
+      z = *(chassis->follwoResult);
+
+      current_z = rampPlanner(current_z, z, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+
+      spd_1 += current_z;
+      spd_2 += current_z;
+      spd_3 += current_z;
+      spd_4 += current_z;
 
       if (max_spd > SPEED_LIMIT) {
         spd_adj = SPEED_LIMIT / max_spd; // 这里max_spd一定大于0
@@ -350,18 +375,33 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
       DJI_MotorEnable(chassis->chassisMotor4);
       DJI_MotorDisable(chassis->gimbalMotor);
 
+      yAngle = ((yaw_err_ecd + 1024.0f - 3.0f * chassis->gimbalMotor->realSpeedF + 200.0f) / 8192.0f) * 2 * PI;  // 取得y轴与行进方向的夹角，(从yaw电机的编码得出)
+      xAngle = -yAngle;                          // 进而得到x与chassis_x的夹角
+      // 根据夹角对速速度向量做坐标系转换
+      speed_x = cos(yAngle + PI / 2) * current_y + cos(xAngle) * current_x;
+      speed_y = cos(xAngle + PI / 2) * current_x + cos(yAngle) * current_y;
+
+      spd_1 = speed_x;
+      spd_2 = speed_y;
+      spd_3 = -speed_x;
+      spd_4 = -speed_y;
+
       top_time_cnt++;
       top_time_cnt %= TOP_T;
 
-      fp32 min_top_spd = TOP_SPD_SCALE * sqrtf(gim_x * gim_x + gim_y * gim_y);
+      // fp32 min_top_spd = 3000;  // TOP_SPD_SCALE * sqrtf(gim_x * gim_x + gim_y * gim_y);
 
-      top_spd_z = 1.9996f * SPEED_LIMIT - sqrtf(gim_x * gim_x + gim_y * gim_y);
-      top_spd_z = top_spd_z > min_top_spd ? top_spd_z : min_top_spd;
+      // top_spd_z = 1.9996f * SPEED_LIMIT - sqrtf(gim_x * gim_x + gim_y * gim_y);
+      // top_spd_z = top_spd_z > min_top_spd ? top_spd_z : min_top_spd;
 
-      spd_1 += top_spd_z;
-      spd_2 += top_spd_z;
-      spd_3 += top_spd_z;
-      spd_4 += top_spd_z;
+      top_spd_z = 3000;
+
+      current_z = rampPlanner(current_z, top_spd_z, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+
+      spd_1 += current_z;
+      spd_2 += current_z;
+      spd_3 += current_z;
+      spd_4 += current_z;
 
       if (max_spd > SPEED_LIMIT) {
         spd_adj = SPEED_LIMIT / max_spd; // 这里max_spd一定大于0

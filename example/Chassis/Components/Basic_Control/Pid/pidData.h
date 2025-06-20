@@ -8,7 +8,7 @@
 #define M3508_Speed_PID_KI       0.1f
 #define M3508_Speed_PID_KD       0.1f
 #define M3508_Speed_PID_MAX_OUT  16000.0f
-#define M3508_Speed_PID_MAX_IOUT 3000.0f
+#define M3508_Speed_PID_MAX_IOUT 10000.0f
 
 // 底盘跟随速度环
 #define Chassis_Speed_PID_KP       2.0f
