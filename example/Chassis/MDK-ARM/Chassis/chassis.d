@@ -45,3 +45,9 @@ chassis\chassis.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\math.h
 chassis\chassis.o: ../Components/Basic_Control/Pid/pid.h
 chassis\chassis.o: ../Components/Basic_Control/Pid/pidData.h
 chassis\chassis.o: ../Components/RemoteControl/remote_control.h
+chassis\chassis.o: ../Components/SuperCap/SuperCap.h
+chassis\chassis.o: ../Components/Referee/referee.h
+chassis\chassis.o: ../Components/Referee/refereeData_v1.6.h
+chassis\chassis.o: ../Components/Referee/protocol.h
+chassis\chassis.o: ../Components/DJI_Motor/addons.h
+chassis\chassis.o: ../Core/Inc/usart.h

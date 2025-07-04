@@ -60,3 +60,4 @@ chassis\main.o: ../Components/UI/ui_interface.h
 chassis\main.o: ../Components/UI/ui_types.h
 chassis\main.o: ../Components/UI/ui_app.h
 chassis\main.o: ../Components/UI/ui_g.h
+chassis\main.o: ../Components/SuperCap/supercap.h

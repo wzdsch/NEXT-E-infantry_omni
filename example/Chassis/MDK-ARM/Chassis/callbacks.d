@@ -54,3 +54,5 @@ chassis\callbacks.o: ../Components/UI/ui_app.h
 chassis\callbacks.o: ../Components/UI/ui_g.h
 chassis\callbacks.o: ../Components/Vofa/vofa.h
 chassis\callbacks.o: ../Core/Inc/usart.h
+chassis\callbacks.o: ../Components/SuperCap/SuperCap.h
+chassis\callbacks.o: ../Components/Referee/refereeData_v1.6.h

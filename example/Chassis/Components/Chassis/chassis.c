@@ -118,46 +118,6 @@ void chassisChangeMode(chassis* chassis, uint8_t mode) {
   chassis->mode = mode;
 }
 
-// void chassisMotorSpdProcess(chassis* chassis, fp32 set_spd1, fp32 set_spd2, fp32 set_spd3, fp32 set_spd4) {
-//   chassis->motor_spd.real_spd1 = chassis->chassisMotor1->realSpeedF;
-//   chassis->motor_spd.real_spd2 = chassis->chassisMotor2->realSpeedF;
-//   chassis->motor_spd.real_spd3 = chassis->chassisMotor3->realSpeedF;
-//   chassis->motor_spd.real_spd4 = chassis->chassisMotor4->realSpeedF;
-
-//   chassis->motor_spd.set_spd1 = set_spd1;
-//   chassis->motor_spd.set_spd2 = set_spd2;
-//   chassis->motor_spd.set_spd3 = set_spd3;
-//   chassis->motor_spd.set_spd4 = set_spd4;
-
-//   fp32 max_set_spd = my_fabs(my_fabs(chassis->motor_spd.set_spd1) > my_fabs(chassis->motor_spd.set_spd2) ? \
-//     chassis->motor_spd.set_spd1 : chassis->motor_spd.set_spd2);
-//   max_set_spd = my_fabs(max_set_spd > my_fabs(chassis->motor_spd.set_spd3) ? max_set_spd : chassis->motor_spd.set_spd3);
-//   max_set_spd = my_fabs(max_set_spd > my_fabs(chassis->motor_spd.set_spd4) ? max_set_spd : chassis->motor_spd.set_spd4);
-
-//   if (max_set_spd > SPEED_LIMIT) {
-//     fp32 spd_adj = SPEED_LIMIT / max_set_spd; // 这里max_spd一定大于0
-//     chassis->motor_spd.set_spd1 *= spd_adj;
-//     chassis->motor_spd.set_spd2 *= spd_adj;
-//     chassis->motor_spd.set_spd3 *= spd_adj;
-//     chassis->motor_spd.set_spd4 *= spd_adj;
-//   }
-
-//   // 这个判断是为了保证在加速的过程中，等待所有电机的速度都跟上来，再继续加速
-//   if (my_fabs(chassis->motor_spd.real_spd1) >= (my_fabs(chassis->motor_spd.set_spd1) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
-//       && my_fabs(chassis->motor_spd.real_spd2) >= (my_fabs(chassis->motor_spd.set_spd2) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
-//       && my_fabs(chassis->motor_spd.real_spd3) >= (my_fabs(chassis->motor_spd.set_spd3) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
-//       && my_fabs(chassis->motor_spd.real_spd4) >= (my_fabs(chassis->motor_spd.set_spd4) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)) {
-//     // 电机速度达到设定范围，开始进一步加速
-//     chassis->motor_spd.processed_set_spd1 = \
-//       rampPlanner(chassis->motor_spd.processed_set_spd1, chassis->motor_spd.set_spd1, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
-//     chassis->motor_spd.processed_set_spd2 = \
-//       rampPlanner(chassis->motor_spd.processed_set_spd2, chassis->motor_spd.set_spd2, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
-//     chassis->motor_spd.processed_set_spd3 = \
-//       rampPlanner(chassis->motor_spd.processed_set_spd3, chassis->motor_spd.set_spd3, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
-//     chassis->motor_spd.processed_set_spd4 = \
-//       rampPlanner(chassis->motor_spd.processed_set_spd4, chassis->motor_spd.set_spd4, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
-//   }
-// }
 
 void chassisFollowRun(chassis* chassis) {
   if (chassis->followEN == 1) {  // 如果底盘跟随使能
@@ -169,10 +129,10 @@ void chassisFollowRun(chassis* chassis) {
       temp = (chassis->gimbalMotor->realEcd) - (chassis->followFlagEcd) + 8192;
     }
     // 过零处理
-    if (0 - temp > 4096) {
+    if (temp < -4096) {
       temp = temp + (4096 * 2);
     }
-    else if (0 - temp <= -4096) {
+    else if (temp >= 4096) {
       temp = temp - (4096 * 2);
     }
     // 计算pid
