@@ -1,6 +1,6 @@
 gimbal\bmi088driver.o: ..\Components\IMU\BMI\Components\Devices\BMI088driver.c
 gimbal\bmi088driver.o: ..\Components\IMU\BMI\Components\Devices\BMI088driver.h
-gimbal\bmi088driver.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+gimbal\bmi088driver.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 gimbal\bmi088driver.o: ../Core/Inc/main.h
 gimbal\bmi088driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\bmi088driver.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -16,7 +16,7 @@ gimbal\bmi088driver.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 gimbal\bmi088driver.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 gimbal\bmi088driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\bmi088driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-gimbal\bmi088driver.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+gimbal\bmi088driver.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 gimbal\bmi088driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 gimbal\bmi088driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 gimbal\bmi088driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -40,4 +40,4 @@ gimbal\bmi088driver.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pcd_ex.
 gimbal\bmi088driver.o: ..\Components\IMU\BMI\Components\Devices\BMI088reg.h
 gimbal\bmi088driver.o: ..\Components\IMU\BMI\Components\Devices\BMI088Middleware.h
 gimbal\bmi088driver.o: ../Components/IMU/BMI/Bsp/bsp_dwt.h
-gimbal\bmi088driver.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\math.h
+gimbal\bmi088driver.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\math.h

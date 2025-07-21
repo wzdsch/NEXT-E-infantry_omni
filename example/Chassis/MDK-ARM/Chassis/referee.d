@@ -8,7 +8,7 @@ chassis\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 chassis\referee.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 chassis\referee.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 chassis\referee.o: ../Drivers/CMSIS/Include/core_cm4.h
-chassis\referee.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+chassis\referee.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 chassis\referee.o: ../Drivers/CMSIS/Include/cmsis_version.h
 chassis\referee.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 chassis\referee.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -16,7 +16,7 @@ chassis\referee.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 chassis\referee.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 chassis\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 chassis\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-chassis\referee.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+chassis\referee.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 chassis\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 chassis\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 chassis\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -35,9 +35,9 @@ chassis\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 chassis\referee.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 chassis\referee.o: ..\Components\Referee\CRC8_CRC16.h
 chassis\referee.o: ..\Components\Referee\fifo.h
-chassis\referee.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-chassis\referee.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\string.h
-chassis\referee.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+chassis\referee.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+chassis\referee.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\string.h
+chassis\referee.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 chassis\referee.o: ..\Components\Referee\protocol.h
 chassis\referee.o: ..\Components\Referee\refereeData_v1.7.h
 chassis\referee.o: ../Components/Basic/structs/struct_typedef.h

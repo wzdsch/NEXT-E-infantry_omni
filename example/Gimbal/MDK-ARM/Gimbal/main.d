@@ -7,7 +7,7 @@ gimbal\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 gimbal\main.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 gimbal\main.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 gimbal\main.o: ../Drivers/CMSIS/Include/core_cm4.h
-gimbal\main.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+gimbal\main.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 gimbal\main.o: ../Drivers/CMSIS/Include/cmsis_version.h
 gimbal\main.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 gimbal\main.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -15,7 +15,7 @@ gimbal\main.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 gimbal\main.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 gimbal\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-gimbal\main.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+gimbal\main.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 gimbal\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 gimbal\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 gimbal\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -44,9 +44,9 @@ gimbal\main.o: ../Core/Inc/usart.h
 gimbal\main.o: ../USB_DEVICE/App/usb_device.h
 gimbal\main.o: ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
 gimbal\main.o: ../USB_DEVICE/Target/usbd_conf.h
-gimbal\main.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-gimbal\main.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
-gimbal\main.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\string.h
+gimbal\main.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+gimbal\main.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+gimbal\main.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\string.h
 gimbal\main.o: ../Core/Inc/gpio.h
 gimbal\main.o: ../Components/IMU/BMI/Application/BMI088.h
 gimbal\main.o: ../Components/Basic/structs/struct_typedef.h
@@ -62,7 +62,7 @@ gimbal\main.o: ../Components/Basic_Control/Pid/pid.h
 gimbal\main.o: ../Components/DJI_Motor/addOns.h
 gimbal\main.o: ../Components/remoteControl/bsp_wbus.h
 gimbal\main.o: ../Components/Gimbal/gimbal.h
-gimbal\main.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\math.h
+gimbal\main.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\math.h
 gimbal\main.o: ../Components/Basic_Control/Pid/pid.h
 gimbal\main.o: ../Components/Basic_Control/Pid/pidData.h
 gimbal\main.o: ../Components/Referee/referee.h

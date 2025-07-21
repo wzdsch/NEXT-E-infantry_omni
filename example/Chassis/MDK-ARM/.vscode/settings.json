@@ -40,6 +40,7 @@
     "can.h": "c",
     "dji_motor.h": "c",
     "stdlib.h": "c",
-    "mcuconnect.h": "c"
-  }
+    "mcuconnect.h": "c",
+    "addons.h": "c"
+}
 }

@@ -166,10 +166,21 @@ fp32 real_chassis_z = 0;
  * @param  gim_y: y轴速度
  * @param  z: z轴速度
  */
+ 
+ int16_t yaw_ecd = 0;
 void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_err_ecd) {
+  // 从yaw电机数据得到实际角度
+  if (yaw_err_ecd >= chassis->followFlagEcd) {
+    yaw_err_ecd = yaw_err_ecd - chassis->followFlagEcd;
+  }
+  else {
+    yaw_err_ecd = yaw_err_ecd - chassis->followFlagEcd + 8192;
+  }
+  yaw_err_ecd = 8192 - yaw_err_ecd; // yaw轴电机反装，对角度做处理
+
   // 根据chassis_y与云台指向的夹角计算temp，从云台坐标系(gim_y-gim_x)转换为底盘坐标系(chassis_y-chassis_x)
   // 然后根据轮子位置合成各轮子的转速
-
+	
   fp32 xAngle = 0;
   fp32 yAngle = 0;
   fp32 speed_x = 0;
@@ -189,29 +200,34 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
     gim_y *= gim_spd_adj;
   }
 
-  if ((my_fabs(chassis->chassisMotor1->realSpeedF) > my_fabs(chassis->chassisMotor1->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
-    && my_fabs(chassis->chassisMotor2->realSpeedF) > my_fabs(chassis->chassisMotor2->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
-    && my_fabs(chassis->chassisMotor3->realSpeedF) > my_fabs(chassis->chassisMotor3->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
-    && my_fabs(chassis->chassisMotor4->realSpeedF) > my_fabs(chassis->chassisMotor4->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
-    || my_fabs(gim_x) < my_fabs(current_x)) {
-    current_x = rampPlanner(current_x, gim_x, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
-    }
-  if ((my_fabs(chassis->chassisMotor1->realSpeedF) > my_fabs(chassis->chassisMotor1->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
-    && my_fabs(chassis->chassisMotor2->realSpeedF) > my_fabs(chassis->chassisMotor2->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
-    && my_fabs(chassis->chassisMotor3->realSpeedF) > my_fabs(chassis->chassisMotor3->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
-    && my_fabs(chassis->chassisMotor4->realSpeedF) > my_fabs(chassis->chassisMotor4->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
-    || my_fabs(gim_y) < my_fabs(current_y)) {
-    current_y = rampPlanner(current_y, gim_y, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
-    }
+  // 底盘坐标系真实速度计算
+  real_chassis_x = (chassis->chassisMotor1->realSpeedF - chassis->chassisMotor3->realSpeedF) / 2.0f;
+  real_chassis_y = (chassis->chassisMotor2->realSpeedF - chassis->chassisMotor4->realSpeedF) / 2.0f;
+  real_chassis_z = (chassis->chassisMotor1->realSpeedF + chassis->chassisMotor2->realSpeedF\
+    + chassis->chassisMotor3->realSpeedF + chassis->chassisMotor4->realSpeedF) / 4.0f;
 
-  // 从yaw电机数据得到实际角度
-  if (yaw_err_ecd >= chassis->followFlagEcd) {
-    yaw_err_ecd = yaw_err_ecd - chassis->followFlagEcd;
-  }
-  else {
-    yaw_err_ecd = yaw_err_ecd - chassis->followFlagEcd + 8192;
-  }
-  yaw_err_ecd = 8192 - yaw_err_ecd; // yaw轴电机反装，对角度做处理
+    // 云台坐标系真实速度计算
+  real_gim_x = real_chassis_x * cos(PI / 4.0f - yaw_err_ecd * PI / 4096.0f) + \
+    real_chassis_y * cos(PI / 4.0f + yaw_err_ecd * PI / 4096.0f);
+  
+  real_gim_y = real_chassis_y * cos(PI / 4.0f - yaw_err_ecd * PI / 4096.0f) - \
+    real_chassis_x * cos(PI / 4.0f + yaw_err_ecd * PI / 4096.0f);
+
+
+//   if ((my_fabs(chassis->chassisMotor1->realSpeedF) > my_fabs(chassis->chassisMotor1->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
+//     && my_fabs(chassis->chassisMotor2->realSpeedF) > my_fabs(chassis->chassisMotor2->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
+//     && my_fabs(chassis->chassisMotor3->realSpeedF) > my_fabs(chassis->chassisMotor3->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
+//     && my_fabs(chassis->chassisMotor4->realSpeedF) > my_fabs(chassis->chassisMotor4->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
+//     || my_fabs(gim_x) < my_fabs(current_x)) {
+     current_x = rampPlanner(real_gim_x, gim_x, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+    // }
+//   if ((my_fabs(chassis->chassisMotor1->realSpeedF) > my_fabs(chassis->chassisMotor1->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
+//     && my_fabs(chassis->chassisMotor2->realSpeedF) > my_fabs(chassis->chassisMotor2->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
+//     && my_fabs(chassis->chassisMotor3->realSpeedF) > my_fabs(chassis->chassisMotor3->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
+//     && my_fabs(chassis->chassisMotor4->realSpeedF) > my_fabs(chassis->chassisMotor4->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
+//     || my_fabs(gim_y) < my_fabs(current_y)) {
+     current_y = rampPlanner(real_gim_y, gim_y, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+    // }
 
   // x, y 速度解算
   yAngle = ((yaw_err_ecd + 1024) / 8192.0f) * 2 * PI;  // 取得y轴与行进方向的夹角，(从yaw电机的编码得出)
@@ -225,18 +241,6 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
   fp32 spd_3 = -speed_x;
   fp32 spd_4 = -speed_y;
   
-  
-  // 这些是通过电机速度，反解得到底盘或云台坐标系下的速度，可能不太对
-  // real_chassis_x = (chassis->chassisMotor1->realSpeedF - chassis->chassisMotor3->realSpeedF) / 2.0f;
-  // real_chassis_y = (chassis->chassisMotor2->realSpeedF - chassis->chassisMotor4->realSpeedF) / 2.0f;
-  // real_chassis_z = (chassis->chassisMotor1->realSpeedF + chassis->chassisMotor2->realSpeedF\
-  //   + chassis->chassisMotor3->realSpeedF + chassis->chassisMotor4->realSpeedF) / 4.0f;
-
-  // real_gim_x = real_chassis_x * cos(PI / 4.0f - yaw_err_ecd * PI / 8192.0f) + \
-  //   real_chassis_y * cos(PI / 4.0f + yaw_err_ecd * PI / 8192.0f);
-  
-  // real_gim_y = real_chassis_y * cos(PI / 4.0f - yaw_err_ecd * PI / 8192.0f) - \
-  //   real_chassis_x * cos(PI / 4.0f + yaw_err_ecd * PI / 8192.0f);
 
   // real_chassis_xy_spd = sqrt(real_chassis_x * real_chassis_x + real_chassis_y * real_chassis_y); // 实际底盘xy速度
   // static fp32 real_chassis_xy_spd_buf[2] = {0};

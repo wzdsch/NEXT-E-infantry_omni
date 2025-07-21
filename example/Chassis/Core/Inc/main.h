@@ -68,7 +68,8 @@ void Error_Handler(void);
 因此此宏定义旨在起一个提示作�??,1为使用电流控�??(舵轮默认)(2024.10.25,by \ \ Nan)*/
 #define OLD_YAW_FLG_ECD 2435
 #define NEW_YAW_FLG_ECD 6977
-#define IF_WITH_SUPERCAP 1 // 0无超电，1有超电
+#define IF_WITH_SUPERCAP 0 // 0无超电，1有超电
+#define WITH_RM_POWER_MANAGER 1 // 0无电管，1有电管
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

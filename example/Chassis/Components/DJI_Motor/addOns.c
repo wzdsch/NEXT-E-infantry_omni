@@ -18,6 +18,7 @@
 //  #include "BMI088.h"
 //  #include "LADRC.h"
 #include "struct_typedef.h"
+#include "tools.h"
 
 #ifdef BMI088_H
 
@@ -181,14 +182,14 @@ fp32 powerlimit(DJI_Motor *motor) {
   return (motor->pidOutput0) * current_scale;
 }
 
-
-
 /**
  * @brief  西交利物浦大学功率限制移植
  * @param  motor: 电机结构体
  * @return fp32: 功率限制后的电流值
- */  fp32 constant = 4.081f;
+ */
+fp32 constant = 4.081f;
 float chassis_total_power = 0;
+
 fp32 powerlimit_pro(DJI_Motor *motor) {
   uint16_t max_power_limit = robot_state.chassis_power_limit;
   fp32 chassis_max_power = 0;
@@ -217,7 +218,7 @@ fp32 powerlimit_pro(DJI_Motor *motor) {
   if (count == 4) {
     count = 0;
     initial_total_power_last = initial_total_power;
-    chassis_total_power = initial_total_power; //
+    chassis_total_power = initial_total_power;  //
     initial_total_power = 0;
   }
 
@@ -228,14 +229,15 @@ fp32 powerlimit_pro(DJI_Motor *motor) {
     if (scaled_give_power < 0) {
       return motor->pidOutput0;
     }
-	
+
     fp32 b = toque_coefficient * motor->realSpeed;
     fp32 c = k2 * motor->realSpeed * motor->realSpeed - scaled_give_power + constant;
 
     if (motor->pidOutput0 > 0)  // Selection of the calculation formula according
                                 // to the direction of the original moment
     {
-      fp32 temp = (-b + sqrt(b * b - 4 * a * c)) / (2 * a);////////////////////////////////////////////////////
+      fp32 temp = (-b + sqrt(b * b - 4 * a * c))
+                  / (2 * a);  ////////////////////////////////////////////////////
       if (temp > 16000) {
         return 16000;
       }
@@ -243,7 +245,115 @@ fp32 powerlimit_pro(DJI_Motor *motor) {
         return temp;
     }
     else {
-      fp32 temp = (-b - sqrt(b * b - 4 * a * c)) / (2 * a);////////////////////////////////////////////////////
+      fp32 temp = (-b - sqrt(b * b - 4 * a * c))
+                  / (2 * a);  ////////////////////////////////////////////////////
+      if (temp < -16000) {
+        return -16000;
+      }
+      else
+        return temp;
+    }
+  }
+  else {
+    return motor->pidOutput0;
+  }
+}
+
+int power = 80;
+
+/**
+ * @brief  西交利物浦大学+香港科技大学功率限制移植
+ * @param  motor: 电机结构体
+ * @return fp32: 功率限制后的电流值
+ */
+fp32 powerlimit_LVP_HK_pro(DJI_Motor *motor) {
+  uint16_t max_power_limit = power;  // robot_state.chassis_power_limit;
+  float initial_give_power = 0;  // initial power from PID calculation
+  static float initial_total_power = 0;
+  static float initial_total_power_last = 0;
+  static fp32 scaled_give_power = 0;
+
+  static fp32 spd_total_err = 0;
+  static fp32 spd_total_err_last = 0;
+  fp32 spd_err = my_fabs(motor->target - motor->realSpeedF);
+
+  fp32 toque_coefficient = 1.99688994e-6f;  // (20/16384)*(0.3)*(187/3591)/9.55
+  fp32 a = 1.23e-07;                        // k1
+  fp32 k2 = 1.453e-07;                      // k2
+
+  static uint8_t count = 0;
+  initial_give_power = motor->pidOutput0 * toque_coefficient * motor->realSpeed
+                       + k2 * motor->realSpeed * motor->realSpeed
+                       + a * motor->pidOutput0 * motor->pidOutput0 + constant;
+  if (initial_give_power >= 0) {  // negative power not included (transitory)
+    initial_total_power += initial_give_power;
+    spd_total_err += spd_err;
+  }
+  count++;
+
+  if (count == 4) {
+    count = 0;
+
+    initial_total_power_last = initial_total_power;
+    chassis_total_power = initial_total_power;  //
+    initial_total_power = 0;
+
+    spd_total_err_last = spd_total_err;
+    spd_total_err = 0;
+  }
+
+  if (initial_total_power_last > max_power_limit)  // determine if larger than max power
+  {
+
+    float errorConfidence = 0.5; // 误差权重，误差越大，修正误差越快
+    if (spd_total_err_last > ERROR_POWER_DISTRIBUTION_SET)
+    {
+        errorConfidence = 1.0f;
+    }
+    else if (spd_total_err_last > PROP_POWER_DISTRIBUTION_SET)
+    {
+      errorConfidence = (spd_total_err_last - PROP_POWER_DISTRIBUTION_SET) / (ERROR_POWER_DISTRIBUTION_SET - PROP_POWER_DISTRIBUTION_SET);
+      if (errorConfidence < 0.0f) {
+        errorConfidence = 0.0f;
+      }
+        if (errorConfidence > 1.0f) {
+        errorConfidence = 1.0f;
+        }
+    }
+    else
+    {
+        errorConfidence = 0.0f;
+    }
+
+    errorConfidence = 1.0f;
+
+    float powerWeight_Error = spd_err / spd_total_err_last;
+    float powerWeight_Prop = initial_give_power / initial_total_power_last;  // 功率权重
+    float powerWeight =
+      errorConfidence * powerWeight_Error + (1.0f - errorConfidence) * powerWeight_Prop;
+
+    scaled_give_power = max_power_limit * powerWeight;  // get scaled power
+    if (scaled_give_power < 0) {
+      return motor->pidOutput0;
+    }
+
+    fp32 b = toque_coefficient * motor->realSpeed;
+    fp32 c = k2 * motor->realSpeed * motor->realSpeed - scaled_give_power + constant;
+
+    if (motor->pidOutput0 > 0)  // Selection of the calculation formula according
+                                // to the direction of the original moment
+    {
+      fp32 temp = (-b + sqrt(b * b - 4 * a * c))
+                  / (2 * a);  ////////////////////////////////////////////////////
+      if (temp > 16000) {
+        return 16000;
+      }
+      else
+        return temp;
+    }
+    else {
+      fp32 temp = (-b - sqrt(b * b - 4 * a * c))
+                  / (2 * a);  ////////////////////////////////////////////////////
       if (temp < -16000) {
         return -16000;
       }

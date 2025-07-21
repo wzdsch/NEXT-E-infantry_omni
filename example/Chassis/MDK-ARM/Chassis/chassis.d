@@ -10,7 +10,7 @@ chassis\chassis.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 chassis\chassis.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 chassis\chassis.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 chassis\chassis.o: ../Drivers/CMSIS/Include/core_cm4.h
-chassis\chassis.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+chassis\chassis.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 chassis\chassis.o: ../Drivers/CMSIS/Include/cmsis_version.h
 chassis\chassis.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 chassis\chassis.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -18,7 +18,7 @@ chassis\chassis.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 chassis\chassis.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 chassis\chassis.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 chassis\chassis.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-chassis\chassis.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+chassis\chassis.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 chassis\chassis.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 chassis\chassis.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 chassis\chassis.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -37,17 +37,11 @@ chassis\chassis.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h
 chassis\chassis.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 chassis\chassis.o: ../Components/Basic_Control/Pid/pid.h
 chassis\chassis.o: ../Components/Basic/structs/struct_typedef.h
-chassis\chassis.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+chassis\chassis.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 chassis\chassis.o: ../Components/MCUConnect/MCUConnectStructs.h
 chassis\chassis.o: ../Components/MCUConnect/MCUConnect.h
 chassis\chassis.o: ../Components/Basic/Tools/Tools.h
-chassis\chassis.o: D:\qianrushi\keil_v5\ARM\ARMCC\Bin\..\include\math.h
+chassis\chassis.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\math.h
 chassis\chassis.o: ../Components/Basic_Control/Pid/pid.h
 chassis\chassis.o: ../Components/Basic_Control/Pid/pidData.h
 chassis\chassis.o: ../Components/RemoteControl/remote_control.h
-chassis\chassis.o: ../Components/SuperCap/SuperCap.h
-chassis\chassis.o: ../Components/Referee/referee.h
-chassis\chassis.o: ../Components/Referee/refereeData_v1.6.h
-chassis\chassis.o: ../Components/Referee/protocol.h
-chassis\chassis.o: ../Components/DJI_Motor/addons.h
-chassis\chassis.o: ../Core/Inc/usart.h

@@ -36,10 +36,13 @@
 #include "chassis.h"
 #include "pid.h"
 #include "pidData.h"
-#include "referee.h"
-#include "refereeData_v1.6.h"
 #include "ui.h"
 #include "ui_app.h"
+
+#if WITH_RM_POWER_MANAGER == 1
+#include "referee.h"
+#include "refereeData_v1.6.h"
+#endif
 
 #if IF_WITH_SUPERCAP == 1
 #include "supercap.h"
@@ -159,17 +162,17 @@ int main(void)
   DJI_MotorInit(&motor4, 0x203, 0, pid0, NULL);
   DJI_MotorPidSet(&motor4, &(motor4.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor4.realSpeedF),
                   &(motor4.target));
-  #ifdef REFEREE_H
+  #if WITH_RM_POWER_MANAGER == 1
     #if IF_WITH_SUPERCAP == 1
       DJI_MotorPostProcessHandlerSet(&motor1, &Supercap_powerlimit);
       DJI_MotorPostProcessHandlerSet(&motor2, &Supercap_powerlimit);
       DJI_MotorPostProcessHandlerSet(&motor3, &Supercap_powerlimit);
       DJI_MotorPostProcessHandlerSet(&motor4, &Supercap_powerlimit);
     #else
-      DJI_MotorPostProcessHandlerSet(&motor1, &powerlimit_pro);
-      DJI_MotorPostProcessHandlerSet(&motor2, &powerlimit_pro);
-      DJI_MotorPostProcessHandlerSet(&motor3, &powerlimit_pro);
-      DJI_MotorPostProcessHandlerSet(&motor4, &powerlimit_pro);
+      DJI_MotorPostProcessHandlerSet(&motor1, &powerlimit_LVP_HK_pro);
+      DJI_MotorPostProcessHandlerSet(&motor2, &powerlimit_LVP_HK_pro);
+      DJI_MotorPostProcessHandlerSet(&motor3, &powerlimit_LVP_HK_pro);
+      DJI_MotorPostProcessHandlerSet(&motor4, &powerlimit_LVP_HK_pro);
     #endif
     DJI_MotorCalculateResultSet(&motor1, &(motor1.postProcessResult));
     DJI_MotorCalculateResultSet(&motor2, &(motor2.postProcessResult));
@@ -194,8 +197,8 @@ int main(void)
   // 云台yaw轴电机，这里可以把相关计算放在底盘，这里是为了接收电机数据才创建�????
   DJI_MotorGroupInit(&group2, &hcan1, CAN_RX_FIFO0);  // 电机组初始化
   // 这里flagEcd只能�????0
-  DJI_MotorInit(&motorYaw, motorYaw_ID, 0, NULL, NULL);  // 电机初始�??? 起火步兵的ID
-  // DJI_MotorInit(&motorYaw, 0x205, 0, NULL, NULL);  // 电机初始�??? 另一台步兵的ID
+  DJI_MotorInit(&motorYaw, motorYaw_ID, 0, NULL, 0);  // 电机初始�??? 起火步兵的ID
+  // DJI_MotorInit(&motorYaw, 0x205, 0, NULL, 0);  // 电机初始�??? 另一台步兵的ID
   DJI_MotorListAdd(&group2, &motorYaw);
 
   /***********************************************************************************************/
@@ -212,7 +215,9 @@ int main(void)
   /*************************************任务启用管理***********************************************/
   /***********************************************************************************************/
   HAL_TIM_Base_Start_IT(&htim12);
+#if WITH_RM_POWER_MANAGER == 1
   refereeINIT(&htim12);
+#endif
   HAL_TIM_Base_Start_IT(&htim14);  // 电机pid计算
   HAL_TIM_Base_Start_IT(&htim13);  // 双机通信
   HAL_TIM_Base_Start_IT(&htim11);

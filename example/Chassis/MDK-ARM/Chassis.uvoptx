@@ -280,6 +280,16 @@
           <WinNumber>1</WinNumber>
           <ItemText>power_heat_data,0x0A</ItemText>
         </Ww>
+        <Ww>
+          <count>26</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>power</ItemText>
+        </Ww>
+        <Ww>
+          <count>27</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>yaw_ecd,0x0A</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>

@@ -11,7 +11,7 @@
 
 #define TOTAL_ECD_PER_SHOOT 73728
 
-#define SHOOTER_FREQ_DFLT 20.0f // 默认频率
+#define SHOOTER_FREQ_DFLT 27.0f // 默认频率
 
 enum shooter_Mode {
   SHOOTER_STOP = 0,    // 所有电机停转5
@@ -45,7 +45,7 @@ typedef struct shooterDat {  // 发射机构结构体
   uint16_t heat_cooling; // 冷却速率
   uint8_t heatPerShoot; // 每发子弹的热量
 #if SUPPLIER_ECD == 1
-  int supplier_total_round;
+  fp32 supplier_total_ecd;
   uint16_t supplier_ecd_buf[2];
   fp32 ecd_per_shoot;
 #endif
