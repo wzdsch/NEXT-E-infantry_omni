@@ -259,7 +259,7 @@ fp32 powerlimit_pro(DJI_Motor *motor) {
   }
 }
 
-int power = 80;
+int power = 70;
 
 /**
  * @brief  西交利物浦大学+香港科技大学功率限制移植
@@ -324,8 +324,6 @@ fp32 powerlimit_LVP_HK_pro(DJI_Motor *motor) {
     {
         errorConfidence = 0.0f;
     }
-
-    errorConfidence = 1.0f;
 
     float powerWeight_Error = spd_err / spd_total_err_last;
     float powerWeight_Prop = initial_give_power / initial_total_power_last;  // 功率权重

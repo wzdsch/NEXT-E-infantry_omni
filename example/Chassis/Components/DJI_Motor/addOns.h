@@ -4,8 +4,8 @@
 #include "DJI_Motor.h"
 #include "struct_typedef.h"
 
-#define ERROR_POWER_DISTRIBUTION_SET 200.0f
-#define PROP_POWER_DISTRIBUTION_SET 150.0f
+#define ERROR_POWER_DISTRIBUTION_SET 2000.0f
+#define PROP_POWER_DISTRIBUTION_SET 1500.0f
 
 fp32 example(DJI_Motor *motor);
 fp32 ecdZeroCrossing(DJI_Motor *motor);
