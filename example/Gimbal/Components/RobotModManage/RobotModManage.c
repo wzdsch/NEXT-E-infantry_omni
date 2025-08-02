@@ -265,6 +265,15 @@ void remote_controller() {
       ChassisControlData.speedz = 0;
     }
 
+#if SUPPLIER_ECD == 1
+    // 按R切换单发/全自动开火模式
+    static uint8_t last_RC_keyR = 0;
+    if (last_RC_keyR == 1 && referee_remote_control.KEY_R == 0) {
+      PCflags.single_shoot_flg = !PCflags.single_shoot_flg;
+    }
+    last_RC_keyR = referee_remote_control.KEY_R;
+#endif
+
     // shift 开超电
     if (referee_remote_control.KEY_Shift == 1) {
       ChassisControlData.with_supercap = 1;

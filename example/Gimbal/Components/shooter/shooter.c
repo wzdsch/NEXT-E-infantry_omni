@@ -29,25 +29,42 @@ void shooterINIT(shooter *shooter, DJI_MotorGroup *group, DJI_Motor *friL, DJI_M
 #endif
 }
 
-void shooterStuckProcess(shooter *shooter) {
 #if SUPPLIER_ECD == 1
+
+void getSupplierTotalEcd(shooter* shoot) {
+  fp32 delta_ecd = 0; // 编码值增量
+
+  // 更新缓存
+  shoot->supplier_ecd_buf[1] = shoot->supplier_ecd_buf[0];
+  shoot->supplier_ecd_buf[0] = shoot->supplierMotor->realEcdF;
+
+  // 过零
+  delta_ecd = shoot->supplier_ecd_buf[0] - shoot->supplier_ecd_buf[1];
+  if (delta_ecd >= 4096.0f) {
+    delta_ecd -= 8191.0f;
+  }
+  if (delta_ecd < -4096.0f) {
+    delta_ecd += 8191.0f;
+  }
+
+  // 计算
+  shoot->supplier_total_ecd += delta_ecd;
+
+  // 四舍五入，防止误差累计
+  shoot->supplier_total_ecd = (fp32)((long long)(shoot->supplier_total_ecd + 0.5f));
+}
+
+void shooterStuckProcess(shooter *shooter) {
   static uint8_t supplier_reverse_flg = 0; // 卡弹反拨标志位
   static fp32 reverse_tar_ecd = 0; // 反拨目标编码值
-#else
-
-#endif
   if (shooter->supplierMode != SUPPLIER_ERROR) {
     // 卡弹检测
     if (shooter->startDelay < startDelayLimit) {  // 如果电机还在启动阶段
       shooter->startDelay++;
     }
     // 如果过了启动阶段还在堵转
-#if SUPPLIER_ECD == 1
     else if (fabs(shooter->supplierMotor->realSpeedF) < (fabs(shooter->supplierMotor->pidOutput0) * stuckPersent)\
             && (shooter->supplierMotor->realCurrentF < -8000 || shooter->supplierMotor->realCurrentF > 8000)) {
-#else
-    else if (fabs(shooter->supplierMotor->realSpeedF) < (fabs(shooter->supplierMotor->target) * stuckPersent)) {
-#endif
       shooter->stuckCount++;
     }
     else {
@@ -60,9 +77,6 @@ void shooterStuckProcess(shooter *shooter) {
   // 卡弹反拨
   if (shooter->supplierMode == SUPPLIER_ERROR) {
     if (shooter->stuckProcessCount < stuckProcessCountLimit) {  // 还在堵转处理中
-#if SUPPLIER_ECD == 0
-      DJI_MotorSetTarget(shooter->supplierMotor, -8000.0f);
-#else
       if (supplier_reverse_flg == 0) {
         // 保证累计的没打出去的弹丸 不会在停止打弹后才打出
         DJI_MotorSetTarget(shooter->supplierMotor, \
@@ -78,13 +92,10 @@ void shooterStuckProcess(shooter *shooter) {
         supplier_reverse_flg = 1;
       }
         DJI_MotorSetTarget(shooter->supplierMotor, reverse_tar_ecd);
-#endif
+
       shooter->stuckProcessCount++;
     }
     else {  // 堵转处理完成
-#if SUPPLIER_ECD == 0
-      DJI_MotorSetTarget(shooter->supplierMotor, 0.0f);
-#else
       // 保证累计的没打出去的弹丸 不会在停止打弹后才打出
       DJI_MotorSetTarget(shooter->supplierMotor, \
         shooter->supplierMotor->target - (long long)((shooter->supplierMotor->target - shooter->supplier_total_ecd) / (int)TOTAL_ECD_PER_SHOOT) * TOTAL_ECD_PER_SHOOT);
@@ -93,14 +104,178 @@ void shooterStuckProcess(shooter *shooter) {
       DJI_MotorSetTarget(shooter->supplierMotor, \
         (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 4 * 3) ? \
         shooter->supplierMotor->target : shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT);
-#endif
       shooter->supplierMode = SUPPLIER_RUN;
       shooter->startDelay = 0;
       shooter->stuckProcessCount = 0;
       shooter->stuckCount = 0;
-#if SUPPLIER_ECD == 1
       supplier_reverse_flg = 0;
-#endif
+    }
+    time_ms = 0;
+  }
+}
+
+void shooterRun(shooter *shooter) {
+  static uint8_t last_mode = SHOOTER_STOP;
+  uint8_t mode_change_flg = 0;
+  static int change_cnt = 0;
+  // static uint8_t error_stop_flg = 0; // 调试用，卡弹立即停止
+
+  if (shooter->shooterMode != last_mode) {
+    mode_change_flg = 1;
+    change_cnt++;
+  }
+  // if (change_cnt != 0) {
+  //   change_cnt++;
+  //   if (change_cnt >= 5) {
+  //     change_cnt = 0;
+  //   }
+  // }
+  last_mode = shooter->shooterMode;
+
+  // if (shooter->shooterMode == SHOOTER_STOP || shooter->shooterMode == SHOOTER_HOLD) {
+  //   error_stop_flg = 0;
+  // }
+
+  // if (error_stop_flg == 1) {
+  //   DJI_MotorDisable(shooter->supplierMotor);
+  // }
+
+  // else {
+  
+  // 弹速控制
+  int fri_motor_spd = shooter->friSpeed + 100 * FriMotorSpdLvCtrl();
+  if (fri_motor_spd > 8000) { // 
+    fri_motor_spd = 8000;
+  }
+  else if (fri_motor_spd < 3000) {
+    fri_motor_spd = 3000;
+  }
+
+  switch (shooter->shooterMode) {
+  case SHOOTER_STOP: {
+    DJI_MotorEnable(shooter->friLmotor);
+    DJI_MotorEnable(shooter->friRmotor);
+    DJI_MotorSetTarget(shooter->friLmotor, 0.0f);
+    DJI_MotorSetTarget(shooter->friRmotor, 0.0f);
+    DJI_MotorDisable(shooter->supplierMotor);
+
+    if (mode_change_flg == 1) {
+      // 保证累计的没打出去的弹丸 不会在停止打弹后才打出
+      DJI_MotorSetTarget(shooter->supplierMotor, \
+        shooter->supplierMotor->target - (long long)((shooter->supplierMotor->target - shooter->supplier_total_ecd) / (int)TOTAL_ECD_PER_SHOOT) * TOTAL_ECD_PER_SHOOT);
+  
+      // 若拨盘已经拨出一颗弹的四分之一的编码值，则将这颗弹丸打出
+      DJI_MotorSetTarget(shooter->supplierMotor, \
+        (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 4 * 3) ? \
+        shooter->supplierMotor->target : shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT);
+    }
+
+    shooter->startDelay = 0;
+    shooter->stuckCount = 0;
+    time_ms = 0;
+    break;
+  }
+
+  case SHOOTER_HOLD: {
+    DJI_MotorEnable(shooter->friLmotor);
+    DJI_MotorEnable(shooter->friRmotor);
+    DJI_MotorEnable(shooter->supplierMotor);
+    DJI_MotorSetTarget(shooter->friLmotor, fri_motor_spd);
+    DJI_MotorSetTarget(shooter->friRmotor, fri_motor_spd);
+
+  if (mode_change_flg == 1 && shooter->supplierMode != SUPPLIER_ERROR) {
+  // 保证累计的没打出去的弹丸 不会在停止打弹后才打出
+  DJI_MotorSetTarget(shooter->supplierMotor, \
+    shooter->supplierMotor->target - (long long)((shooter->supplierMotor->target - shooter->supplier_total_ecd) / (int)TOTAL_ECD_PER_SHOOT) * TOTAL_ECD_PER_SHOOT);
+
+  // 若拨盘已经拨出一颗弹的百分之一的编码值，则将这颗弹丸打出
+  DJI_MotorSetTarget(shooter->supplierMotor, \
+    (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 100 * 99) ? \
+    shooter->supplierMotor->target : shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT);
+  }
+    
+    shooter->startDelay = 0;
+    shooter->stuckCount = 0;
+    time_ms = 0;
+    break;
+  }
+
+  case SHOOTER_FIRE: {
+    DJI_MotorEnable(shooter->friLmotor);
+    DJI_MotorEnable(shooter->friRmotor);
+    DJI_MotorEnable(shooter->supplierMotor);
+    DJI_MotorSetTarget(shooter->friLmotor, fri_motor_spd);
+    DJI_MotorSetTarget(shooter->friRmotor, fri_motor_spd);
+
+    if (shooter->supplierMode == SUPPLIER_RUN) {
+      shooterFreqControl(shooter);
+    }
+    break;
+  }
+  case SHOOTER_ONETAP: {
+    DJI_MotorEnable(shooter->friLmotor);
+    DJI_MotorEnable(shooter->friRmotor);
+    DJI_MotorEnable(shooter->supplierMotor);
+    DJI_MotorSetTarget(shooter->friLmotor, fri_motor_spd);
+    DJI_MotorSetTarget(shooter->friRmotor, fri_motor_spd);
+
+    if (mode_change_flg == 1 && shooter->supplierMode != SUPPLIER_ERROR) {
+      // 保证累计的没打出去的弹丸 不会在停止打弹后才打出
+      DJI_MotorSetTarget(shooter->supplierMotor, \
+        shooter->supplierMotor->target - (long long)((shooter->supplierMotor->target - shooter->supplier_total_ecd) / (int)TOTAL_ECD_PER_SHOOT) * TOTAL_ECD_PER_SHOOT);
+
+      // 若拨盘已经拨出一颗弹的百分之一的编码值，则将这颗弹丸打出
+      DJI_MotorSetTarget(shooter->supplierMotor, \
+        (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 100 * 99) ? \
+        shooter->supplierMotor->target : shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT);
+
+      if (shooter->maxHeat - shooter->gunHeat > 3 * (shooter->heatPerShoot)) {
+        DJI_MotorSetTarget(shooter->supplierMotor, shooter->supplierMotor->target + TOTAL_ECD_PER_SHOOT);
+      }
+    }
+    break;
+  }
+  default:
+    break;
+  }
+  // }
+  shooterStuckProcess(shooter);
+  // if (shooter->supplierMode == SUPPLIER_ERROR) {
+  //   error_stop_flg = 1;
+  // }
+}
+
+#elif SUPPLIER_ECD == 0
+
+void shooterStuckProcess(shooter *shooter) {
+  if (shooter->supplierMode != SUPPLIER_ERROR) {
+    // 卡弹检测
+    if (shooter->startDelay < startDelayLimit) {  // 如果电机还在启动阶段
+      shooter->startDelay++;
+    }
+    // 如果过了启动阶段还在堵转
+    else if (fabs(shooter->supplierMotor->realSpeedF) < (fabs(shooter->supplierMotor->target) * stuckPersent)) {
+      shooter->stuckCount++;
+    }
+    else {
+      shooter->stuckCount = 0;
+    }
+    if (shooter->stuckCount >= stuckCountLimit) {  // 如果堵转时间超时
+      shooter->supplierMode = SUPPLIER_ERROR;
+    }
+  }
+  // 卡弹反拨
+  if (shooter->supplierMode == SUPPLIER_ERROR) {
+    if (shooter->stuckProcessCount < stuckProcessCountLimit) {  // 还在堵转处理中
+      DJI_MotorSetTarget(shooter->supplierMotor, -8000.0f);
+      shooter->stuckProcessCount++;
+    }
+    else {  // 堵转处理完成
+      DJI_MotorSetTarget(shooter->supplierMotor, 0.0f);
+      shooter->supplierMode = SUPPLIER_RUN;
+      shooter->startDelay = 0;
+      shooter->stuckProcessCount = 0;
+      shooter->stuckCount = 0;
     }
     time_ms = 0;
   }
@@ -147,102 +322,55 @@ void shooterRun(shooter *shooter) {
   }
 
   switch (shooter->shooterMode) {
-  case SHOOTER_STOP:
+  case SHOOTER_STOP: {
     DJI_MotorEnable(shooter->friLmotor);
     DJI_MotorEnable(shooter->friRmotor);
     DJI_MotorSetTarget(shooter->friLmotor, 0.0f);
     DJI_MotorSetTarget(shooter->friRmotor, 0.0f);
     DJI_MotorDisable(shooter->supplierMotor);
-#if SUPPLIER_ECD == 1
-    if (mode_change_flg == 1) {
-      // 保证累计的没打出去的弹丸 不会在停止打弹后才打出
-      DJI_MotorSetTarget(shooter->supplierMotor, \
-        shooter->supplierMotor->target - (long long)((shooter->supplierMotor->target - shooter->supplier_total_ecd) / (int)TOTAL_ECD_PER_SHOOT) * TOTAL_ECD_PER_SHOOT);
-  
-      // 若拨盘已经拨出一颗弹的四分之一的编码值，则将这颗弹丸打出
-      DJI_MotorSetTarget(shooter->supplierMotor, \
-        (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 4 * 3) ? \
-        shooter->supplierMotor->target : shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT);
-    }
-#else
+
     DJI_MotorSetTarget(shooter->supplierMotor, 0.0f);
-#endif
 
     shooter->startDelay = 0;
     shooter->stuckCount = 0;
     time_ms = 0;
     break;
+  }
 
-  case SHOOTER_HOLD:
+  case SHOOTER_HOLD: {
     DJI_MotorEnable(shooter->friLmotor);
     DJI_MotorEnable(shooter->friRmotor);
     DJI_MotorEnable(shooter->supplierMotor);
     DJI_MotorSetTarget(shooter->friLmotor, fri_motor_spd);
     DJI_MotorSetTarget(shooter->friRmotor, fri_motor_spd);
 
-#if SUPPLIER_ECD == 1
-  if (mode_change_flg == 1 && shooter->supplierMode != SUPPLIER_ERROR) {
-  // 保证累计的没打出去的弹丸 不会在停止打弹后才打出
-  DJI_MotorSetTarget(shooter->supplierMotor, \
-    shooter->supplierMotor->target - (long long)((shooter->supplierMotor->target - shooter->supplier_total_ecd) / (int)TOTAL_ECD_PER_SHOOT) * TOTAL_ECD_PER_SHOOT);
-
-  // 若拨盘已经拨出一颗弹的四分之一的编码值，则将这颗弹丸打出
-  DJI_MotorSetTarget(shooter->supplierMotor, \
-    (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 100 * 99) ? \
-    shooter->supplierMotor->target : shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT);
-  }
-#else
     DJI_MotorSetTarget(shooter->supplierMotor, 0.0f);
-#endif
     
     shooter->startDelay = 0;
     shooter->stuckCount = 0;
     time_ms = 0;
     break;
+  }
 
-  case SHOOTER_FIRE:
+  case SHOOTER_FIRE: {
     DJI_MotorEnable(shooter->friLmotor);
     DJI_MotorEnable(shooter->friRmotor);
     DJI_MotorEnable(shooter->supplierMotor);
     DJI_MotorSetTarget(shooter->friLmotor, fri_motor_spd);
     DJI_MotorSetTarget(shooter->friRmotor, fri_motor_spd);
 
-    if (shooter->supplierMode == SUPPLIER_RUN)
+    if (shooter->supplierMode == SUPPLIER_RUN) {
       shooterFreqControl(shooter);
+    }
     break;
+  }
   default:
     break;
   }
   // }
   shooterStuckProcess(shooter);
-  // if (shooter->supplierMode == SUPPLIER_ERROR) {
-  //   error_stop_flg = 1;
-  // }
 }
 
-#if SUPPLIER_ECD == 1
-void getSupplierTotalEcd(shooter* shoot) {
-  fp32 delta_ecd = 0; // 编码值增量
-
-  // 更新缓存
-  shoot->supplier_ecd_buf[1] = shoot->supplier_ecd_buf[0];
-  shoot->supplier_ecd_buf[0] = shoot->supplierMotor->realEcdF;
-
-  // 过零
-  delta_ecd = shoot->supplier_ecd_buf[0] - shoot->supplier_ecd_buf[1];
-  if (delta_ecd > 4096.0f) {
-    delta_ecd -= 8192.0f;
-  }
-  if (delta_ecd < -4096.0f) {
-    delta_ecd += 8192.0f;
-  }
-
-  // 计算
-  shoot->supplier_total_ecd += delta_ecd;
-
-  // 四舍五入，防止误差累计
-  shoot->supplier_total_ecd = (fp32)((long long)(shoot->supplier_total_ecd + 0.5f));
-}
 #endif
 
 void shooterFreqControl(shooter *shooter) {

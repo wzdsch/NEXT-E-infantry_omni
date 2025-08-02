@@ -22,9 +22,10 @@
 extern uint8_t tuneTime;
 
 typedef struct flagdata {  // 一些标志位，PC控制使用
-  uint8_t FreeFlag;
-  uint8_t LeftTurn;
-  uint8_t RightTurn;
+  uint8_t FreeFlag;         // 小陀螺
+  uint8_t LeftTurn;         // 左转
+  uint8_t RightTurn;        // 右转
+  uint8_t single_shoot_flg; // 单发
 } PC_Flags;
 
 extern void remote_controller(void);

@@ -19,7 +19,9 @@ enum shooter_Mode {
   SHOOTER_FIRE = 2,    // 所有电机运转
   SHOOTER_DBUG = 3,    // 摩擦轮停转，拨弹轮旋转
   SHOOTER_DBUG1 = 4,   // 摩擦轮停转，拨弹轮反转
-  SHTOOER_ONETAP = 5,  // 单发模式
+#if SUPPLIER_ECD == 1
+  SHOOTER_ONETAP = 5,  // 单发模式
+#endif
 };
 
 enum supplier_Mode {

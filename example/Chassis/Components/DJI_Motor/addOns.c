@@ -325,7 +325,7 @@ fp32 powerlimit_LVP_HK_pro(DJI_Motor *motor) {
         errorConfidence = 0.0f;
     }
 
-    float powerWeight_Error = spd_err / spd_total_err_last;
+    float powerWeight_Error = spd_err / spd_total_err_last;                  // 误差权重
     float powerWeight_Prop = initial_give_power / initial_total_power_last;  // 功率权重
     float powerWeight =
       errorConfidence * powerWeight_Error + (1.0f - errorConfidence) * powerWeight_Prop;
