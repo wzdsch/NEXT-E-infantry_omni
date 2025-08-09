@@ -93,6 +93,11 @@ fp32 chassisFollowZeroCrossing(DJI_Motor *motor) {
   }
 }
 
+fp32 pitch_gravity_compensation(DJI_Motor *motor) {
+  fp32 a = 1;
+  return motor->pidOutput1 + a * cos(motor->preProcessResult / 4096.0f * PI);
+}
+
 #ifdef REFEREEDATA_H
 #define WARNING_POWER_BUFF 50.0f
 

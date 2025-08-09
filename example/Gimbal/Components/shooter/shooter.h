@@ -47,9 +47,10 @@ typedef struct shooterDat {  // 发射机构结构体
   uint16_t heat_cooling; // 冷却速率
   uint8_t heatPerShoot; // 每发子弹的热量
 #if SUPPLIER_ECD == 1
-  fp32 supplier_total_ecd;
   uint16_t supplier_ecd_buf[2];
-  fp32 ecd_per_shoot;
+  uint32_t ecd_per_shoot;
+  int64_t supplier_total_ecd;
+  fp32 supplier_total_ecd_f;
 #endif
 } shooter;
 

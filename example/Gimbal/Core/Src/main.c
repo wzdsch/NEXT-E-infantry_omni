@@ -186,7 +186,8 @@ extern DMA_HandleTypeDef hdma2;
                   &(BMI088_gimbal.pitchAngle), &(motorPitch.target));
   DJI_MotorPidSet(&motorPitch, &(motorPitch.motorPid1), PID_POSITION, PITCH_Speed_IMU_PID,
                   &(BMI088_gimbal.pitchSpeed), &(motorPitch.pidOutput0));
-  DJI_MotorCalculateResultSet(&motorPitch, &(motorPitch.pidOutput1));
+  DJI_MotorPostProcessHandlerSet(&motorPitch, &pitch_gravity_compensation);
+  DJI_MotorCalculateResultSet(&motorPitch, &(motorPitch.postProcessResult));
   DJI_MotorListAdd(&group1, &motorPitch);
 
 #endif
@@ -213,7 +214,7 @@ extern DMA_HandleTypeDef hdma2;
   DJI_MotorListAdd(&group1, &motor2006); // 拨弹在底盘，用can1
 #else
   DJI_MotorInit(&motor2006, 0x203, 0, pidBoth, NULL);
-  DJI_MotorPidSet(&motor2006, &(motor2006.motorPid0), PID_POSITION, M2006_Angle_PID, &(shooter1.supplier_total_ecd), &(motor2006.target));
+  DJI_MotorPidSet(&motor2006, &(motor2006.motorPid0), PID_POSITION, M2006_Angle_PID, &(shooter1.supplier_total_ecd_f), &(motor2006.target));
   DJI_MotorPidSet(&motor2006, &(motor2006.motorPid1), PID_POSITION, M2006_Speed_PID,
                   &(motor2006.realSpeedF), &(motor2006.pidOutput0));
   DJI_MotorCalculateResultSet(&motor2006, &(motor2006.pidOutput1));

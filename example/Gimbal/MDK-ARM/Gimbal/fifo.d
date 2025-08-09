@@ -1,9 +1,9 @@
 gimbal\fifo.o: ..\Components\Referee\fifo.c
 gimbal\fifo.o: ..\Components\Referee\fifo.h
-gimbal\fifo.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
-gimbal\fifo.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
-gimbal\fifo.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\string.h
-gimbal\fifo.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+gimbal\fifo.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\stdio.h
+gimbal\fifo.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\stdint.h
+gimbal\fifo.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\string.h
+gimbal\fifo.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\stdlib.h
 gimbal\fifo.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\fifo.o: ../Core/Inc/stm32f4xx_hal_conf.h
 gimbal\fifo.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h
@@ -18,7 +18,7 @@ gimbal\fifo.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 gimbal\fifo.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 gimbal\fifo.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\fifo.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-gimbal\fifo.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+gimbal\fifo.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\stddef.h
 gimbal\fifo.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 gimbal\fifo.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 gimbal\fifo.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h

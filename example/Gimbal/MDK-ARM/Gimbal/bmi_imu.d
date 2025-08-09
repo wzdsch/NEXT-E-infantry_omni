@@ -3,7 +3,7 @@ gimbal\bmi_imu.o: ..\Components\IMU\BMI\Application\BMI_IMU.h
 gimbal\bmi_imu.o: ..\Components\IMU\BMI\Application\BMI088.h
 gimbal\bmi_imu.o: ../Components/Basic/structs/struct_typedef.h
 gimbal\bmi_imu.o: ../Components/IMU/BMI/Components/Devices/BMI088driver.h
-gimbal\bmi_imu.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+gimbal\bmi_imu.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\stdint.h
 gimbal\bmi_imu.o: ../Core/Inc/main.h
 gimbal\bmi_imu.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\bmi_imu.o: ../Core/Inc/stm32f4xx_hal_conf.h
@@ -19,7 +19,7 @@ gimbal\bmi_imu.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 gimbal\bmi_imu.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 gimbal\bmi_imu.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\bmi_imu.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-gimbal\bmi_imu.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
+gimbal\bmi_imu.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\stddef.h
 gimbal\bmi_imu.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 gimbal\bmi_imu.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 gimbal\bmi_imu.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h
@@ -44,9 +44,9 @@ gimbal\bmi_imu.o: ../Components/IMU/BMI/Components/Algorithm/QuaternionEKF.h
 gimbal\bmi_imu.o: ../Components/IMU/BMI/Components/kalman_filter.h
 gimbal\bmi_imu.o: ../Components/IMU/BMI/Components/Algorithm/Include/arm_math.h
 gimbal\bmi_imu.o: ../Drivers/CMSIS/Include/core_cm4.h
-gimbal\bmi_imu.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\string.h
-gimbal\bmi_imu.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\math.h
-gimbal\bmi_imu.o: D:\DEV\Embedded\keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+gimbal\bmi_imu.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\string.h
+gimbal\bmi_imu.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\math.h
+gimbal\bmi_imu.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\stdlib.h
 gimbal\bmi_imu.o: ../Components/IMU/BMI/Bsp/bsp_PWM.h
 gimbal\bmi_imu.o: ../Core/Inc/tim.h
 gimbal\bmi_imu.o: ../Components/IMU/BMI/Components/Controller/controller.h

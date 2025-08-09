@@ -32,7 +32,7 @@ void shooterINIT(shooter *shooter, DJI_MotorGroup *group, DJI_Motor *friL, DJI_M
 #if SUPPLIER_ECD == 1
 
 void getSupplierTotalEcd(shooter* shoot) {
-  fp32 delta_ecd = 0; // 编码值增量
+  int16_t delta_ecd = 0; // 编码值增量
 
   // 更新缓存
   shoot->supplier_ecd_buf[1] = shoot->supplier_ecd_buf[0];
@@ -40,18 +40,16 @@ void getSupplierTotalEcd(shooter* shoot) {
 
   // 过零
   delta_ecd = shoot->supplier_ecd_buf[0] - shoot->supplier_ecd_buf[1];
-  if (delta_ecd >= 4096.0f) {
-    delta_ecd -= 8191.0f;
+  if (delta_ecd >= 4096) {
+    delta_ecd -= 8191;
   }
-  if (delta_ecd < -4096.0f) {
-    delta_ecd += 8191.0f;
+  if (delta_ecd < -4096) {
+    delta_ecd += 8191;
   }
 
   // 计算
   shoot->supplier_total_ecd += delta_ecd;
-
-  // 四舍五入，防止误差累计
-  shoot->supplier_total_ecd = (fp32)((long long)(shoot->supplier_total_ecd + 0.5f));
+  shoot->supplier_total_ecd_f = shoot->supplier_total_ecd;
 }
 
 void shooterStuckProcess(shooter *shooter) {
