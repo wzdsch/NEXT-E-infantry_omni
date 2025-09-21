@@ -34,7 +34,11 @@
       "mcuconnect.h": "c",
       "algorithm": "c",
       "random": "c",
-      "dma.h": "c"
+      "dma.h": "c",
+      "controller.h": "c",
+      "arm_math.h": "c",
+      "core_cm4.h": "c",
+      "kalman_filter.h": "c"
     },
     "C_Cpp.formatting": "clangFormat",
     "C_Cpp.vcFormat.indent.caseContentsWhenBlock": true,

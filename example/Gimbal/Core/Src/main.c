@@ -155,7 +155,11 @@ extern DMA_HandleTypeDef hdma2;
   /***********************************************************************************************/
   // 云台电机
   DJI_MotorGroupInit(&group1, &hcan1, CAN_RX_FIFO0);
+#if NEW_ROBOT == 0
   DJI_MotorInit(&motorYaw, 0x207, 0, pidBoth, 0);
+#else
+  DJI_MotorInit(&motorYaw, 0x207, 0, pidBoth, 0);
+#endif
   //  处理�???螺仪的数据，以及过零
   DJI_MotorPreProcessHandlerSet(&motorYaw, &IMUecdZeroCrossing);
 
@@ -168,7 +172,11 @@ extern DMA_HandleTypeDef hdma2;
 
   DJI_MotorListAdd(&group1, &motorYaw);
 
-  DJI_MotorInit(&motorPitch, 0x206, 0, pidBoth, 4981);  // 这是起火步兵pitchID
+#if NEW_ROBOT == 0
+  DJI_MotorInit(&motorPitch, 0x206, 0, pidBoth, 5511);  // 这是起火步兵pitchID
+#else
+  DJI_MotorInit(&motorPitch, 0x206, 0, pidBoth, 5511);
+#endif
 
 #if IMU_PITCH == 0
   DJI_MotorPreProcessHandlerSet(&motorPitch, &ecdZeroCrossing);
@@ -194,13 +202,20 @@ extern DMA_HandleTypeDef hdma2;
 
   // 发射机构
   DJI_MotorGroupInit(&group2, &hcan2, CAN_RX_FIFO0);
+#if NEW_ROBOT == 0
   DJI_MotorInit(&motorfriR, 0x201, 0, pid0, NULL);
+#else
+  DJI_MotorInit(&motorfriR, 0x202, 0, pid0, NULL);
+#endif
   DJI_MotorPidSet(&motorfriR, &(motorfriR.motorPid0), PID_POSITION, FRI_Speed_PID,
                   &(motorfriR.realSpeedF), &(motorfriR.target));
   DJI_MotorCalculateResultSet(&motorfriR, &(motorfriR.pidOutput0));
   DJI_MotorListAdd(&group2, &motorfriR);
-
+#if NEW_ROBOT == 0
   DJI_MotorInit(&motorfriL, 0x202, 1, pid0, NULL);
+#else
+  DJI_MotorInit(&motorfriL, 0x201, 1, pid0, NULL);
+#endif
   DJI_MotorPidSet(&motorfriL, &(motorfriL.motorPid0), PID_POSITION, FRI_Speed_PID,
                   &(motorfriL.realSpeedF), &(motorfriL.target));
   DJI_MotorCalculateResultSet(&motorfriL, &(motorfriL.pidOutput0));
@@ -213,7 +228,11 @@ extern DMA_HandleTypeDef hdma2;
   DJI_MotorCalculateResultSet(&motor2006, &(motor2006.pidOutput0));
   DJI_MotorListAdd(&group1, &motor2006); // 拨弹在底盘，用can1
 #else
+  #if NEW_ROBOT == 0
   DJI_MotorInit(&motor2006, 0x203, 0, pidBoth, NULL);
+  #else
+  DJI_MotorInit(&motor2006, 0x203, 0, pidBoth, NULL);
+  #endif
   DJI_MotorPidSet(&motor2006, &(motor2006.motorPid0), PID_POSITION, M2006_Angle_PID, &(shooter1.supplier_total_ecd_f), &(motor2006.target));
   DJI_MotorPidSet(&motor2006, &(motor2006.motorPid1), PID_POSITION, M2006_Speed_PID,
                   &(motor2006.realSpeedF), &(motor2006.pidOutput0));

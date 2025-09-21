@@ -36,6 +36,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     // JustFloat((int)motor2006.target % 1000000, (int)shooter1.supplier_total_ecd % 1000000, motor2006.pidOutput0, motor2006.realSpeedF, &huart1);  // shooter
     // JustFloat(vision1.RXData.VisionRxData.YawAngleTarget, BMI088_gimbal.yawAngle, vision1.TXData.YawAngle, 0.0f, &huart1); // yaw
     //JustFloat(motor2006.realCurrentF, motor2006.realSpeedF, 0.0f, 0.0f, &huart1); // shooter
+		JustFloat(motorPitch.realCurrentF, motorPitch.preProcessResult, BMI088_gimbal.pitchAngle, 0.0f, &huart1);
   }
   if (htim == &htim9) {
     VisionConnectSend(&vision1);  // 向视觉发送数据10ms@100hz
@@ -43,7 +44,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   }
   if (htim == &htim11) {  // 双机通讯解包0.67ms@1500HZ
     connectionUnpackData(&connect);
-    shooter1.maxHeat = RefereeData.maxHeat;  // 枪管热量赋值
+    shooter1.maxHeat = 500; // RefereeData.maxHeat;  // 枪管热量赋值
     shooter1.gunHeat = RefereeData.gunHeat1;
     shooter1.heat_cooling = RefereeData.heat_cooling;
     VisionConnectUpdateTX(&vision1, RefereeData.OurColor,

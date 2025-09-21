@@ -20,6 +20,7 @@
 #include "main.h"
 #include "can.h"
 #include "dma.h"
+#include "spi.h"
 #include "tim.h"
 #include "usart.h"
 #include "gpio.h"
@@ -38,6 +39,7 @@
 #include "pidData.h"
 #include "ui.h"
 #include "ui_app.h"
+#include "BMI088.h"
 
 #if WITH_RM_POWER_MANAGER == 1
 #include "referee.h"
@@ -67,6 +69,8 @@ DJI_Motor motorYaw;
 
 chassis chassis1;
 MCUConnection connect;
+
+BMI088_IMU BMI088_chassis;
 
 // referee referee1;
 Referee_data RefereeData;
@@ -139,14 +143,15 @@ int main(void)
   MX_TIM11_Init();
   MX_TIM10_Init();
   MX_USART1_UART_Init();
+  MX_SPI1_Init();
   /* USER CODE BEGIN 2 */
   /***********************************************************************************************/
   /**************************************电机初始�?????************************************************/
   /***********************************************************************************************/
   //  底盘电机
-
   DJI_MotorGroupInit(&group1, &hcan2, CAN_RX_FIFO0);
 
+#if NEW_ROBOT == 0
   DJI_MotorInit(&motor1, 0x204, 0, pid0, NULL);  // 起火步兵地盘ID�???3412，另外一�???1234
   DJI_MotorPidSet(&motor1, &(motor1.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor1.realSpeedF),
                   &(motor1.target));
@@ -162,6 +167,24 @@ int main(void)
   DJI_MotorInit(&motor4, 0x203, 0, pid0, NULL);
   DJI_MotorPidSet(&motor4, &(motor4.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor4.realSpeedF),
                   &(motor4.target));
+#else
+  DJI_MotorInit(&motor1, 0x204, 0, pid0, NULL);  // 起火步兵地盘ID�???3412，另外一�???1234
+  DJI_MotorPidSet(&motor1, &(motor1.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor1.realSpeedF),
+                  &(motor1.target));
+
+  DJI_MotorInit(&motor2, 0x201, 0, pid0, NULL);
+  DJI_MotorPidSet(&motor2, &(motor2.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor2.realSpeedF),
+                  &(motor2.target));
+
+  DJI_MotorInit(&motor3, 0x202, 0, pid0, NULL);
+  DJI_MotorPidSet(&motor3, &(motor3.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor3.realSpeedF),
+                  &(motor3.target));
+
+  DJI_MotorInit(&motor4, 0x203, 0, pid0, NULL);
+  DJI_MotorPidSet(&motor4, &(motor4.motorPid0), PID_POSITION, M3508_Speed_PID, &(motor4.realSpeedF),
+                  &(motor4.target));
+#endif
+
   #if WITH_RM_POWER_MANAGER == 1
     #if IF_WITH_SUPERCAP == 1
       DJI_MotorPostProcessHandlerSet(&motor1, &Supercap_powerlimit);
@@ -194,26 +217,41 @@ int main(void)
   DJI_MotorEnable(&motor3);
   DJI_MotorEnable(&motor4);
 
+#if NEW_ROBOT == 0
   // 云台yaw轴电机，这里可以把相关计算放在底盘，这里是为了接收电机数据才创建�????
   DJI_MotorGroupInit(&group2, &hcan1, CAN_RX_FIFO0);  // 电机组初始化
   // 这里flagEcd只能�????0
-  DJI_MotorInit(&motorYaw, motorYaw_ID, 0, NULL, 0);  // 电机初始�??? 起火步兵的ID
-  // DJI_MotorInit(&motorYaw, 0x205, 0, NULL, 0);  // 电机初始�??? 另一台步兵的ID
+  DJI_MotorInit(&motorYaw, motorYaw_ID, 0, NULL, 0);  
   DJI_MotorListAdd(&group2, &motorYaw);
+#else
+  DJI_MotorGroupInit(&group2, &hcan1, CAN_RX_FIFO0);  // 电机组初始化
+  // 这里flagEcd只能�????0
+  DJI_MotorInit(&motorYaw, motorYaw_ID, 0, NULL, 0);  
+  DJI_MotorListAdd(&group2, &motorYaw);
+#endif
+
 
   /***********************************************************************************************/
   /**************************************底盘初始�??************************************************/
   /***********************************************************************************************/
   // 这里�????要依赖yaw轴电机或者底盘imu来底盘跟随，�????以上面创建了yaw轴电机的结构体来接收电机数据
+#if NEW_ROBOT == 0
   chassisINIT(&chassis1, &group1, &motor1, &motor2, &motor3, &motor4, &motorYaw);
-  chasisFollowINIT(&chassis1, OLD_YAW_FLG_ECD, PID_POSITION, Chassis_Angle_PID, PID_POSITION,
+  chasisFollowINIT(&chassis1, YAW_FLG_ECD, PID_POSITION, Chassis_Angle_PID, PID_POSITION,
                    Chassis_Speed_PID);  // 底盘跟随初始�???(起火步兵)
+#else
+  chassisINIT(&chassis1, &group1, &motor1, &motor2, &motor3, &motor4, &motorYaw);
+  chasisFollowINIT(&chassis1, YAW_FLG_ECD, PID_POSITION, Chassis_Angle_PID, PID_POSITION,
+                   Chassis_Speed_PID);  // 底盘跟随初始�???(起火步兵)
+#endif
+
   followResultSet(&chassis1, &(chassis1.followPidout));  // 底盘跟随结果设置
   connectionINIT(&connect, &hcan1, 0x400, CAN_RX_FIFO1);
 
   /***********************************************************************************************/
   /*************************************任务启用管理***********************************************/
   /***********************************************************************************************/
+  BMI088_INIT(&BMI088_chassis);
   HAL_TIM_Base_Start_IT(&htim12);
 #if WITH_RM_POWER_MANAGER == 1
   refereeINIT(&htim12);
@@ -311,8 +349,7 @@ void Error_Handler(void)
   }
   /* USER CODE END Error_Handler_Debug */
 }
-
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 /**
   * @brief  Reports the name of the source file and the source line number
   *         where the assert_param error has occurred.

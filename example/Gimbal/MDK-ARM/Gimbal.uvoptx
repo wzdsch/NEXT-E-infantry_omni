@@ -140,7 +140,7 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>CMSIS_AGDI</Key>
-          <Name>-X"Any" -UAny -O206 -S8 -C0 -P00000000 -N00("") -D00(00000000) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP20 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC1000 -FN1 -FF0STM32F4xx_1024.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32F407IGHx$CMSIS\Flash\STM32F4xx_1024.FLM)</Name>
+          <Name>-X"Any" -UAny -O206 -S8 -C0 -P00000000 -N00("ARM CoreSight SW-DP") -D00(2BA01477) -L00(0) -TO65554 -TC10000000 -TT10000000 -TP20 -TDS8007 -TDT0 -TDC1F -TIEFFFFFFFF -TIP8 -FO15 -FD20000000 -FC1000 -FN1 -FF0STM32F4xx_1024.FLM -FS08000000 -FL0100000 -FP0($$Device:STM32F407IGHx$CMSIS\Flash\STM32F4xx_1024.FLM)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -159,14 +159,14 @@
           <Type>0</Type>
           <LineNumber>1313</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134240276</Address>
+          <Address>134240888</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>c:\Users\admin\Desktop\omni_test\NEXT-E_Robot_Component_Library\example\Gimbal\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c</Filename>
+          <Filename>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\Gimbal\../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c\1313</Expression>
         </Bp>
@@ -175,14 +175,14 @@
           <Type>0</Type>
           <LineNumber>1353</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134240318</Address>
+          <Address>134240930</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>c:\Users\admin\Desktop\omni_test\NEXT-E_Robot_Component_Library\example\Gimbal\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c</Filename>
+          <Filename>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\Gimbal\../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c\1353</Expression>
         </Bp>
@@ -191,14 +191,14 @@
           <Type>0</Type>
           <LineNumber>1259</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134240108</Address>
+          <Address>134240720</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>c:\Users\admin\Desktop\omni_test\NEXT-E_Robot_Component_Library\example\Gimbal\Drivers\STM32F4xx_HAL_Driver\Src\stm32f4xx_hal_spi.c</Filename>
+          <Filename>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\Gimbal\../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c\1259</Expression>
         </Bp>
@@ -244,7 +244,7 @@
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>motorPitch,0x0A</ItemText>
+          <ItemText>motorPitch,0x10</ItemText>
         </Ww>
         <Ww>
           <count>2</count>
@@ -285,6 +285,16 @@
           <count>9</count>
           <WinNumber>1</WinNumber>
           <ItemText>motorYaw,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>10</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>connect</ItemText>
+        </Ww>
+        <Ww>
+          <count>11</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>motorfriR</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -909,7 +919,7 @@
 
   <Group>
     <GroupName>PID</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1001,7 +1011,7 @@
 
   <Group>
     <GroupName>BMI088</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1237,7 +1247,7 @@
       <GroupNumber>16</GroupNumber>
       <FileNumber>65</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Components\shooter\shooter.c</PathWithFileName>

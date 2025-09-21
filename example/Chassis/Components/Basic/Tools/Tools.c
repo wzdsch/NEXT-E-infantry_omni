@@ -106,11 +106,7 @@ float rampPlanner(float current_value, float target_value, float increase_rate, 
     || (fabs_target_value < fabs_current_value && target_value >= 0 && current_value > 0)) 
   {
     current_value -= decrease_rate;
-    if (current_value < 0) // 防止减至反向
-    {
-      current_value = 0;
-    }
-    else if (current_value < target_value) // 防止低于目标值
+    if (current_value < target_value) // 防止低于目标值
     {
       current_value = target_value;
     }
@@ -126,11 +122,7 @@ float rampPlanner(float current_value, float target_value, float increase_rate, 
   (fabs_target_value < fabs_current_value && target_value <= 0 && current_value < 0))
   {
     current_value += decrease_rate;
-    if (current_value > 0) // 防止减至反向
-    {
-      current_value = 0;
-    }
-    else if (current_value > target_value) // 防止高于目标值
+    if (current_value > target_value) // 防止高于目标值
     {
       current_value = target_value;
     }

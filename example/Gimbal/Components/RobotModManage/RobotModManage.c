@@ -188,7 +188,11 @@ void remote_controller() {
         case RC_SW_DOWN:
           if (vision1.RXData.VisionRxData.fireControl == 0xff
               || RC_Data.ET07_DATA.SA_CH5 == RC_SW_UP) {
-            shooter1.shooterMode = SHOOTER_FIRE;
+            if (RC_Data.ET07_DATA.SD_CH8 == RC_SW_UP) {
+              shooter1.shooterMode = SHOOTER_FIRE;
+            } else {
+              shooter1.shooterMode = SHOOTER_ONETAP;
+            }
           }
           else {
             shooter1.shooterMode = SHOOTER_HOLD;

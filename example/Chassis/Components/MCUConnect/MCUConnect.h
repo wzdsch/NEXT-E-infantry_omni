@@ -15,7 +15,7 @@ enum CONNECT_FIFO_STATE {
 typedef struct ConnectFifo {
   uint8_t fifoState;  // fifo状态
 
-  uint8_t pcakSize;  // 包大小
+  uint8_t packSize;  // 包大小
   uint16_t packID;   // 包id
   uint8_t buffer[256];
 } connectFifo;

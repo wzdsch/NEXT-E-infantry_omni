@@ -18,8 +18,6 @@
 
 #define Current_Control 1  // 判断6020为电流环还是电压环控制，0为电压环
 
-#define motorYaw_ID 0x207
-
 #define YAW_REVERSE
 
 /**

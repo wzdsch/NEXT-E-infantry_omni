@@ -93,7 +93,7 @@ uint8_t connectionFifoWrite(MCUConnection *connection, uint16_t packID, uint8_t 
       connection->usingFIFO = 0;
       connection->RxFIFO[0].fifoState = CONNECT_FIFO_WRITING;
       connection->RxFIFO[0].packID = packID;
-      connection->RxFIFO[0].pcakSize = packSize;
+      connection->RxFIFO[0].packSize = packSize;
       memcpy(&(connection->RxFIFO[connection->usingFIFO].buffer[addr]), data, size);
       return 1;
     }
@@ -101,7 +101,7 @@ uint8_t connectionFifoWrite(MCUConnection *connection, uint16_t packID, uint8_t 
       connection->usingFIFO = 1;
       connection->RxFIFO[1].fifoState = CONNECT_FIFO_WRITING;
       connection->RxFIFO[1].packID = packID;
-      connection->RxFIFO[1].pcakSize = packSize;
+      connection->RxFIFO[1].packSize = packSize;
       memcpy(&(connection->RxFIFO[connection->usingFIFO].buffer[addr]), data, size);
       return 1;
     }
@@ -109,7 +109,7 @@ uint8_t connectionFifoWrite(MCUConnection *connection, uint16_t packID, uint8_t 
       connection->usingFIFO = 2;
       connection->RxFIFO[2].fifoState = CONNECT_FIFO_WRITING;
       connection->RxFIFO[2].packID = packID;
-      connection->RxFIFO[2].pcakSize = packSize;
+      connection->RxFIFO[2].packSize = packSize;
       memcpy(&(connection->RxFIFO[connection->usingFIFO].buffer[addr]), data, size);
       return 1;
     }
@@ -120,7 +120,7 @@ uint8_t connectionFifoWrite(MCUConnection *connection, uint16_t packID, uint8_t 
   }
   else {  // 地址不为0，则向当前使用的fifo写入
     memcpy(&(connection->RxFIFO[connection->usingFIFO].buffer[addr]), data, size);
-    if (connection->RxFIFO[connection->usingFIFO].pcakSize
+    if (connection->RxFIFO[connection->usingFIFO].packSize
         == addr + size) {  // 如果写入地址加上写入大小
                            // 等于结构体大小说明写完了
       connection->RxFIFO[connection->usingFIFO].fifoState = CONNECT_FIFO_DONE;
@@ -134,14 +134,13 @@ uint32_t packLostCount = 0;
 /**
  * @brief  接收数据处理函数，在can中断中调用
  * @param  connection: 双机通信结构体地址
- * @param  group: 云台电机组结构体的地址，底盘使用写NULL
  */
 void connectionRcceiveData(MCUConnection *connection) {
   HAL_CAN_GetRxMessage(connection->canHandler, connection->FIFO, &(connection->rxHandler),
                        connection->RXdata);
   HAL_CAN_ActivateNotification(connection->canHandler, connection->MSG_PENDING);
   static uint8_t dataSize = 0;
-  static uint16_t packCount = 0;
+  // static uint16_t packCount = 0;
   static uint16_t dataID = 0;
   static uint16_t lastStdID = 0;
   if (connection->rxHandler.StdId >= connection->TxID
@@ -150,26 +149,29 @@ void connectionRcceiveData(MCUConnection *connection) {
       dataID = (connection->RXdata[0] << 8) + connection->RXdata[1];
       lastStdID = connection->rxHandler.StdId;
       dataSize = connection->RXdata[2];
-      packCount = ceil((dataSize + 3) / 8.0f);
+      // packCount = ceil((dataSize + 3) / 8.0f);
       connectionFifoWrite(connection, dataID, dataSize, 0, &(connection->RXdata[3]),
                           5);  // 将数据暂存
     }
     else if (connection->rxHandler.StdId - 1 == lastStdID) {  // 如果是连续的包
       lastStdID = connection->rxHandler.StdId;
-      if (connection->rxHandler.StdId == connection->TxID + packCount - 1) {  // 如果是最后一个包
-        connectionFifoWrite(connection, dataID, dataSize, 5 + ((packCount - 2) * 8),
-                            connection->RXdata, connection->rxHandler.DLC);
-      }
-      else {  // 如果是中间的包
-        connectionFifoWrite(connection, dataID, dataSize,
+      // if (connection->rxHandler.StdId == connection->TxID + packCount - 1) {  // 如果是最后一个包
+      //   connectionFifoWrite(connection, dataID, dataSize, 5 + ((packCount - 2) * 8),
+      //                       connection->RXdata, connection->rxHandler.DLC);
+      // }
+      // else {  // 如果是中间的包
+      //   connectionFifoWrite(connection, dataID, dataSize,
+      //                       (5 + ((connection->rxHandler.StdId) - (connection->TxID) - 1) * 8),
+      //                       connection->RXdata, 8);
+      // }
+      connectionFifoWrite(connection, dataID, dataSize,
                             (5 + ((connection->rxHandler.StdId) - (connection->TxID) - 1) * 8),
-                            connection->RXdata, 8);
-      }
+                            connection->RXdata, connection->rxHandler.DLC);
     }
     else {  // 如果丢包，初始化
       packLostCount++;
       dataSize = 0;
-      packCount = 0;
+      // packCount = 0;
       dataID = 0;
       lastStdID = 0;
       connection->RxFIFO[connection->usingFIFO].fifoState = CONNECT_FIFO_RESET;  // 复位fifo状态
@@ -204,19 +206,7 @@ void connectionSendData(MCUConnection *connection, uint8_t *dataAddr, uint8_t si
     while (HAL_CAN_GetTxMailboxesFreeLevel(connection->canHandler)
            == 0) {  // 如果没有空闲邮箱，就阻塞
     }
-    // 查找空闲邮箱，发送
-    if ((connection->canHandler->Instance->TSR & CAN_TSR_TME0) != RESET) {
-      HAL_CAN_AddTxMessage(connection->canHandler, &(connection->txHandler), &txBuf[count * 8],
-                           (uint32_t *)CAN_TX_MAILBOX0);
-    }
-    else if ((connection->canHandler->Instance->TSR & CAN_TSR_TME1) != RESET) {
-      HAL_CAN_AddTxMessage(connection->canHandler, &(connection->txHandler), &txBuf[count * 8],
-                           (uint32_t *)CAN_TX_MAILBOX1);
-    }
-    else if ((connection->canHandler->Instance->TSR & CAN_TSR_TME2) != RESET) {
-      HAL_CAN_AddTxMessage(connection->canHandler, &(connection->txHandler), &txBuf[count * 8],
-                           (uint32_t *)CAN_TX_MAILBOX2);
-    }
+    HAL_CAN_AddTxMessage(connection->canHandler, &(connection->txHandler), &txBuf[count * 8], NULL);
   }
 }
 
@@ -226,13 +216,13 @@ void connectionSendData(MCUConnection *connection, uint8_t *dataAddr, uint8_t si
  */
 void connectionUnpackData(MCUConnection *connection) {
   static uint8_t lastCheck = 0;
-  static uint32_t time = 0;
-  time++;
+  // static uint32_t time = 0;
+  // time++;
   if (connection->RxFIFO[lastCheck].fifoState == CONNECT_FIFO_DONE) {
     switch (connection->RxFIFO[lastCheck].packID) {
       case 0x8001:
         memcpy(&ChassisControlData, &(connection->RxFIFO[lastCheck].buffer),
-               connection->RxFIFO[lastCheck].pcakSize);
+               connection->RxFIFO[lastCheck].packSize);
         connection->RxFIFO[lastCheck].fifoState = CONNECT_FIFO_RESET;
 
         break;

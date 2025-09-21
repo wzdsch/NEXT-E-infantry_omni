@@ -164,7 +164,7 @@ void shooterRun(shooter *shooter) {
   
       // 若拨盘已经拨出一颗弹的四分之一的编码值，则将这颗弹丸打出
       DJI_MotorSetTarget(shooter->supplierMotor, \
-        (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 4 * 3) ? \
+        (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 100 * 99) ? \
         shooter->supplierMotor->target : shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT);
     }
 

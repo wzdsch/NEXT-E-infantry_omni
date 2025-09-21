@@ -41,6 +41,11 @@
     "dji_motor.h": "c",
     "stdlib.h": "c",
     "mcuconnect.h": "c",
-    "addons.h": "c"
-}
+    "addons.h": "c",
+    "bmi088.h": "c",
+    "pid.h": "c",
+    "ui_app.h": "c",
+    "tim.h": "c",
+    "spi.h": "c"
+  }
 }

@@ -34,7 +34,7 @@ void gimbalRun(gimbal *gimbal, fp32 yaw, fp32 pitch) {
       break;
     case GIMBAL_PITCH_EN:
       DJI_MotorDisable(gimbal->yawMotor);
-      DJI_MotorEnable(gimbal->yawMotor);
+      DJI_MotorEnable(gimbal->pitchMotor);
       DJI_MotorSetTarget(gimbal->pitchMotor, pitch);
       break;
     case GIMBAL_YAW_EN:

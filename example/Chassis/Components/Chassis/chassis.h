@@ -6,6 +6,11 @@
 #include "struct_typedef.h"
 #include "MCUConnectStructs.h"
 
+#define PITCH_POSITIVE_WHELL_ID 0x201
+#define PITCH_NEGATIVE_WHELL_ID 0x203
+#define ROLL_POSITIVE_WHELL_ID 0x202
+#define ROLL_NEGATIVE_WHELL_ID 0x204
+
 #define SPEED_LIMIT 8000.0f
 #define SPEED_LIMIT_TOP 5000.0f
 
@@ -17,25 +22,6 @@
 #define MOTOR_SPD_DOWN_RATE 3000.0f // 电机减速度
 
 #define TOP_SPD_SCALE 1.0f // 小陀螺平移时，对小陀螺速度和平移速度的分配比例，此值越大，小陀螺速度越快，平移速度越慢
-
-// 底盘速度结构体
-typedef struct chassis_motor_spd
-{
-    fp32 set_spd1; // 原始设定速度
-    fp32 set_spd2; // 原始设定速度
-    fp32 set_spd3; // 原始设定速度
-    fp32 set_spd4; // 原始设定速度
-
-    fp32 processed_set_spd1; // 处理过后的设定速度
-    fp32 processed_set_spd2; // 处理过后的设定速度
-    fp32 processed_set_spd3; // 处理过后的设定速度
-    fp32 processed_set_spd4; // 处理过后的设定速度
-
-    fp32 real_spd1; // 实际速度
-    fp32 real_spd2; // 实际速度
-    fp32 real_spd3; // 实际速度
-    fp32 real_spd4; // 实际速度
-} chassis_motor_spd_t;
 
 // 底盘模式列表
 enum chassisMode {
@@ -67,7 +53,9 @@ typedef struct chassisData {
   fp32 *follwoResult;      // 底盘跟随结果
   uint8_t mode;            // 底盘模式
 
-  chassis_motor_spd_t motor_spd;  // 底盘电机速度
+  fp32 chassis_pitch;
+  fp32 chassis_yaw;
+  fp32 chassis_roll;
 } chassis;
 
 
@@ -86,9 +74,9 @@ extern void followResultSet(chassis *chassis, fp32 *result);
 
 extern void chassisRun(chassis *chassis, fp32 x, fp32 y, fp32 z, int16_t angle);
 
-// extern void chassisMotorSpdUpdate(chassis *chassis);
+extern fp32 chassis_motor_feedforward_in_power_limit(DJI_Motor *motor);
 
-extern fp32 filterF(fp32 new_data, fp32* buf, int num);
+// extern void chassisMotorSpdUpdate(chassis *chassis);
 
 extern chassis chassis1;
 

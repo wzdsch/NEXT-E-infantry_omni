@@ -199,6 +199,9 @@ fp32 powerlimit_pro(DJI_Motor *motor) {
   static float initial_total_power_last = 0;
   static fp32 scaled_give_power = 0;
 
+  static float initial_total_crt = 0;
+  static float initial_total_crt_last = 0;
+
   fp32 toque_coefficient = 1.99688994e-6f;  // (20/16384)*(0.3)*(187/3591)/9.55
   fp32 a = 1.23e-07;                        // k1
   fp32 k2 = 1.453e-07;                      // k2
@@ -213,19 +216,24 @@ fp32 powerlimit_pro(DJI_Motor *motor) {
   if (initial_give_power >= 0) {  // negative power not included (transitory)
     initial_total_power += initial_give_power;
   }
+  initial_total_crt += motor->pidOutput0;
   count++;
 
   if (count == 4) {
     count = 0;
     initial_total_power_last = initial_total_power;
-    chassis_total_power = initial_total_power;  //
+    initial_total_crt_last = initial_total_crt;
     initial_total_power = 0;
+    initial_total_crt = 0;
   }
 
   if (initial_total_power_last > chassis_max_power)  // determine if larger than max power
   {
-    fp32 power_scale = chassis_max_power / initial_total_power_last;
-    scaled_give_power = initial_give_power * power_scale;  // get scaled power
+    // fp32 power_scale = // chassis_max_power / initial_total_power_last;
+    // scaled_give_power = initial_give_power * power_scale;  // get scaled power
+
+    fp32 power_scale = motor->pidOutput0 / initial_total_crt_last;
+
     if (scaled_give_power < 0) {
       return motor->pidOutput0;
     }
@@ -259,7 +267,7 @@ fp32 powerlimit_pro(DJI_Motor *motor) {
   }
 }
 
-int power = 70;
+int power = 100;
 
 /**
  * @brief  西交利物浦大学+香港科技大学功率限制移植
@@ -317,7 +325,7 @@ fp32 powerlimit_LVP_HK_pro(DJI_Motor *motor) {
         errorConfidence = 0.0f;
       }
         if (errorConfidence > 1.0f) {
-        errorConfidence = 1.0f;
+            errorConfidence = 1.0f;
         }
     }
     else
@@ -325,6 +333,8 @@ fp32 powerlimit_LVP_HK_pro(DJI_Motor *motor) {
         errorConfidence = 0.0f;
     }
 
+
+     // new：误差/方差，相对误差
     float powerWeight_Error = spd_err / spd_total_err_last;                  // 误差权重
     float powerWeight_Prop = initial_give_power / initial_total_power_last;  // 功率权重
     float powerWeight =

@@ -94,8 +94,15 @@ fp32 chassisFollowZeroCrossing(DJI_Motor *motor) {
 }
 
 fp32 pitch_gravity_compensation(DJI_Motor *motor) {
-  fp32 a = 1;
-  return motor->pidOutput1 + a * cos(motor->preProcessResult / 4096.0f * PI);
+  fp32 a = 2560;
+  fp32 crt = motor->pidOutput1 + a * cos(motor->preProcessResult / 4096.0f * PI);
+  if (crt > motor->motorPid1.max_out) {
+    crt = motor->motorPid1.max_out;
+  }
+  else if (crt < -motor->motorPid1.max_out) {
+    crt = -motor->motorPid1.max_out;
+  }
+  return crt;
 }
 
 #ifdef REFEREEDATA_H

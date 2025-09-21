@@ -4,7 +4,7 @@
 #include "struct_typedef.h"
 
 // 3508速度环
-#define M3508_Speed_PID_KP       5.0f
+#define M3508_Speed_PID_KP       6.0f
 #define M3508_Speed_PID_KI       0.1f
 #define M3508_Speed_PID_KD       0.1f
 #define M3508_Speed_PID_MAX_OUT  16000.0f

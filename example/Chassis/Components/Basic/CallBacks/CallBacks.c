@@ -11,6 +11,7 @@
 #include "struct_typedef.h"
 #include "ui.h"
 #include "vofa.h"
+#include "BMI088.h"
 #if IF_WITH_SUPERCAP == 1
 #include "SuperCap.h"
 #endif
@@ -39,13 +40,13 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     }
     ui_update_g();
   }
-  if (htim == &htim11) {  // 底盘pid计算与发送1ms@1000Hz
-    
+  if (htim == &htim11) {  // 1ms@1000Hz
+    BMI088_RUN(&BMI088_chassis);
   }
   if (htim == &htim12) {  // 双机通信发送,裁判系统解包10ms@100Hz
     referee_unpack_fifo_data();
     RefereeDataUpdate(&RefereeData);
-    connectionSendData(&connect, (uint8_t *)&RefereeData, sizeof(RefereeData), RefereeData_ID);
+    // connectionSendData(&connect, (uint8_t *)&RefereeData, sizeof(RefereeData), RefereeData_ID);
 #if IF_WITH_SUPERCAP == 1
     Supercap_unpack(&supercap_rxD);
     Supercap_update_txd(&supercap_txD, &robot_state);

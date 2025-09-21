@@ -76,10 +76,22 @@ void Error_Handler(void);
 #define CS1_GYRO_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
+#define NEW_ROBOT 1
+
+#if NEW_ROBOT == 0
+
 #define IMU_PITCH 1  // 1是使用陀螺仪的pitch轴数据进行闭�?
 #define SUPPLIER_ECD 1  // 1: 拨弹位置环 0: 拨弹速度环
 
-#define PITCH_FLG_ECD 
+#endif
+
+#if NEW_ROBOT == 1
+
+#define IMU_PITCH 1  // 1是使用陀螺仪的pitch轴数据进行闭�?
+#define SUPPLIER_ECD 1  // 1: 拨弹位置环 0: 拨弹速度环
+
+#endif
+
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

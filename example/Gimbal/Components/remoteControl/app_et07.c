@@ -28,4 +28,3 @@ void Get_ET07_DataDecode(ET07_Data_t* et07_data_t,uint8_t* rx_buf)
   et07_data_t ->ET07_Flag = rx_buf[23];
   et07_data_t ->ET07_End = rx_buf[24];
 }
-

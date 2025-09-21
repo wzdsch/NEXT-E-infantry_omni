@@ -850,7 +850,7 @@ ARM Macro Assembler    Page 14
 
 
 o -I.\RTE\_Chassis -IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMS
-IS\Core\Include --predefine="__UVISION_VERSION SETA 542" --predefine="STM32F407
+IS\Core\Include --predefine="__UVISION_VERSION SETA 543" --predefine="STM32F407
 xx SETA 1" --predefine="_RTE_ SETA 1" --list=startup_stm32f407xx.lst startup_st
 m32f407xx.s
 

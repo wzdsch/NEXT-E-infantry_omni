@@ -10,7 +10,7 @@ gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_def.h
 gimbal\robotmodmanage.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h
 gimbal\robotmodmanage.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 gimbal\robotmodmanage.o: ../Drivers/CMSIS/Include/core_cm4.h
-gimbal\robotmodmanage.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\stdint.h
+gimbal\robotmodmanage.o: D:\DEV\Embedded\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 gimbal\robotmodmanage.o: ../Drivers/CMSIS/Include/cmsis_version.h
 gimbal\robotmodmanage.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 gimbal\robotmodmanage.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -18,7 +18,7 @@ gimbal\robotmodmanage.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 gimbal\robotmodmanage.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h
 gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h
-gimbal\robotmodmanage.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\stddef.h
+gimbal\robotmodmanage.o: D:\DEV\Embedded\Keil_v5\ARM\ARMCC\Bin\..\include\stddef.h
 gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc_ex.h
 gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio.h
 gimbal\robotmodmanage.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_gpio_ex.h

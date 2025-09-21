@@ -20,6 +20,10 @@
 #include "pid.h"
 #include "pidData.h"
 #include "remote_control.h"
+#include "BMI088.h"
+#include "addOns.h"
+
+extern BMI088_IMU BMI088_chassis;
 
 #if IF_WITH_SUPERCAP == 1
 #include "SuperCap.h"
@@ -38,6 +42,7 @@ fp32 correction_val = 150.0f;
 
 int top_time_cnt = 0; // 变速小陀螺计数
 #define TOP_T 1000 // 变速小陀螺计数周期
+
 
 /**
  * @brief  底盘结构体初始化
@@ -118,6 +123,14 @@ void chassisChangeMode(chassis* chassis, uint8_t mode) {
   chassis->mode = mode;
 }
 
+/// @brief 从底盘陀螺仪解算出底盘欧拉角
+/// @param chassis 
+/// @param imu 
+void get_chassis_euler(chassis* chassis, BMI088_IMU* imu) {
+  chassis->chassis_pitch = atan(((fp32)tan(imu->pitchAngle) + (fp32)tan(imu->rollAngle)) / 1.414f);
+  chassis->chassis_roll = atan(((fp32)tan(imu->pitchAngle) - (fp32)tan(imu->rollAngle)) / 1.414f);
+  chassis->chassis_yaw = imu->yawAngle;
+}
 
 void chassisFollowRun(chassis* chassis) {
   if (chassis->followEN == 1) {  // 如果底盘跟随使能
@@ -383,3 +396,30 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
   }
 }
 
+fp32 G = 0; // 重力
+/// @brief 底盘电机在功率限制下的前馈(放在后处理函数)
+/// @param motor 
+/// @return 
+fp32 chassis_motor_feedforward_in_power_limit(DJI_Motor* motor) {
+  if (motor->ID == PITCH_POSITIVE_WHELL_ID) {
+    motor->pidOutput0 += G * sin(chassis1.chassis_pitch);
+  }
+  else if (motor->ID == PITCH_NEGATIVE_WHELL_ID) {
+    motor->pidOutput0 -= G * sin(chassis1.chassis_pitch);
+  }
+  else if (motor->ID == ROLL_POSITIVE_WHELL_ID) {
+    motor->pidOutput0 += G * sin(chassis1.chassis_roll);
+  }
+  else if (motor->ID == ROLL_NEGATIVE_WHELL_ID) {
+    motor->pidOutput0 -= G * sin(chassis1.chassis_roll);
+  }
+
+  if (motor->pidOutput0 > motor->motorPid0.max_out) {
+    motor->pidOutput0 = motor->motorPid0.max_out;
+  }
+  else if (motor->pidOutput0 < -motor->motorPid0.max_out) {
+    motor->pidOutput0 = -motor->motorPid0.max_out;
+  }
+
+  return powerlimit_pro(motor);
+}

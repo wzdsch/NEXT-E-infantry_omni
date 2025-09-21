@@ -3,7 +3,7 @@ gimbal\quaternionekf.o: ..\Components\IMU\BMI\Components\Algorithm\QuaternionEKF
 gimbal\quaternionekf.o: ../Components/IMU/BMI/Components/kalman_filter.h
 gimbal\quaternionekf.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h
 gimbal\quaternionekf.o: ../Drivers/CMSIS/Include/core_cm4.h
-gimbal\quaternionekf.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\stdint.h
+gimbal\quaternionekf.o: D:\DEV\Embedded\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 gimbal\quaternionekf.o: ../Drivers/CMSIS/Include/cmsis_version.h
 gimbal\quaternionekf.o: ../Drivers/CMSIS/Include/cmsis_compiler.h
 gimbal\quaternionekf.o: ../Drivers/CMSIS/Include/cmsis_armcc.h
@@ -11,6 +11,6 @@ gimbal\quaternionekf.o: ../Drivers/CMSIS/Include/mpu_armv7.h
 gimbal\quaternionekf.o: ../Drivers/CMSIS/Device/ST/STM32F4xx/Include/system_stm32f4xx.h
 gimbal\quaternionekf.o: ../Components/IMU/BMI/Components/Algorithm/Include/arm_math.h
 gimbal\quaternionekf.o: ../Drivers/CMSIS/Include/core_cm4.h
-gimbal\quaternionekf.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\string.h
-gimbal\quaternionekf.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\math.h
-gimbal\quaternionekf.o: D:\DEV\Embedded\Keil_v5\arm\ARMCC\Bin\..\include\stdlib.h
+gimbal\quaternionekf.o: D:\DEV\Embedded\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+gimbal\quaternionekf.o: D:\DEV\Embedded\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+gimbal\quaternionekf.o: D:\DEV\Embedded\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
