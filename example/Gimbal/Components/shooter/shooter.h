@@ -2,10 +2,12 @@
 #include "main.h"
 #include "struct_typedef.h"
 
+#define SHOOT_SPD_CTRL 0 // 弹速闭环
+
 #define stuckProcessCountLimit 100    // 卡弹处理时间
 #define startDelayLimit        50   // 电机启动时间
 #define stuckCountLimit        100   // 卡弹处理触发时间
-#define stuckPersent           0.01f  // 卡弹处理阈值
+#define stuckPersent           0.1f  // 卡弹处理阈值
 
 #define shooterSpeed 6200.0f
 

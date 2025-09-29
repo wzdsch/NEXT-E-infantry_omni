@@ -183,16 +183,19 @@ void remote_controller() {
       shooter1.shooterMode = SHOOTER_STOP;
     }
     else if (RC_Data.ET07_DATA.V2_CH10 <= RC_SW_DOWN) {
-      GimbalControlData.mode = GIMBAL_ALL_EN;
+      // GimbalControlData.mode = GIMBAL_ALL_EN;
       switch (RC_Data.ET07_DATA.SB_CH6) {
         case RC_SW_DOWN:
           if (vision1.RXData.VisionRxData.fireControl == 0xff
               || RC_Data.ET07_DATA.SA_CH5 == RC_SW_UP) {
             if (RC_Data.ET07_DATA.SD_CH8 == RC_SW_UP) {
               shooter1.shooterMode = SHOOTER_FIRE;
-            } else {
+            }
+#if SUPPLIER_ECD == 1
+						else {
               shooter1.shooterMode = SHOOTER_ONETAP;
             }
+#endif
           }
           else {
             shooter1.shooterMode = SHOOTER_HOLD;

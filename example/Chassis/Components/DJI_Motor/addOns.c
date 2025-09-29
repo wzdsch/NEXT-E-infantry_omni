@@ -267,7 +267,7 @@ fp32 powerlimit_pro(DJI_Motor *motor) {
   }
 }
 
-int power = 100;
+int power = 300;
 
 /**
  * @brief  西交利物浦大学+香港科技大学功率限制移植

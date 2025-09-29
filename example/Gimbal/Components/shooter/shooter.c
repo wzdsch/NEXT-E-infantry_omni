@@ -40,11 +40,11 @@ void getSupplierTotalEcd(shooter* shoot) {
 
   // 过零
   delta_ecd = shoot->supplier_ecd_buf[0] - shoot->supplier_ecd_buf[1];
-  if (delta_ecd >= 4096) {
-    delta_ecd -= 8191;
+  if (delta_ecd >= 4095) {
+    delta_ecd -= 8192;
   }
-  if (delta_ecd < -4096) {
-    delta_ecd += 8191;
+  if (delta_ecd < -4095) {
+    delta_ecd += 8192;
   }
 
   // 计算
@@ -61,8 +61,14 @@ void shooterStuckProcess(shooter *shooter) {
       shooter->startDelay++;
     }
     // 如果过了启动阶段还在堵转
-    else if (fabs(shooter->supplierMotor->realSpeedF) < (fabs(shooter->supplierMotor->pidOutput0) * stuckPersent)\
-            && (shooter->supplierMotor->realCurrentF < -8000 || shooter->supplierMotor->realCurrentF > 8000)) {
+#if SUPPLIER_ECD == 0
+    else if (fabs(shooter->supplierMotor->realSpeedF) < (fabs(shooter->supplierMotor->target) * stuckPersent)\
+            && (shooter->supplierMotor->realCurrentF < -8000 || shooter->supplierMotor->realCurrentF > 8000)) 
+#else
+    else if (fabs(shooter->supplierMotor->realSpeedF) < fabs(shooter->supplierMotor->pidOutput0) * stuckPersent\
+            && (shooter->supplierMotor->realCurrentF < -8000 || shooter->supplierMotor->realCurrentF > 8000))
+#endif
+    {
       shooter->stuckCount++;
     }
     else {
@@ -73,23 +79,16 @@ void shooterStuckProcess(shooter *shooter) {
     }
   }
   // 卡弹反拨
-  if (shooter->supplierMode == SUPPLIER_ERROR) {
+  if (shooter->supplierMode == SUPPLIER_ERROR) {  
     if (shooter->stuckProcessCount < stuckProcessCountLimit) {  // 还在堵转处理中
       if (supplier_reverse_flg == 0) {
         // 保证累计的没打出去的弹丸 不会在停止打弹后才打出
         DJI_MotorSetTarget(shooter->supplierMotor, \
           shooter->supplierMotor->target - (long long)((shooter->supplierMotor->target - shooter->supplier_total_ecd) / (int)TOTAL_ECD_PER_SHOOT) * TOTAL_ECD_PER_SHOOT);
-    
-        // 若拨盘已经拨出一颗弹的四分之一的编码值，则将这颗弹丸打出
-        DJI_MotorSetTarget(shooter->supplierMotor, \
-          (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 4 * 3) ? \
-          shooter->supplierMotor->target : shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT);
-
-        reverse_tar_ecd = shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT;
-
+        reverse_tar_ecd = shooter->supplierMotor->target - 2 * TOTAL_ECD_PER_SHOOT;
         supplier_reverse_flg = 1;
       }
-        DJI_MotorSetTarget(shooter->supplierMotor, reverse_tar_ecd);
+      DJI_MotorSetTarget(shooter->supplierMotor, reverse_tar_ecd);
 
       shooter->stuckProcessCount++;
     }
@@ -139,7 +138,7 @@ void shooterRun(shooter *shooter) {
   // }
 
   // else {
-  
+#if SHOOT_SPD_CTRL == 1
   // 弹速控制
   int fri_motor_spd = shooter->friSpeed + 100 * FriMotorSpdLvCtrl();
   if (fri_motor_spd > 8000) { // 
@@ -148,6 +147,9 @@ void shooterRun(shooter *shooter) {
   else if (fri_motor_spd < 3000) {
     fri_motor_spd = 3000;
   }
+#else
+  int fri_motor_spd = shooterSpeed;
+#endif
 
   switch (shooter->shooterMode) {
   case SHOOTER_STOP: {
@@ -164,7 +166,7 @@ void shooterRun(shooter *shooter) {
   
       // 若拨盘已经拨出一颗弹的四分之一的编码值，则将这颗弹丸打出
       DJI_MotorSetTarget(shooter->supplierMotor, \
-        (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 100 * 99) ? \
+        (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 4 * 3) ? \
         shooter->supplierMotor->target : shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT);
     }
 
@@ -188,7 +190,7 @@ void shooterRun(shooter *shooter) {
 
   // 若拨盘已经拨出一颗弹的百分之一的编码值，则将这颗弹丸打出
   DJI_MotorSetTarget(shooter->supplierMotor, \
-    (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 100 * 99) ? \
+    (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 4 * 3) ? \
     shooter->supplierMotor->target : shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT);
   }
     
@@ -224,7 +226,7 @@ void shooterRun(shooter *shooter) {
 
       // 若拨盘已经拨出一颗弹的百分之一的编码值，则将这颗弹丸打出
       DJI_MotorSetTarget(shooter->supplierMotor, \
-        (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 100 * 99) ? \
+        (shooter->supplierMotor->target - shooter->supplier_total_ecd) < (TOTAL_ECD_PER_SHOOT / 4 * 1) ? \
         shooter->supplierMotor->target : shooter->supplierMotor->target - TOTAL_ECD_PER_SHOOT);
 
       if (shooter->maxHeat - shooter->gunHeat > 3 * (shooter->heatPerShoot)) {

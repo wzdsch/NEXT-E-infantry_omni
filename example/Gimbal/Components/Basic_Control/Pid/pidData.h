@@ -24,17 +24,17 @@
 */
 
 // PITCH速度环
-#define PITCH_Speed_PID_KP       5000.0f
-#define PITCH_Speed_PID_KI       0.01f
-#define PITCH_Speed_PID_KD       -0.1f
-#define PITCH_Speed_PID_MAX_OUT  30000.0f
-#define PITCH_Speed_PID_MAX_IOUT 500.0f
+#define PITCH_Speed_PID_KP       307.6171875f
+#define PITCH_Speed_PID_KI       0.439453125f
+#define PITCH_Speed_PID_KD       0.0f
+#define PITCH_Speed_PID_MAX_OUT  15000.0f
+#define PITCH_Speed_PID_MAX_IOUT 5000.0f
 // PITCH角度环
-#define PITCH_Angle_PID_KP       2.0f
-#define PITCH_Angle_PID_KI       0.0001f
-#define PITCH_Angle_PID_KD       -1.0f
+#define PITCH_Angle_PID_KP       0.7f
+#define PITCH_Angle_PID_KI       0.003f
+#define PITCH_Angle_PID_KD       1.0f
 #define PITCH_Angle_PID_MAX_OUT  600.0f
-#define PITCH_Angle_PID_MAX_IOUT 0.7f
+#define PITCH_Angle_PID_MAX_IOUT 20.0f
 
 // PITCH速度环(陀螺仪闭环)
 #define PITCH_Speed_IMU_PID_KP       7000.0f

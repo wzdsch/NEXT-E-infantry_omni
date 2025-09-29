@@ -2,7 +2,7 @@ Dependencies for Project 'Chassis', Target 'Chassis': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
 F (startup_stm32f407xx.s)(0x6896CD8A)(--cpu Cortex-M4.fp.sp -g --apcs=interwork -I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include--pd "__UVISION_VERSION SETA 543" --pd "STM32F407xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32f407xx.lst --xref -o chassis\startup_stm32f407xx.o --depend chassis\startup_stm32f407xx.d)
 F (../Core/Src/main.c)(0x68CEA4C6)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\main.o --omf_browse chassis\main.crf --depend chassis\main.d)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -53,7 +53,7 @@ I (../Components/Basic/Tools/Tools.h)(0x687E346C)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\math.h)(0x60252378)
 I (../Components/DJI_Motor/addOns.h)(0x687E3599)
 I (../Components/RemoteControl/bsp_wbus.h)(0x683095CC)
-I (../Components/Chassis/chassis.h)(0x68CA99FE)
+I (../Components/Chassis/chassis.h)(0x68D61676)
 I (../Components/Basic_Control/Pid/pidData.h)(0x68CFACBA)
 I (../Components/UI/ui.h)(0x6853F59E)
 I (../Components/UI/ui_interface.h)(0x687E346C)
@@ -66,7 +66,7 @@ I (../Components/Referee/refereeData_v1.6.h)(0x683095CC)
 I (../Components/Referee/protocol.h)(0x683095CC)
 F (../Core/Src/gpio.c)(0x6896CD84)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\gpio.o --omf_browse chassis\gpio.crf --depend chassis\gpio.d)
 I (../Core/Inc/gpio.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -101,7 +101,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6880B92B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6880B92B)
 F (../Core/Src/can.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\can.o --omf_browse chassis\can.crf --depend chassis\can.d)
 I (../Core/Inc/can.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -136,7 +136,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6880B92B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6880B92B)
 F (../Core/Src/dma.c)(0x6896CB09)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\dma.o --omf_browse chassis\dma.crf --depend chassis\dma.d)
 I (../Core/Inc/dma.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -171,7 +171,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6880B92B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6880B92B)
 F (../Core/Src/spi.c)(0x6896CB09)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\spi.o --omf_browse chassis\spi.crf --depend chassis\spi.d)
 I (../Core/Inc/spi.h)(0x6896CB09)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -206,7 +206,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6880B92B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6880B92B)
 F (../Core/Src/tim.c)(0x6853F59E)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\tim.o --omf_browse chassis\tim.crf --depend chassis\tim.d)
 I (../Core/Inc/tim.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -241,7 +241,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6880B92B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6880B92B)
 F (../Core/Src/usart.c)(0x6896CB0A)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\usart.o --omf_browse chassis\usart.crf --depend chassis\usart.d)
 I (../Core/Inc/usart.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -275,7 +275,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6880B92B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6880B92B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6880B92B)
 F (../Core/Src/stm32f4xx_it.c)(0x6896CB0A)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\stm32f4xx_it.o --omf_browse chassis\stm32f4xx_it.crf --depend chassis\stm32f4xx_it.d)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -312,7 +312,7 @@ I (../Core/Inc/stm32f4xx_it.h)(0x6896CB0A)
 I (../Components/RemoteControl/bsp_wbus.h)(0x683095CC)
 I (../Components/Referee/referee.h)(0x683095CC)
 F (../Core/Src/stm32f4xx_hal_msp.c)(0x6896CB0A)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\stm32f4xx_hal_msp.o --omf_browse chassis\stm32f4xx_hal_msp.crf --depend chassis\stm32f4xx_hal_msp.d)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -972,11 +972,11 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h)(0x6880B92B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6880B92B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6880B92B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6880B92B)
-F (..\Components\DJI_Motor\addOns.c)(0x68CFAF2B)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\addons.o --omf_browse chassis\addons.crf --depend chassis\addons.d)
+F (..\Components\DJI_Motor\addOns.c)(0x68D615C0)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\addons.o --omf_browse chassis\addons.crf --depend chassis\addons.d)
 I (..\Components\DJI_Motor\addOns.h)(0x687E3599)
 I (..\Components\DJI_Motor\DJI_Motor.h)(0x68CE9EA3)
 I (../Core/Inc/can.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1020,7 +1020,7 @@ I (../Components/Basic/Tools/tools.h)(0x687E346C)
 F (..\Components\DJI_Motor\DJI_Motor.c)(0x6838B8B7)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\dji_motor.o --omf_browse chassis\dji_motor.crf --depend chassis\dji_motor.d)
 I (..\Components\DJI_Motor\DJI_Motor.h)(0x68CE9EA3)
 I (../Core/Inc/can.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1061,7 +1061,7 @@ I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\math.h)(0x60252378)
 I (..\Components\DJI_Motor\addOns.h)(0x687E3599)
 F (..\Components\Basic\CallBacks\CallBacks.c)(0x68CF8721)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\callbacks.o --omf_browse chassis\callbacks.crf --depend chassis\callbacks.d)
 I (..\Components\Basic\CallBacks\CallBacks.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1104,7 +1104,7 @@ I (../Components/MCUConnect/MCUConnectStructs.h)(0x687E346C)
 I (../Components/Basic/Tools/Tools.h)(0x687E346C)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\math.h)(0x60252378)
 I (../Components/DJI_Motor/addOns.h)(0x687E3599)
-I (../Components/Chassis/chassis.h)(0x68CA99FE)
+I (../Components/Chassis/chassis.h)(0x68D61676)
 I (../Components/Referee/referee.h)(0x683095CC)
 I (../Components/Referee/refereeData_v1.7.h)(0x683095CC)
 I (../Components/Referee/protocol.h)(0x683095CC)
@@ -1122,7 +1122,7 @@ I (../Components/Basic/structs/struct_typedef.h)(0x683095CC)
 I (D:\DEV\Embedded\keil_v5\ARM\ARMCC\include\math.h)(0x60252378)
 F (..\Components\Basic_Control\Pid\pid.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\pid.o --omf_browse chassis\pid.crf --depend chassis\pid.d)
 I (..\Components\Basic_Control\Pid\pid.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1159,10 +1159,10 @@ I (../Components/Basic/structs/struct_typedef.h)(0x683095CC)
 I (..\Components\Basic_Control\Pid\pidData.h)(0x68CFACBA)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 F (..\Components\Chassis\chassis.c)(0x68A2FF6F)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\chassis.o --omf_browse chassis\chassis.crf --depend chassis\chassis.d)
-I (..\Components\Chassis\chassis.h)(0x68CA99FE)
+I (..\Components\Chassis\chassis.h)(0x68D61676)
 I (../Components/DJI_Motor/DJI_Motor.h)(0x68CE9EA3)
 I (../Core/Inc/can.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1210,7 +1210,7 @@ F (..\Components\MCUConnect\MCUConnect.c)(0x68A2FFD2)(--c99 -c --cpu Cortex-M4.f
 I (..\Components\MCUConnect\MCUConnect.h)(0x68A2FEEF)
 I (../Components/DJI_Motor/DJI_Motor.h)(0x68CE9EA3)
 I (../Core/Inc/can.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1256,7 +1256,7 @@ I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 F (..\Components\Referee\CRC8_CRC16.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\crc8_crc16.o --omf_browse chassis\crc8_crc16.crf --depend chassis\crc8_crc16.d)
 I (..\Components\Referee\crc8_crc16.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1328,7 +1328,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6880B92B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6880B92B)
 F (..\Components\Referee\referee.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\referee.o --omf_browse chassis\referee.crf --depend chassis\referee.d)
 I (..\Components\Referee\referee.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1372,7 +1372,7 @@ I (../Components/Basic/structs/struct_typedef.h)(0x683095CC)
 I (../Core/Inc/tim.h)(0x683095CC)
 F (..\Components\RemoteControl\app_et07.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\app_et07.o --omf_browse chassis\app_et07.crf --depend chassis\app_et07.d)
 I (..\Components\RemoteControl\app_et07.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1407,7 +1407,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6880B92B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6880B92B)
 F (..\Components\RemoteControl\bsp_wbus.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\bsp_wbus.o --omf_browse chassis\bsp_wbus.crf --depend chassis\bsp_wbus.d)
 I (..\Components\RemoteControl\bsp_wbus.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1445,7 +1445,7 @@ I (..\Components\RemoteControl\RC_task.h)(0x683095CC)
 I (..\Components\RemoteControl\app_et07.h)(0x683095CC)
 F (..\Components\RemoteControl\RC_task.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\rc_task.o --omf_browse chassis\rc_task.crf --depend chassis\rc_task.d)
 I (..\Components\RemoteControl\RC_task.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1481,7 +1481,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6880B92B)
 I (..\Components\RemoteControl\app_et07.h)(0x683095CC)
 F (..\Components\RemoteControl\remote_control.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\remote_control.o --omf_browse chassis\remote_control.crf --depend chassis\remote_control.d)
 I (..\Components\RemoteControl\remote_control.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1521,7 +1521,7 @@ I (..\Components\UI\ui_types.h)(0x6853F59E)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (..\Components\UI\ui_app.h)(0x687E346C)
 I (../Components/Basic/structs/struct_typedef.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1562,7 +1562,7 @@ I (..\Components\UI\ui_types.h)(0x6853F59E)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (..\Components\UI\ui_app.h)(0x687E346C)
 I (../Components/Basic/structs/struct_typedef.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1597,7 +1597,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6880B92B)
 F (..\Components\UI\ui_app.c)(0x687E346C)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\ui_app.o --omf_browse chassis\ui_app.crf --depend chassis\ui_app.d)
 I (..\Components\UI\ui_app.h)(0x687E346C)
 I (../Components/Basic/structs/struct_typedef.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1640,7 +1640,7 @@ I (..\Components\UI\ui_g.h)(0x687E346C)
 I (../Core/Inc/usart.h)(0x683095CC)
 F (..\Components\SuperCap\SuperCap.c)(0x687E346C)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\supercap.o --omf_browse chassis\supercap.crf --depend chassis\supercap.d)
 I (..\Components\SuperCap\Supercap.h)(0x68C96588)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1688,7 +1688,7 @@ I (../Components/MCUConnect/MCUConnectStructs.h)(0x687E346C)
 F (..\Components\Vofa\Vofa.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\vofa.o --omf_browse chassis\vofa.crf --depend chassis\vofa.d)
 I (..\Components\Vofa\Vofa.h)(0x683095CC)
 I (../Core/Inc/usart.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1722,13 +1722,13 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim.h)(0x6880B92B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_tim_ex.h)(0x6880B92B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6880B92B)
 I (../Components/Basic/structs/struct_typedef.h)(0x683095CC)
-F (..\Components\IMU\BMI\Application\BMI_IMU.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\bmi_imu.o --omf_browse chassis\bmi_imu.crf --depend chassis\bmi_imu.d)
+F (..\Components\IMU\BMI\Application\BMI_IMU.c)(0x68D5CF44)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\bmi_imu.o --omf_browse chassis\bmi_imu.crf --depend chassis\bmi_imu.d)
 I (..\Components\IMU\BMI\Application\BMI_IMU.h)(0x683095CC)
 I (..\Components\IMU\BMI\Application\BMI088.h)(0x6896D561)
 I (../Components/Basic/structs/struct_typedef.h)(0x683095CC)
 I (../Components/IMU/BMI/Components/Devices/BMI088driver.h)(0x683095CC)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1775,7 +1775,7 @@ F (..\Components\IMU\BMI\Application\BMI088.c)(0x683095CC)(--c99 -c --cpu Cortex
 I (..\Components\IMU\BMI\Application\BMI088.h)(0x6896D561)
 I (../Components/Basic/structs/struct_typedef.h)(0x683095CC)
 I (../Components/IMU/BMI/Components/Devices/BMI088Middleware.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1820,7 +1820,7 @@ I (../Components/IMU/BMI/Bsp/bsp_dwt.h)(0x683095CC)
 I (../Core/Inc/spi.h)(0x6896CB09)
 F (..\Components\IMU\BMI\Bsp\bsp_dwt.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\bsp_dwt.o --omf_browse chassis\bsp_dwt.crf --depend chassis\bsp_dwt.d)
 I (..\Components\IMU\BMI\Bsp\bsp_dwt.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1857,7 +1857,7 @@ F (..\Components\IMU\BMI\Bsp\bsp_PWM.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.
 I (..\Components\IMU\BMI\Bsp\bsp_PWM.h)(0x683095CC)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (../Core/Inc/tim.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1923,7 +1923,7 @@ I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (..\Components\IMU\BMI\Components\user_lib.h)(0x683095CC)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -1958,7 +1958,7 @@ I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h)(0x6880B92B)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\math.h)(0x60252378)
 F (..\Components\IMU\BMI\Components\Controller\controller.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\controller.o --omf_browse chassis\controller.crf --depend chassis\controller.d)
 I (..\Components\IMU\BMI\Components\Controller\controller.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -2000,7 +2000,7 @@ I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\math.h)(0x60252378)
 F (..\Components\IMU\BMI\Components\Devices\BMI088driver.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\bmi088driver.o --omf_browse chassis\bmi088driver.crf --depend chassis\bmi088driver.d)
 I (..\Components\IMU\BMI\Components\Devices\BMI088driver.h)(0x683095CC)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -2038,7 +2038,7 @@ I (../Components/IMU/BMI/Bsp/bsp_dwt.h)(0x683095CC)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\math.h)(0x60252378)
 F (..\Components\IMU\BMI\Components\Devices\BMI088Middleware.c)(0x683095CC)(--c99 -c --cpu Cortex-M4.fp.sp -g -O0 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../Components/Basic/CallBacks -I ../Components/Basic/structs -I ../Components/Basic/Tools -I ../Components/Basic_Control/Pid -I ../Components/Basic_Control/LADRC -I ../Components/Chassis -I ../Components/DJI_Motor -I ../Components/MCUConnect -I ../Components/Referee -I ../Components/RemoteControl -I ../Components/SuperCap -I ../Components/UI -I ../Components/Vofa -I ../Components/IMU/BMI/Application -I ../Components/IMU/BMI/Bsp -I ../Components/IMU/BMI/Components -I ../Components/IMU/BMI/Components/Algorithm -I ../Components/IMU/BMI/Components/Algorithm/Include -I ../Components/IMU/BMI/Components/Controller -I ../Components/IMU/BMI/Components/Devices -I ..\Components\IMU\BMI\Lib-I.\RTE\_Chassis-IC:\Users\admin\AppData\Local\Arm\Packs\ARM\CMSIS\6.2.0\CMSIS\Core\Include-D__UVISION_VERSION="543" -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -DARM_MATH_CM4 -D__FPU_USED="1U" -D__FPU_PRESENT="1U" -D__CC_ARM -DARM_MATH_MATRIX_CHECK -DARM_MATH_ROUNDING-o chassis\bmi088middleware.o --omf_browse chassis\bmi088middleware.crf --depend chassis\bmi088middleware.d)
 I (..\Components\IMU\BMI\Components\Devices\BMI088Middleware.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)
@@ -2077,7 +2077,7 @@ I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x60252374)
 I (D:\DEV\Embedded\Keil_v5\ARM\ARMCC\include\math.h)(0x60252378)
 I (../Components/IMU/BMI/Bsp/bsp_dwt.h)(0x683095CC)
-I (../Core/Inc/main.h)(0x68CFABBF)
+I (../Core/Inc/main.h)(0x68DA7174)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h)(0x6880B92B)
 I (../Core/Inc/stm32f4xx_hal_conf.h)(0x6896CB0B)
 I (../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h)(0x6880B92B)

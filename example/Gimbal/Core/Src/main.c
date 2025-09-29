@@ -175,7 +175,7 @@ extern DMA_HandleTypeDef hdma2;
 #if NEW_ROBOT == 0
   DJI_MotorInit(&motorPitch, 0x206, 0, pidBoth, 5511);  // 这是起火步兵pitchID
 #else
-  DJI_MotorInit(&motorPitch, 0x206, 0, pidBoth, 5511);
+  DJI_MotorInit(&motorPitch, 0x206, 0, pidBoth, 6236);
 #endif
 
 #if IMU_PITCH == 0
@@ -184,7 +184,8 @@ extern DMA_HandleTypeDef hdma2;
                   &(motorPitch.preProcessResult), &(motorPitch.target));
   DJI_MotorPidSet(&motorPitch, &(motorPitch.motorPid1), PID_POSITION, PITCH_Speed_PID,
                   &(motorPitch.realSpeedF), &(motorPitch.pidOutput0));
-  DJI_MotorCalculateResultSet(&motorPitch, &(motorPitch.pidOutput1));
+  DJI_MotorPostProcessHandlerSet(&motorPitch, &pitch_gravity_compensation);
+  DJI_MotorCalculateResultSet(&motorPitch, &(motorPitch.postProcessResult));
   DJI_MotorListAdd(&group1, &motorPitch);
 
 #else

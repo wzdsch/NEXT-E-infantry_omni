@@ -159,7 +159,7 @@
           <Type>0</Type>
           <LineNumber>1313</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134240888</Address>
+          <Address>134240708</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -175,7 +175,7 @@
           <Type>0</Type>
           <LineNumber>1353</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134240930</Address>
+          <Address>134240750</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -191,7 +191,7 @@
           <Type>0</Type>
           <LineNumber>1259</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134240720</Address>
+          <Address>134240540</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -295,6 +295,16 @@
           <count>11</count>
           <WinNumber>1</WinNumber>
           <ItemText>motorfriR</ItemText>
+        </Ww>
+        <Ww>
+          <count>12</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>a</ItemText>
+        </Ww>
+        <Ww>
+          <count>13</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>a * cos(motor-&gt;preProcessResult / 4096.0f * 3.14f)</ItemText>
         </Ww>
       </WatchWindow1>
       <Tracepoint>
@@ -927,7 +937,7 @@
       <GroupNumber>9</GroupNumber>
       <FileNumber>43</FileNumber>
       <FileType>1</FileType>
-      <tvExp>1</tvExp>
+      <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\Components\Basic_Control\Pid\pid.c</PathWithFileName>

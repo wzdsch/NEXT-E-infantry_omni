@@ -71,7 +71,7 @@ void Error_Handler(void);
 #define CS1_GYRO_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
-#define NEW_ROBOT 1
+#define NEW_ROBOT 0
 
 #define MG6020ControlMode                                                                                                                   \
   1 /*6020有两种控制模式，电压控制(标识符为1FF/2FF),以及电流控制(1FE/2FE),目前 \ \ \ \ \ \                                                                                                                                          \
@@ -83,7 +83,7 @@ void Error_Handler(void);
 
 #if NEW_ROBOT == 0
 
-#define YAW_FLG_ECD 6977
+#define YAW_FLG_ECD 1661
 #define IF_WITH_SUPERCAP 0 // 0无超电，1有超电
 #define WITH_RM_POWER_MANAGER 1 // 0无电管，1有电管
 #define motorYaw_ID 0x207
