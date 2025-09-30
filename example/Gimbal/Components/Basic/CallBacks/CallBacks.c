@@ -23,9 +23,6 @@ extern DJI_Motor motor2006;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   if (htim == &htim6) {  // BMI088@1KHZ
     BMI088_RUN(&BMI088_gimbal);
-#if SUPPLIER_ECD == 1
-    getSupplierTotalEcd(&shooter1);
-#endif
     time_ms++;
   }
   if (htim == &htim8) {  // VOFA+调试200HZ

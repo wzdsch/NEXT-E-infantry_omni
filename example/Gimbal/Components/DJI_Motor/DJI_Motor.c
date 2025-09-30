@@ -17,6 +17,9 @@
 #include "addOns.h"
 #include "can.h"
 #include "pid.h"
+#include "shooter.h"
+
+extern shooter shooter1;
 
 /******************************************************************************************/
 /***********************************初始化函数**********************************************/
@@ -396,6 +399,9 @@ void DJI_MotorReceiveMotordat(DJI_MotorGroup *group) {
   // 根据电机ID对电机结构体经行赋值，建立了一个映射表list,直接由id可查找到对应的电机结构体地址
   uint8_t temp = (group->rxHandler.StdId) - 0x200 - 0x1;  // 由电机ID得到映射表的序号
   DJI_MotorClassifyMotorData(group, group->list[temp]);   // 传入对应的电机结构体
+  if (group->rxHandler.StdId == shooter1.supplierMotor->ID) {
+    getSupplierTotalEcd(&shooter1);
+  }
 }
 
 /******************************************************************************************/

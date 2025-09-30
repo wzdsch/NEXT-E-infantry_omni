@@ -43,3 +43,4 @@ gimbal\dji_motor.o: ../Components/Basic/structs/struct_typedef.h
 gimbal\dji_motor.o: ../Components/Basic/Tools/Tools.h
 gimbal\dji_motor.o: ..\Components\DJI_Motor\addOns.h
 gimbal\dji_motor.o: ../Components/Basic_Control/Pid/pid.h
+gimbal\dji_motor.o: ../Components/shooter/shooter.h
