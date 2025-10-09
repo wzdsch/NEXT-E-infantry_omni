@@ -87,7 +87,7 @@ void Error_Handler(void);
 
 #if NEW_ROBOT == 1
 
-#define IMU_PITCH 0  // 1是使用陀螺仪的pitch轴数据进行闭�?
+#define IMU_PITCH 1  // 1是使用陀螺仪的pitch轴数据进行闭�?
 #define SUPPLIER_ECD 1  // 1: 拨弹位置环 0: 拨弹速度环
 
 #endif

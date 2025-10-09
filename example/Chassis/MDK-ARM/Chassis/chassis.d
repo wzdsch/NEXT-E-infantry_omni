@@ -48,3 +48,5 @@ chassis\chassis.o: ../Components/Basic_Control/Pid/pidData.h
 chassis\chassis.o: ../Components/RemoteControl/remote_control.h
 chassis\chassis.o: ../Components/IMU/BMI/Application/BMI088.h
 chassis\chassis.o: ../Components/DJI_Motor/addOns.h
+chassis\chassis.o: ../Components/Vofa/vofa.h
+chassis\chassis.o: ../Core/Inc/usart.h

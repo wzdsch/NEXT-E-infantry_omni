@@ -5,6 +5,10 @@
 #include "math.h"
 #include "MCUConnectStructs.h"
 
+#include "usart.h"
+#include "vofa.h"
+extern DJI_Motor motor2006;
+
 extern unsigned int time_ms;
 extern Referee_data RefereeData;
 
@@ -65,8 +69,7 @@ void shooterStuckProcess(shooter *shooter) {
     else if (fabs(shooter->supplierMotor->realSpeedF) < (fabs(shooter->supplierMotor->target) * stuckPersent)\
             && (shooter->supplierMotor->realCurrentF < -8000 || shooter->supplierMotor->realCurrentF > 8000)) 
 #else
-    else if (fabs(shooter->supplierMotor->realSpeedF) < fabs(shooter->supplierMotor->pidOutput0) * stuckPersent\
-            && (shooter->supplierMotor->realCurrentF < -8000 || shooter->supplierMotor->realCurrentF > 8000))
+    else if (shooter->supplierMotor->realCurrentF < -5000 || shooter->supplierMotor->realCurrentF > 5000)
 #endif
     {
       shooter->stuckCount++;
@@ -77,6 +80,7 @@ void shooterStuckProcess(shooter *shooter) {
     if (shooter->stuckCount >= stuckCountLimit) {  // 如果堵转时间超时
       shooter->supplierMode = SUPPLIER_ERROR;
     }
+    JustFloat((long long)(motor2006.target) % 1000000, shooter1.supplier_total_ecd % 1000000, motor2006.realCurrentF, shooter1.stuckCount, &huart1);
   }
   // 卡弹反拨
   if (shooter->supplierMode == SUPPLIER_ERROR) {  
@@ -84,8 +88,8 @@ void shooterStuckProcess(shooter *shooter) {
       if (supplier_reverse_flg == 0) {
         // 保证累计的没打出去的弹丸 不会在停止打弹后才打出
         DJI_MotorSetTarget(shooter->supplierMotor, \
-          shooter->supplierMotor->target - (long long)((shooter->supplierMotor->target - shooter->supplier_total_ecd) / (int)TOTAL_ECD_PER_SHOOT) * TOTAL_ECD_PER_SHOOT);
-        reverse_tar_ecd = shooter->supplierMotor->target - 2 * TOTAL_ECD_PER_SHOOT;
+          shooter->supplierMotor->target - (long long)((shooter->supplierMotor->target - shooter->supplier_total_ecd) / (int)TOTAL_ECD_PER_SHOOT + 1) * TOTAL_ECD_PER_SHOOT);
+        reverse_tar_ecd = shooter->supplierMotor->target - 1 * TOTAL_ECD_PER_SHOOT;
         supplier_reverse_flg = 1;
       }
       DJI_MotorSetTarget(shooter->supplierMotor, reverse_tar_ecd);

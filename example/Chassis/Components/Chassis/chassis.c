@@ -22,6 +22,7 @@
 #include "remote_control.h"
 #include "BMI088.h"
 #include "addOns.h"
+#include "vofa.h"
 
 extern BMI088_IMU BMI088_chassis;
 
@@ -172,8 +173,8 @@ fp32 real_chassis_z = 0;
  *                -----     yaw     ----->gim_x
  *                    m3           m4
  *                   /       |       \
- *                  /        |         \chassis_x
- *                                      >
+ *                  /        |        \chassis_x
+ *                                     >
  * @param  chassis:底盘结构体
  * @param  gim_x: x轴速度
  * @param  gim_y: y轴速度
@@ -192,15 +193,17 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
   yaw_err_ecd = 8192 - yaw_err_ecd; // yaw轴电机反装，对角度做处理
 
   // 根据chassis_y与云台指向的夹角计算temp，从云台坐标系(gim_y-gim_x)转换为底盘坐标系(chassis_y-chassis_x)
-  // 然后根据轮子位置合成各轮子的转速
-	
+  // 然后根据轮子位置解算各轮子的转速
+
+  // 这个解算挺唐的，一般人看不懂，不过底盘坐标系的建立很巧妙
+  // 后续可以改一下解算，看起来贼几把恶心
   fp32 xAngle = 0;
   fp32 yAngle = 0;
   fp32 speed_x = 0;
   fp32 speed_y = 0;
 
-  fp32 max_spd = 0;
-  fp32 spd_adj = 1.0f;
+  fp32 max_spd = 0; // 后续获取轮子的最大速度，如果超出电机转速上限，进行限幅
+  fp32 spd_adj = 1.0f; // 速度缩放比例，用于超出轮子最大速度时进行限幅
 
   static fp32 current_x = 0;
   static fp32 current_y = 0;
@@ -220,46 +223,47 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
     + chassis->chassisMotor3->realSpeedF + chassis->chassisMotor4->realSpeedF) / 4.0f;
 
     // 云台坐标系真实速度计算
-  real_gim_x = real_chassis_x * cos(PI / 4.0f - yaw_err_ecd * PI / 4096.0f) + \
-    real_chassis_y * cos(PI / 4.0f + yaw_err_ecd * PI / 4096.0f);
-  
-  real_gim_y = real_chassis_y * cos(PI / 4.0f - yaw_err_ecd * PI / 4096.0f) - \
+  real_gim_x = real_chassis_y * cos(PI / 4.0f - yaw_err_ecd * PI / 4096.0f) + \
     real_chassis_x * cos(PI / 4.0f + yaw_err_ecd * PI / 4096.0f);
+  
+  real_gim_y = real_chassis_y * cos(PI / 4.0f + yaw_err_ecd * PI / 4096.0f) - \
+    real_chassis_x * cos(PI / 4.0f - yaw_err_ecd * PI / 4096.0f);
 
+  current_x = rampPlanner(real_gim_x, gim_x, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+  current_y = rampPlanner(real_gim_y, gim_y, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
 
-//   if ((my_fabs(chassis->chassisMotor1->realSpeedF) > my_fabs(chassis->chassisMotor1->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
-//     && my_fabs(chassis->chassisMotor2->realSpeedF) > my_fabs(chassis->chassisMotor2->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
-//     && my_fabs(chassis->chassisMotor3->realSpeedF) > my_fabs(chassis->chassisMotor3->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
-//     && my_fabs(chassis->chassisMotor4->realSpeedF) > my_fabs(chassis->chassisMotor4->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
-//     || my_fabs(gim_x) < my_fabs(current_x)) {
-     current_x = rampPlanner(real_gim_x, gim_x, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
-    // }
-//   if ((my_fabs(chassis->chassisMotor1->realSpeedF) > my_fabs(chassis->chassisMotor1->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
-//     && my_fabs(chassis->chassisMotor2->realSpeedF) > my_fabs(chassis->chassisMotor2->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
-//     && my_fabs(chassis->chassisMotor3->realSpeedF) > my_fabs(chassis->chassisMotor3->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR \
-//     && my_fabs(chassis->chassisMotor4->realSpeedF) > my_fabs(chassis->chassisMotor4->target) * UPDATE_SPD_RATE - UPDATE_SPD_ERR)
-//     || my_fabs(gim_y) < my_fabs(current_y)) {
-     current_y = rampPlanner(real_gim_y, gim_y, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
-    // }
+  // 底盘速度闭环
+  static pids chassis_pid_x;
+  static pids chassis_pid_y;
+  uint8_t chassis_pid_init_flag = 0;
+  if (chassis_pid_init_flag == 0) {
+    chassis_pid_init_flag = 1;
+    pidINIT(&chassis_pid_x, PID_POSITION, 1, 0, 0, 1000, 0);
+    pidINIT(&chassis_pid_x, PID_POSITION, 1, 0, 0, 1000, 0);
+  }
+  fp32 set_gim_x = current_x + PID_calc(&chassis_pid_x, real_gim_x, gim_x);
+  fp32 set_gim_y = current_y + PID_calc(&chassis_pid_y, real_gim_y, gim_y);
 
   // x, y 速度解算
   yAngle = ((yaw_err_ecd + 1024) / 8192.0f) * 2 * PI;  // 取得y轴与行进方向的夹角，(从yaw电机的编码得出)
-  xAngle = -yAngle;                          // 进而得到x与chassis_x的夹角
-  // 根据夹角对速速度向量做坐标系转换
-  speed_x = cos(yAngle + PI / 2) * current_y + cos(xAngle) * current_x;
-  speed_y = cos(xAngle + PI / 2) * current_x + cos(yAngle) * current_y;
+  if (yAngle > PI) {
+    yAngle = yAngle - 2 * PI;
+  }
+  else if (yAngle < -PI) {
+    yAngle = yAngle + 2 * PI;
+  }
+  xAngle = -yAngle;
+
+  // x, y 速度解算
+  // speed_x = cos(yAngle + PI / 2) * current_y + cos(xAngle) * current_x;
+  // speed_y = cos(xAngle + PI / 2) * current_x + cos(yAngle) * current_y;
+  speed_x = cos(yAngle + PI / 2) * set_gim_y + cos(xAngle) * set_gim_x;
+  speed_y = cos(xAngle + PI / 2) * set_gim_x + cos(yAngle) * set_gim_y;
 
   fp32 spd_1 = speed_x;
   fp32 spd_2 = speed_y;
   fp32 spd_3 = -speed_x;
   fp32 spd_4 = -speed_y;
-  
-
-  // real_chassis_xy_spd = sqrt(real_chassis_x * real_chassis_x + real_chassis_y * real_chassis_y); // 实际底盘xy速度
-  // static fp32 real_chassis_xy_spd_buf[2] = {0};
-  // real_chassis_xy_spd_buf[1] = real_chassis_xy_spd_buf[0];
-  // real_chassis_xy_spd_buf[0] = real_chassis_xy_spd;
-  // real_chassis_xy_spd_err = real_chassis_xy_spd_buf[0] - real_chassis_xy_spd_buf[1];
 
   switch (chassis->mode) {
     case CHASSIS_DISABLE:  // 底盘失能
@@ -352,8 +356,6 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
       DJI_MotorEnable(chassis->chassisMotor4);
       DJI_MotorDisable(chassis->gimbalMotor);
 
-      yAngle = ((yaw_err_ecd + 1024.0f - 3.0f * chassis->gimbalMotor->realSpeedF + 200.0f) / 8192.0f) * 2 * PI;  // 取得y轴与行进方向的夹角，(从yaw电机的编码得出)
-      xAngle = -yAngle;                          // 进而得到x与chassis_x的夹角
       // 根据夹角对速速度向量做坐标系转换
       speed_x = cos(yAngle + PI / 2) * current_y + cos(xAngle) * current_x;
       speed_y = cos(xAngle + PI / 2) * current_x + cos(yAngle) * current_y;
@@ -366,6 +368,7 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
       top_time_cnt++;
       top_time_cnt %= TOP_T;
 
+      // 原本准备写一套小陀螺转速动态调整，后续发现用不了，后续可以再研究
       // fp32 min_top_spd = 3000;  // TOP_SPD_SCALE * sqrtf(gim_x * gim_x + gim_y * gim_y);
 
       // top_spd_z = 1.9996f * SPEED_LIMIT - sqrtf(gim_x * gim_x + gim_y * gim_y);

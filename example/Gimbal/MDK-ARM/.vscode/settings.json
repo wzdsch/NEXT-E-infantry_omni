@@ -38,7 +38,10 @@
       "controller.h": "c",
       "arm_math.h": "c",
       "core_cm4.h": "c",
-      "kalman_filter.h": "c"
+      "kalman_filter.h": "c",
+      "spi.h": "c",
+      "functional": "c",
+      "chrono": "c"
     },
     "C_Cpp.formatting": "clangFormat",
     "C_Cpp.vcFormat.indent.caseContentsWhenBlock": true,

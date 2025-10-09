@@ -44,3 +44,5 @@ gimbal\shooter.o: ../Components/Basic/structs/struct_typedef.h
 gimbal\shooter.o: ../Components/MCUConnect/MCUConnect.h
 gimbal\shooter.o: D:\DEV\Embedded\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
 gimbal\shooter.o: ../Components/MCUConnect/MCUConnectStructs.h
+gimbal\shooter.o: ../Core/Inc/usart.h
+gimbal\shooter.o: ../Components/Vofa/vofa.h

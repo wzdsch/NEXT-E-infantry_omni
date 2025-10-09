@@ -14,10 +14,6 @@
 #define SPEED_LIMIT 8000.0f
 #define SPEED_LIMIT_TOP 5000.0f
 
-// 电机速度达到 set * UPDATE_SPD_RATE - UPDATE_SPD_ERR 时，认为已经达到设定速度
-#define UPDATE_SPD_RATE 0.8f
-#define UPDATE_SPD_ERR 500.0f
-
 #define MOTOR_SPD_UP_RATE 1000.0f // 电机加速度
 #define MOTOR_SPD_DOWN_RATE 3000.0f // 电机减速度
 

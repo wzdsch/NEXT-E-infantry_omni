@@ -26,17 +26,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
     time_ms++;
   }
   if (htim == &htim8) {  // VOFA+调试200HZ
-	  // JustFloat(GimbalControlData.yawAngle, BMI088_gimbal.yawAngle < 0 ? BMI088_gimbal.yawAngle + 360.0f : BMI088_gimbal.yawAngle,\
-	  // motorYaw.pidOutput0, motorYaw.realSpeedF, &huart1); // yaw
-	  // JustFloat(GimbalControlData.yawAngle, BMI088_gimbal.yawAngle,\
-		// vision1.RXData.VisionRxData.YawAngleTarget, motorYaw.realSpeedF, &huart1); // pitch
-    // JustFloat((int)motor2006.target % 1000000, (int)shooter1.supplier_total_ecd % 1000000, motor2006.pidOutput0, motor2006.realSpeedF, &huart1);  // shooter
-    // JustFloat(vision1.RXData.VisionRxData.YawAngleTarget, BMI088_gimbal.yawAngle, vision1.TXData.YawAngle, 0.0f, &huart1); // yaw
-    //JustFloat(motor2006.realCurrentF, motor2006.realSpeedF, 0.0f, 0.0f, &huart1); // shooter
-		
-    // JustFloat(shooter1.friLmotor->realSpeedF, shooter1.friRmotor->realSpeedF, BMI088_gimbal.pitchAngle, BMI088_gimbal.yawAngle, &huart1);
-    // JustFloat(motor2006.realSpeedF, motor2006.realCurrentF, motor2006.pidOutput0, .0f, &huart1);
-    JustFloat((long long)(motor2006.target) % 1000000, shooter1.supplier_total_ecd % 1000000, motor2006.realCurrentF, .0f, &huart1);
+    // JustFloat(motor2006.target, motor2006.realSpeedF, motor2006.realCurrentF, .0f, &huart1);
   }
   if (htim == &htim9) {
     VisionConnectSend(&vision1);  // 向视觉发送数据10ms@100hz
