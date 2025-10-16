@@ -158,6 +158,7 @@ fp32 real_chassis_xy_spd = 0;
 fp32 real_chassis_xy_spd_err = 0;
 fp32 real_gim_x = 0;
 fp32 real_gim_y = 0;
+fp32 real_gim_z = 0;
 
 fp32 real_chassis_x = 0;
 fp32 real_chassis_y = 0;
@@ -228,21 +229,25 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
   
   real_gim_y = real_chassis_y * cos(PI / 4.0f + yaw_err_ecd * PI / 4096.0f) - \
     real_chassis_x * cos(PI / 4.0f - yaw_err_ecd * PI / 4096.0f);
+  real_gim_z = real_chassis_z;
 
-  current_x = rampPlanner(real_gim_x, gim_x, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
-  current_y = rampPlanner(real_gim_y, gim_y, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+  current_x = rampPlanner(current_x, gim_x, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+  current_y = rampPlanner(current_y, gim_y, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
 
   // 底盘速度闭环
   static pids chassis_pid_x;
   static pids chassis_pid_y;
-  uint8_t chassis_pid_init_flag = 0;
+  static pids chassis_pid_z;
+  static uint8_t chassis_pid_init_flag = 0;
   if (chassis_pid_init_flag == 0) {
     chassis_pid_init_flag = 1;
-    pidINIT(&chassis_pid_x, PID_POSITION, 1, 0, 0, 1000, 0);
-    pidINIT(&chassis_pid_x, PID_POSITION, 1, 0, 0, 1000, 0);
+    pidINIT(&chassis_pid_x, PID_POSITION, 1.0f, 0.1f, 0, 8000, 8000);
+    pidINIT(&chassis_pid_y, PID_POSITION, 1.0f, 0.1f, 0, 8000, 8000);
+    pidINIT(&chassis_pid_z, PID_POSITION, 1.0f, 0.1f, 0, 8000, 8000);
   }
-  fp32 set_gim_x = current_x + PID_calc(&chassis_pid_x, real_gim_x, gim_x);
-  fp32 set_gim_y = current_y + PID_calc(&chassis_pid_y, real_gim_y, gim_y);
+  fp32 set_gim_x = current_x ;//+ PID_calc(&chassis_pid_x, real_gim_x, current_x);
+  fp32 set_gim_y = current_y ;//+ PID_calc(&chassis_pid_y, real_gim_y, current_y);
+  fp32 set_gim_z = 0;
 
   // x, y 速度解算
   yAngle = ((yaw_err_ecd + 1024) / 8192.0f) * 2 * PI;  // 取得y轴与行进方向的夹角，(从yaw电机的编码得出)
@@ -329,11 +334,12 @@ void chassisRun(chassis* chassis, fp32 gim_x, fp32 gim_y, fp32 z, int16_t yaw_er
       z = *(chassis->follwoResult);
 
       current_z = rampPlanner(current_z, z, MOTOR_SPD_UP_RATE, MOTOR_SPD_DOWN_RATE);
+      set_gim_z = current_z + PID_calc(&chassis_pid_z, real_chassis_z, current_z);
 
-      spd_1 += current_z;
-      spd_2 += current_z;
-      spd_3 += current_z;
-      spd_4 += current_z;
+      spd_1 += set_gim_z;
+      spd_2 += set_gim_z;
+      spd_3 += set_gim_z;
+      spd_4 += set_gim_z;
 
       if (max_spd > SPEED_LIMIT) {
         spd_adj = SPEED_LIMIT / max_spd; // 这里max_spd一定大于0

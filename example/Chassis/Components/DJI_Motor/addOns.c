@@ -9,7 +9,7 @@
  * 修改计划(完成末尾写1):
  */
 #include "addOns.h"
-
+#include "main.h"
 #include "DJI_Motor.h"
 #include "math.h"
 #include "referee.h"
@@ -267,7 +267,7 @@ fp32 powerlimit_pro(DJI_Motor *motor) {
   }
 }
 
-int power = 300;
+int power = 200;
 
 /**
  * @brief  西交利物浦大学+香港科技大学功率限制移植
@@ -275,7 +275,12 @@ int power = 300;
  * @return fp32: 功率限制后的电流值
  */
 fp32 powerlimit_LVP_HK_pro(DJI_Motor *motor) {
-  uint16_t max_power_limit = power;  // robot_state.chassis_power_limit;
+  uint16_t max_power_limit = 
+#if WITH_RM_POWER_MANAGER == 0
+  power;
+#else
+  robot_state.chassis_power_limit;
+#endif
   float initial_give_power = 0;  // initial power from PID calculation
   static float initial_total_power = 0;
   static float initial_total_power_last = 0;
@@ -332,8 +337,7 @@ fp32 powerlimit_LVP_HK_pro(DJI_Motor *motor) {
     {
         errorConfidence = 0.0f;
     }
-
-
+    
      // new：误差/方差，相对误差
     float powerWeight_Error = spd_err / spd_total_err_last;                  // 误差权重
     float powerWeight_Prop = initial_give_power / initial_total_power_last;  // 功率权重

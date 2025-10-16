@@ -42,6 +42,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim) {
   }
   if (htim == &htim11) {  // 1ms@1000Hz
     BMI088_RUN(&BMI088_chassis);
+    JustFloat(motor2.realSpeedF, motor2.target, motor3.realSpeedF, motor3.realCurrentF,
+              &huart1);
   }
   if (htim == &htim12) {  // 双机通信发送,裁判系统解包10ms@100Hz
     referee_unpack_fifo_data();

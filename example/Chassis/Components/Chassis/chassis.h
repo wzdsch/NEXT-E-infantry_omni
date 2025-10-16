@@ -14,7 +14,7 @@
 #define SPEED_LIMIT 8000.0f
 #define SPEED_LIMIT_TOP 5000.0f
 
-#define MOTOR_SPD_UP_RATE 1000.0f // 电机加速度
+#define MOTOR_SPD_UP_RATE 400.0f // 电机加速度
 #define MOTOR_SPD_DOWN_RATE 3000.0f // 电机减速度
 
 #define TOP_SPD_SCALE 1.0f // 小陀螺平移时，对小陀螺速度和平移速度的分配比例，此值越大，小陀螺速度越快，平移速度越慢
